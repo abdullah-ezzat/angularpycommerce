@@ -1,0 +1,8 @@
+
+input, optgroup, textarea{
+    cursor: text;
+}
+
+select{
+    cursor: pointer;
+}

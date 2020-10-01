@@ -1,0 +1,45 @@
+<form  #form="ngForm" (ngSubmit) = updateProductSpecification(form.value) class="was-validated ">
+
+  <div class="form-group col-md-3">
+    <input type="hidden" class="form-control" [(ngModel)]="specification.Id" name="Id" id="Id"  placeholder="Id">
+    <div class="invalid-feedback">
+      </div>
+  </div>
+
+  <div class="form-group col-md-3">
+    <label for="inputProductId">Product Id</label>
+       <select class="custom-select"  [(ngModel)]="specification.ProductId" name="ProductId"  id="ProductId">
+        <option *ngFor="let product of Products; let i = index" [value]="Products[i].Id">
+          {{Products[i].Id}}
+        </option>
+      </select>
+  </div>
+   
+
+      <div class="form-group col-md-3">
+          <label for="inputCategoryId">CategoryId</label>
+             <select class="custom-select"  [(ngModel)]="specification.CategoryId" name="CategoryId"  id="CategoryId">
+              <option *ngFor="let category of Categories; let i = index" [value]="Categories[i].Id">
+                {{Categories[i].Id}}
+              </option>
+            </select>
+      </div>
+
+    <div class="form-group col-md-3">
+      <label for="inputSpecificationName">Specification Name</label>
+      <input type="text" class="form-control" [(ngModel)]="specification.SpecificationName" name="SpecificationName" id="SpecificationName" placeholder="Name" required>
+      <div class="invalid-feedback">
+        </div>
+    </div> 
+
+      <div class="form-group col-md-3">
+          <label for="inputSpecificationValue">Specification Value</label>
+          <input type="text" class="form-control" [(ngModel)]="specification.SpecificationValue" name="SpecificationValue" id="SpecificationValue" placeholder="Value" required>
+          <div class="invalid-feedback">
+            </div>
+        </div>
+        
+  <br>   
+  <button class="btn btn-primary" type="submit">Save</button>
+
+  </form> 

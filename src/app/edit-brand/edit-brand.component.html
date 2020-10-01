@@ -1,0 +1,26 @@
+<form  #form="ngForm" (ngSubmit) = updateBrand(form.value) class="was-validated ">
+
+    <div class="form-group col-md-3">
+      <input type="hidden" class="form-control" [(ngModel)]="brand.Id" name="Id" id="Id"  placeholder="Id">
+      <div class="invalid-feedback">
+        </div> 
+    </div>
+
+    <div class="form-group col-md-3">
+        <label for="inputNameA">Arabic Name</label>
+        <input type="text" class="form-control" [(ngModel)]="brand.NameA" name="NameA" id="NameA" placeholder="Arabic Name" required>
+        <div class="invalid-feedback">
+          </div>
+      </div>
+
+        <div class="form-group col-md-3">
+          <label for="inputNameL">English Name</label>
+          <input type="text" class="form-control" [(ngModel)]="brand.NameL" name="NameL" id="NameL" placeholder="English Name" required>
+          <div class="invalid-feedback">
+            </div>
+        </div> 
+          
+    <br>   
+    <button class="btn btn-primary" type="submit">Save</button>
+
+    </form> 

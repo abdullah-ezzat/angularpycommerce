@@ -1,0 +1,103 @@
+/* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+
+@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+
+@import "~ngx-toastr/toastr";
+
+body {
+  font-family: Roboto, Arial, sans-serif;
+  margin: 0;
+}
+
+.basic-container {
+  padding: 30px;
+}
+.version-info {
+  font-size: 8pt;
+  float: right;
+  margin: 8px;
+}
+
+.mat-step-header .mat-step-icon-selected,
+.mat-step-header .mat-step-icon-state-done,
+.mat-step-header .mat-step-icon-state-edit {
+  background-color: gray;
+  color: #fff;
+}
+
+.mat-horizontal-stepper-header .mat-step-icon {
+  margin-right: 8px;
+  height: 34px;
+  width: 34px;
+  top: -5px;
+  font-size: 124%;
+  font-weight: 500;
+  flex: none;
+}
+
+.mat-step-text-label {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  text-align: center;
+  font-weight: 700;
+  margin-top: -15px;
+}
+
+.mat-step-header.cdk-keyboard-focused,
+.mat-step-header.cdk-program-focused,
+.mat-step-header:hover {
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.mat-step-header .mat-step-header-ripple {
+  display: contents;
+  position: absolute;
+  pointer-events: none;
+}
+.mat-form-field-appearance-legacy .mat-form-field-infix {
+  padding: 0em 0;
+}
+
+.ngxImageZoomThumbnail {
+  pointer-events: all;
+  width: 16rem;
+}
+
+.modal-open .modal {
+  width: 33rem;
+  height: 21rem;
+  margin-left: 48rem;
+  margin-top: 14rem;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+@media (max-width: 500px) {
+  .mat-step-header .mat-step-label.mat-step-label-active {
+    min-width: 10rem;
+    margin-left: 0px;
+  }
+}
+#toast-container > div {
+  opacity: 1;
+}
+.toast {
+  font-size: initial !important;
+  border: initial !important;
+  backdrop-filter: blur(0) !important;
+}
+.toast-success {
+  background-color: #51a351 !important;
+}
+.toast-error {
+  background-color: #bd362f !important;
+}
+.toast-info {
+  background-color: #2f96b4 !important;
+}
+.toast-warning {
+  background-color: #f89406 !important;
+}

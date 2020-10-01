@@ -1,0 +1,96 @@
+<div class="row">
+  <div class="col-md-6">
+  <div class="container" >
+    <div class="row row-cols-1">
+      <div>
+        <h3>Shopping Cart ({{ ProductCount }})
+          <button (click)="DeleteAllItems()" class="btn btn-link" >Delete All Items</button>
+        </h3>
+  
+      </div>
+        <div *ngFor="let shoppingCartDetail of ShoppingCartDetails">
+            <div class="card mb-3" style="max-width: 900px;">       
+              <div class="row row-cols-3">
+  
+                <div style="padding-left: 33px;" class="col-md-3">
+                  <img [src]="shoppingCartDetail.ImageUrl" class="card-img" alt="Responsive Image">
+                </div>
+  
+              <div class="col-md-6">
+                <div class="card-body">
+  
+                <div class="row">
+                  <h5 style="cursor: pointer;" [routerLink]="['/product-Details',shoppingCartDetail.InventoryBalanceId]" class="card-title"> {{ shoppingCartDetail.ProductName }} </h5> 
+                </div>
+
+                <div class="row">
+                
+                  <div style="margin-left: -1.8rem;" class="col-md-10">        
+                    <p style="color: #006fcc" class="card-text"> <strong> {{ shoppingCartDetail.TotalPrice | number }} {{ shoppingCartDetail.Currency }}</strong> </p>
+                  </div>
+                  <div class="col-md-10">        
+                    <p style="color: #006fcc" class="card-text"> </p>
+                  </div>
+                </div>
+    
+                  <div class="row">
+                  <div id="summary">
+                    <p class="collapse" id="{{ 'productId' + shoppingCartDetail.ProductId }}">
+                      {{ shoppingCartDetail.Description }}
+                    </p>
+                    <a class="collapsed" data-toggle="collapse" href="#{{ 'productId' + shoppingCartDetail.ProductId }}" aria-expanded="false" aria-controls="collapseSummary"></a>
+                  </div>              
+                  </div>                   
+              </div>
+            </div>
+            <div class="col-md-3" id="quantity-change-delete">
+              <div class="row">
+                
+                <div class="col-md-10">        
+                  <p class="card-text"> <strong> Quantity</strong> </p>
+                </div>
+              </div>
+              
+              <div class="row">
+                <div  class="col-md-2">
+                  <select class="form-control" (change)="updateQuantity(shoppingCartDetail.Id,shoppingCartDetail.Quantity)" #Quantity="ngModel" [(ngModel)]="shoppingCartDetail.Quantity" style="width: 71px;text-align: center;margin-left: 13px;" name="Quantity" id="Quantity">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+                  </select> 
+                  </div>  
+              </div>
+
+                <div class="row">
+                  <div class="col-sm-4"></div>
+                  <div class="col-sm-2">
+                    <button id="delete-btn-link" (click)="DeleteItem(shoppingCartDetail.Id)" class="btn btn-link">Delete</button>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>   
+    </div>
+  </div>    
+</div>
+  <div class="col-md-6">
+    <div class="card border-info mb-3" style="max-width: 18rem;">
+      <img class="card-img-top" >
+      <div class="card-body text-info">
+        <h5 style="text-align: left;" class="card-title">Total</h5>
+        <p style="text-align: center;" class="card-text"><strong>{{ TotalCart |  number }}</strong></p> 
+      
+      </div>
+      <button (click)="checkOut()"  type="button" class="btn btn-success">Procced To Checkout</button>
+    </div>
+  </div>
+</div>
+

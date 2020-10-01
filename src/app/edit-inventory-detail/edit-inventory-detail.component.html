@@ -1,0 +1,38 @@
+
+<form  #form="ngForm" (ngSubmit) = updateDetail(form.value) class="was-validated ">
+
+    <div class="form-group col-md-3">
+        <input type="hidden" class="form-control" [(ngModel)]="detail.Id" name="Id" id="Id"  placeholder="Id">
+        <div class="invalid-feedback">
+          </div> 
+      </div>
+
+    <div class="form-group col-md-3">
+        <label for="inputStoreId">StoreId</label>
+            <select class="custom-select"  [(ngModel)]="detail.StoreId" name="StoreId"  id="StoreId" >
+            <option *ngFor="let store of Stores; let i = index" [value]="Stores[i].Id">
+                {{Stores[i].NameL}}
+            </option>
+            </select>
+        <div class="invalid-feedback"></div>
+        </div>
+
+        <div class="form-group col-md-3">
+            <label for="inputProductId">ProductId</label>
+                <select class="custom-select"  [(ngModel)]="detail.ProductId" name="ProductId"  id="ProductId" >
+                <option *ngFor="let product of Products; let i = index" [value]="Products[i].Id">
+                    {{Products[i].NameL}}
+                </option>
+                </select>
+            <div class="invalid-feedback"></div>
+            </div>
+    
+    <div class="form-group col-md-3">
+        <label for="inputQuantity">Quantity</label>
+        <input type="text" class="form-control" [(ngModel)]="detail.Quantity" name="Quantity" id="Quantity"  placeholder="Quantity" required>
+        <div class="invalid-feedback">
+            </div>     
+        </div>
+
+    <button class="btn btn-primary" type="submit">Save</button>
+</form>    

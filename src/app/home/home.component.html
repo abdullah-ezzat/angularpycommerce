@@ -1,0 +1,242 @@
+<div class="container" >
+
+<div class="row">
+  <div style="left: -29px;bottom: 0rem;" *ngIf="CategoryId" class="col-lg-2">
+<strong>
+  Specifications
+</strong>
+        <div *ngFor ="let specification of AllSpecifications">
+          <strong>
+            <button style="margin-left: -12px" class="btn btn-link order-md-last" data-toggle="collapse"  [attr.data-target]="'#TheSpecification' + specification.Id" >{{ specification.NameL }} </button>   
+          </strong>  
+          <div *ngFor ="let productSpecification of AllProductSpecifications">
+         
+            <div style="min-width: 200px;" *ngIf ="productSpecification.SpecificationId == specification.Id && productSpecification.CategoryId == specification.CategoryId" class="collapse show" id="{{'TheSpecification'+productSpecification.SpecificationId }}" >
+          <mat-checkbox
+              color="primary"
+              name="{{'TheSpecification'+productSpecification.SpecificationId }}" [checked]="productSpecification.IsSelected"
+              [(ngModel)]="productSpecification.IsSelected" id="{{'TheSpecification'+productSpecification.SpecificationValue }}"
+              (change)="onChangeSelection(productSpecification.SpecificationValue,productSpecification.IsSelected)">            
+          </mat-checkbox>
+              {{ productSpecification.SpecificationValue }} ({{ productSpecification.SpecificationCount }}) &nbsp;
+
+              <!-- <mat-checkbox  (change)="onChangeSelection(productSpecification.SpecificationId,productSpecification.IsSelected)" [checked] ="productSpecification.IsSelected" >  </mat-checkbox> -->
+          </div>
+        </div>
+      </div>
+    </div>
+<!--         
+            <div *ngFor ="let specification of AllSpecifications">
+              <div id="accordion">
+                <div class="card">
+                  <div class="card-header" id="{{ 'TheSpecification' + specification.Id }}">
+                    <h5 class="mb-0">
+                      <button class="btn btn-link" data-toggle="collapse" [attr.data-target]="'#TheSpecification' + specification.Id"  aria-expanded="true" [attr.aria-controls]="'#TheSpecification' + specification.Id">
+                        <strong>
+                          {{ specification.NameL }} 
+                        </strong>  
+                        
+                      </button>
+                    </h5>
+                  </div>
+                  <div *ngFor ="let productSpecification of AllProductSpecifications">
+                  
+                    <div  *ngIf ="productSpecification.SpecificationId == specification.Id" id=" {{ 'TheSpecification' + productSpecification.SpecificationId }}" class="collapse show" [attr.aria-label]="'TheSpecification' + productSpecification?.SpecificationId" [attr.data-parent]="'#TheSpecification' + specification.Id">
+                      <div class="card-body">
+                        {{ productSpecification.SpecificationValue }} ( {{ productSpecification.SpecificationCount }} ) <mat-checkbox></mat-checkbox>
+                      </div>
+                    </div>
+                      
+                     </div>
+                  
+                </div>    
+          </div>
+</div>  -->
+
+    <div class="col-lg-10">
+    
+      <div class="row row-cols-1">
+        <!-- <form class="example-form">
+          <mat-form-field class="example-full-width" >
+            <input type="text" placeholder="Search" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                {{option}}
+              </mat-option>
+            </mat-autocomplete>
+          </mat-form-field>
+        </form> -->
+        <form class="example">
+          <mat-form-field  class="container">
+              <input style="margin-bottom: -10px;cursor: text;" type="text" placeholder="Search products..."
+                  matInput 
+                  [formControl]="searchTerm" 
+                  [matAutocomplete]="auto">  
+
+              <mat-autocomplete #auto="matAutocomplete">
+                <mat-option *ngFor="let product of ProductsString" [value]="product.NameL">
+                  {{ product.NameL }} in <strong style="color: #008BFF;">{{ product.CategoryName }}</strong>
+                </mat-option>  
+              </mat-autocomplete>
+              <div style="padding-bottom: 7px;cursor: text;">
+                <i style ="margin-top: -41px;font-size: 26px;cursor: pointer;" (click)="getProductAfterTerm()" class="fa fa-search"></i>
+              </div> 
+          </mat-form-field>
+        </form>
+
+        <div *ngFor="let Homedetail of HomeDetails">
+
+            <div *ngIf = "Homedetail.PageNumber === page " class="card mb-3" id="class-card-image-boy-info" style="max-width: 60rem;">
+              <div class="row row-cols-3" id="home-row-col">
+                <div class="col-md-3" id="image-col">
+                  <img [routerLink]="['/product-Details',Homedetail.Id]" [src]="Homedetail.ImageUrl" class="card-img" alt="Responsive Image">
+                </div>
+              <div class="col-md-6" id="col-body-id">
+                <div style="margin-left: -3rem;min-width: 13rem;" class="card-body">
+                  <h5 [routerLink]="['/product-Details',Homedetail.Id]" class="card-title"> {{ Homedetail.ProductName }} </h5>
+                  <div class="star-ratings-sprite"><span [style.width]="Homedetail.ProductRating+'%'" style="width:52%" class="star-ratings-sprite-rating"></span></div>
+                  <div id="summary">
+                    <p class="collapse" id="{{ 'productId' + Homedetail.Id }}">
+                      {{ Homedetail.Description }}
+                    </p>
+                    <a class="collapsed" data-toggle="collapse" href="#{{ 'productId' + Homedetail.Id }}" aria-expanded="false" aria-controls="collapseSummary"></a>
+                  </div>
+                 
+                  <p class="card-text"><strong>Quantity : </strong>{{ Homedetail.QuantityBalance }}</p>
+                  
+              </div>
+            
+              
+            </div>
+    
+            <div class="col-md-3" id="price-info"><br>
+    
+              <p class="card-text"><strong style="color: #006fcc;font-size: 18px;font-weight: 700;margin-left: 7px;" >{{ Homedetail.Price | number }}</strong> 
+                <strong style="font-size: .8571428571rem; color: #006fcc; margin-left: 4px;">{{ Homedetail.Currency }}</strong></p>
+              <p style="min-width: 300px;margin-left: 9px;" class="card-text"><small class="text-muted">Sold By : <br>{{ Homedetail.StoreName }}</small></p>
+              <button style="margin-left: 5px;margin-bottom: 5px;" [routerLink]="['/product-Details',Homedetail.Id]" class="btn btn-info"><small>VIEW DETAILS</small></button>
+            </div>
+    
+          </div>
+        </div>
+      </div>   
+    </div>
+  </div>
+
+</div>
+
+
+  
+</div>    
+  <ngb-pagination [(collectionSize)]="MaxPageNumber" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
+  
+  
+<!-- <p>Default pagination:</p> -->
+
+
+<!-- <p>No direction links:</p>
+<ngb-pagination [collectionSize]="70" [(page)]="page" [directionLinks]="false"></ngb-pagination>
+
+<p>With boundary links:</p>
+<ngb-pagination [collectionSize]="70" [(page)]="page" [boundaryLinks]="true"></ngb-pagination>
+
+<hr> -->
+<!-- 
+<pre>Current page: {{page}} </pre>  -->
+
+    <!-- <ul class="pagination">
+      <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+      <li class="page-item"><a class="page-link" href="#">1</a></li>
+      <li class="page-item"><a class="page-link" href="#">2</a></li>
+      <li class="page-item"><a class="page-link" href="#">3</a></li>
+      <li class="page-item"><a class="page-link" href="#">Next</a></li>
+    </ul> -->
+
+
+    <!-- wrapper -->
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Fly To Cart Effect | Webdevtrick.com </title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+  <link rel='stylesheet' href='http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.2/themes/smoothness/jquery-ui.css'>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prefixfree/1.0.7/prefixfree.min.js"></script>
+
+</head>
+<body>
+
+    <div class="wrapper">
+     <h1>Buy Phone Online</h1>
+ <span><i class="shopping-cart"></i></span>
+
+    <div class="clear"></div>
+
+    <div class="items">
+
+        <div class="item">
+            <img src="https://images-na.ssl-images-amazon.com/images/I/71JJB8w5erL._SL1500_.jpg" alt="item" />
+             <h2>Samsung Note 10</h2>
+
+            <p>Price: <em>$999</em>
+            </p>
+            <button class="add-to-cart" type="button">Add to cart</button>
+        </div>
+
+        <div class="item">
+            <img src="https://images-na.ssl-images-amazon.com/images/I/51QlMs%2BEnQL._SL1000_.jpg" alt="item" />
+             <h2>Huawie P30 pro</h2>
+
+            <p>Price: <em>$999</em>
+            </p>
+            <button class="add-to-cart" type="button">Add to cart</button>
+        </div>
+
+        <div class="item">
+            <img src="https://images-na.ssl-images-amazon.com/images/I/51sl-z1S1dL._SL1500_.jpg" alt="item" />
+             <h2>Samsung S10</h2>
+
+            <p>Price: <em>$999</em>
+            </p>
+            <button class="add-to-cart" type="button">Add to cart</button>
+        </div>
+
+        <div class="item">
+            <img src="https://images-na.ssl-images-amazon.com/images/I/512xYZ5OjGL._SL1000_.jpg" alt="item" />
+             <h2>OnePlus 7</h2>
+
+            <p>Price: <em>$999</em>
+            </p>
+            <button class="add-to-cart" type="button">Add to cart</button>
+        </div>
+
+        <div class="item">
+            <img src="https://images-na.ssl-images-amazon.com/images/I/61cWoqY8uwL._SL1137_.jpg" alt="item" />
+             <h2>Nokia 7</h2>
+
+            <p>Price: <em>$999</em>
+            </p>
+            <button class="add-to-cart" type="button">Add to cart</button>
+        </div>
+
+        <div class="item">
+            <img src="https://images-na.ssl-images-amazon.com/images/I/51opJo00PqL._SL1052_.jpg" alt="item" />
+             <h2>LG V40</h2>
+
+            <p>Price: <em>$999</em>
+            </p>
+            <button class="add-to-cart" type="button">Add to cart</button>
+        </div>
+    </div>
+
+</div>
+
+<script  src="function.js"></script>
+
+</body>
+</html> -->
+

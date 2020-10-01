@@ -1,0 +1,51 @@
+<div class="row">
+
+<div class="col-sm-6">
+  <div class="col-sm-6">
+    <div *ngIf="User" class="card" style="width: 298px;margin-left: -14px; margin-bottom: 12px;">
+      <div  class="card-body">
+            <h3 style="min-width: 285px;margin-left: -14px;" class="card-title">{{ User.NameL }}</h3><br>
+            <ul>
+              <li style="min-width: 225px;margin-left: -33px;"> <strong>Adress 1 :</strong> &nbsp; {{ User.Adress1 }}<br></li><br>
+              <li style="min-width: 225px;margin-left: -33px;"> <strong>Adress 2 :</strong> &nbsp; {{ User.Adress2 }}<br></li><br>
+              <li style="margin-left: -33px;"> <strong>Phone :</strong> &nbsp; {{ User.PhoneNumber }}<br></li><br>
+              <li style="margin-left: -33px;"> <strong>City :</strong> &nbsp; {{ User.City }}<br></li><br>
+            </ul>  
+            <p routerLink="/myAccount" style="text-align: end;cursor: pointer;color: #007bff;">Edit</p>
+      </div>
+    </div> 
+ </div>
+  </div>
+
+    <div class="col-sm-6 scroll">
+      <div class="card" style="width: 20rem;">
+        <div *ngFor="let checkout of Checkout" class="card-body overflow-auto">
+            <img [src]="checkout.ImageUrl7" class="card-img" alt="Responsive Image">
+              <h5 style="margin-top: -70px;" class="card-title">{{ checkout.ProductName }}</h5>       
+                 <h5 style="color: #006fcc;" class="card-title">{{ checkout.TotalPricePerItem | number }} {{ checkout.Currency }}</h5><br>
+                      <ul class="list-group-flush" >     
+                    <li style="margin-left: -39px;" ><strong>Quantity</strong> &nbsp;&nbsp;&nbsp; <strong>{{ checkout.Quantity }}</strong></li><br>
+                 <strong style="margin-left: -36px;">Total</strong>  &nbsp;&nbsp;&nbsp; <strong style="color: #006fcc;">{{ checkout.TotalPrice | number }} {{ checkout.Currency }} </strong>
+               <br><br>
+            <li style="margin-left: -40px; margin-bottom: -34px" class="list-group-item"></li>
+            </ul>  
+        </div>
+      </div> 
+   </div>
+   
+</div>
+<div class="row">
+    
+    <div class="col-sm-6">
+    </div>
+
+    <div class="col-sm-6">
+        <div class="card" style="width: 20rem;margin-top: -87px;">
+            <div class="card-body">
+              <h5 style="margin-left: 28px;margin-bottom: -8px;" class="card-title"><strong>Grand Total</strong>&nbsp; <strong style="color: #006fcc;">{{ TotalCart | number }}</strong> </h5>
+            </div>
+          </div>
+          <button *ngIf="orderIsPlaced != 1" style="width: 300px;" class="btn btn-primary" (click)="createOrder()">Place Order</button>
+    </div>
+
+</div>

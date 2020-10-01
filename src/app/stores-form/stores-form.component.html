@@ -1,0 +1,56 @@
+<form  #form="ngForm" (ngSubmit) = saveStore(form.value) class="was-validated ">
+
+    <div class="form-group col-md-3">
+      <input type="hidden" class="form-control" ngModel name="Id" id="Id"  placeholder="Id">
+      <div class="invalid-feedback">
+        </div>
+  
+    </div>
+
+        <div class="form-group col-md-3">
+          <label for="inputTitle">English Name</label>
+          <input type="text" class="form-control" ngModel name="NameL" id="NameL" placeholder="Name" required>
+          <div class="invalid-feedback">
+            </div>
+        </div> 
+
+        <div class="form-group col-md-3">
+            <label for="inputVendors">Vendors</label>
+               <select class="custom-select"  ngModel name="VendorId"  id="VendorId">
+                <option *ngFor="let vendor of Vendors; let i = index" [value]="Vendors[i].Id">
+                  {{Vendors[i].NameL}}
+                </option>
+              </select>
+        </div>
+        <div class="form-group col-md-3">
+          <label for="inputCountries">Countries</label>
+             <select class="custom-select"  ngModel name="CountryId"  id="CountryId">
+              <option *ngFor="let Country of Countries; let i = index" [value]="Countries[i].Id">
+                {{Countries[i].NameL}}
+              </option>
+            </select>
+      </div>
+      <div class="form-group col-md-3">
+        <label for="inputShippingAgentId">Shipping Agent</label>
+           <select class="custom-select"  ngModel name="ShippingAgentId"  id="ShippingAgentId" required>
+            <option *ngFor="let shippingAgent of ShippingAgents; let i = index" [value]="ShippingAgents[i].Id">
+              {{ShippingAgents[i].NameL}}
+            </option>
+          </select>
+    </div>
+        <div class="form-group col-md-3">
+            <label for="inputemail">Email</label>
+            <input type="text" class="form-control" ngModel name="email" id="email" placeholder="Email" required>
+            <div class="invalid-feedback">
+              </div>
+          </div>
+          <div class="form-group col-md-3">
+            <label for="inputemail">Map Location</label>
+            <input type="text" class="form-control" ngModel name="MapLocation" id="MapLocation" placeholder="Map Location">
+            <div class="invalid-feedback">
+              </div>
+          </div>          
+    <br>   
+    <button class="btn btn-primary" type="submit">Save</button>
+
+    </form> 

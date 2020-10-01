@@ -1,0 +1,72 @@
+<form  #form="ngForm" (ngSubmit) = updateUser(form.value) class="was-validated ">
+    <div class="form-group col-md-6">
+        <input type="hidden" class="form-control" [(ngModel)]="User.Id" name="Id" id="Id"  placeholder="Id">
+        <div class="invalid-feedback">
+          </div>
+        </div>
+     
+<mat-card>
+<div *ngIf="User">
+<div class="row" style="margin-top: 5rem;">
+    <div class="col-sm-4">
+       
+        <strong>User Name :</strong> &nbsp; {{ User.NameL }}<br><br> 
+        <strong>Phone :</strong> &nbsp; {{ User.PhoneNumber }}<br><br>
+
+        <strong>Email :</strong> &nbsp; {{ User.Email }}<br><br>
+        <strong>Password :</strong> &nbsp; {{ User.Password }}<br><br>
+
+        <strong>Adress 1 :</strong> &nbsp; {{ User.Adress1 }}<br><br>
+        <strong>Adress 2 :</strong> &nbsp; {{ User.Adress2 }}<br><br>
+
+        <strong>City :</strong> &nbsp; {{ User.City }}<br><br>
+
+    </div>
+    <div class="col-sm-4">
+        <div>
+            <mat-form-field appearance="outline">
+                <mat-label>User Name</mat-label>
+                <input matInput [(ngModel)]="User.NameL" name="NameL" id="NameL" placeholder="User Name" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Phone Number</mat-label>
+                <input matInput [(ngModel)]="User.PhoneNumber" name="PhoneNumber" id="PhoneNumber" #phoneMessage maxlength="11" placeholder="Phone Number">
+                <mat-hint align="end">{{phoneMessage.value.length}} / 11</mat-hint>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput [(ngModel)]="User.Email" name="Email" id="Email" placeholder="Email" required>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput [(ngModel)]="User.Password" name="Password" id="Password"  #passwordMessage maxlength="16" placeholder="Password" required>
+                <mat-hint align="end">{{passwordMessage.value.length}} / 16</mat-hint>
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+                <mat-label>Adress1</mat-label>
+                <input matInput [(ngModel)]="User.Adress1" name="Adress1" id="Adress1" placeholder="Adress 1">
+            </mat-form-field>
+            
+            <mat-form-field appearance="outline">
+                <mat-label>Adress2</mat-label>
+                <input matInput [(ngModel)]="User.Adress2" name="Adress2" id="Adress2" placeholder="Adress 2">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>City</mat-label>
+                <input matInput [(ngModel)]="User.City" name="City" id="City" placeholder="City">
+            </mat-form-field>
+        </div>
+     </div>  
+   </div>
+</div> 
+    <div *ngIf="User">
+        <button mat-raised-button color="primary" type="submit">Save</button>
+    </div>
+
+</mat-card>
+</form>

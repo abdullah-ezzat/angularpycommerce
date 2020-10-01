@@ -1,0 +1,26 @@
+.scroll {
+  max-height: 484px;
+  max-width: 333px;
+  overflow-y: scroll;
+  margin-bottom: 86px;
+}
+
+.title {
+  margin-left: 40px;
+}
+
+.card-img {
+    width: 100px;
+    max-height: 8rem;
+    margin-left: -2rem;
+    margin-bottom: -29px;
+}
+
+  h5 {
+    margin-left: 120px;
+}
+
+.card-body {
+  flex: 2 1 auto;
+  padding: 2.25rem;
+}

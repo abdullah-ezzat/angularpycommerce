@@ -1,0 +1,42 @@
+
+<form  #form="ngForm" (ngSubmit) = savePrice(form.value) class="was-validated ">
+
+    <div class="form-group col-md-3">
+        <label for="inputVendorId">VendorId</label>
+            <select class="custom-select"  ngModel name="VendorId"  id="VendorId" >
+            <option *ngFor="let vendor of Vendors; let i = index" [value]="Vendors[i].Id">
+                {{Vendors[i].NameL}}
+            </option>
+            </select>
+        <div class="invalid-feedback"></div>
+        </div>
+
+        <div class="form-group col-md-3">
+            <label for="inputProductId">Product Name</label>
+                <select class="custom-select"  ngModel name="ProductId"  id="ProductId" >
+                <option *ngFor="let product of Products; let i = index" [value]="Products[i].Id">
+                    {{Products[i].NameL}}
+                </option>
+                </select>
+            <div class="invalid-feedback"></div>
+            </div>
+
+            <div class="form-group col-md-3">
+                <label for="inputCountryId">Country Name</label>
+                    <select class="custom-select"  ngModel name="CountryId"  id="CountryId" >
+                    <option *ngFor="let country of Countries; let i = index" [value]="Countries[i].Id">
+                        {{Countries[i].NameL}}
+                    </option>
+                    </select>
+                <div class="invalid-feedback"></div>
+                </div>
+    
+    <div class="form-group col-md-3">
+        <label for="inputPrice">Price</label>
+        <input type="text" class="form-control" ngModel name="Price" id="Price"  placeholder="Price" required>
+        <div class="invalid-feedback">
+            </div>     
+        </div>
+
+    <button class="btn btn-primary" type="submit">Save</button>
+</form>    

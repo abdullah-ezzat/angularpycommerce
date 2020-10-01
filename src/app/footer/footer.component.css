@@ -1,0 +1,46 @@
+footer {
+  background: #098199;
+  color: white;
+  line-height: 100px;
+  padding: 0 20px;
+}
+.Download-Our-App {
+  width: 200px;
+  border-radius: 5px;
+}
+.align {
+  text-align: right;
+}
+.footer-container {
+  position: absolute;
+  font-size: 21px;
+  font-weight: bold;
+}
+
+@media all and (max-device-width: 530px) {
+  .footer-container {
+    position: absolute;
+    font-size: 16px;
+    margin-left: -9px;
+    font-weight: bold;
+  }
+}
+
+@media all and (max-device-width: 450px) {
+  .footer-container {
+    position: absolute;
+    font-size: 10.5px;
+    margin-left: -18px;
+    font-weight: bold;
+  }
+}
+
+@media all and (max-device-width: 358px) {
+  .footer-container {
+    position: absolute;
+    font-size: 12px;
+    margin-left: 110px;
+    margin-top: -37px;
+    font-weight: bold;
+  }
+}

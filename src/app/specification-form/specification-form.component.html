@@ -1,0 +1,34 @@
+<form  #form="ngForm" (ngSubmit) = addSpecification(form.value) class="was-validated ">
+
+    <div class="form-group col-md-3">
+        <label for="hidden">Product Id</label>
+        <input type="hidden" class="form-control" [(ngModel)]="ProductId" name="ProductId"  id="ProductId" placeholder="Name" required>
+        <div class="invalid-feedback">
+          </div>
+      </div>
+
+      <div class="form-group col-md-3">
+        <label for="hidden">Category Id</label>
+        <input type="hidden" class="form-control" [(ngModel)]="CategoryId" name="CategoryId"  id="CategoryId" placeholder="Name" required>
+        <div class="invalid-feedback">
+          </div>
+      </div>
+
+          <div class="form-group col-md-3">
+            <label for="inputSpecification">Specification Name</label>
+               <select class="custom-select"  ngModel name="SpecificationId"  id="SpecificationId">
+                <option *ngFor="let specification of AllSpecifications; let i = index" [value]="AllSpecifications[i].Id">
+                  {{AllSpecifications[i].NameL}}
+                </option>
+              </select>
+        </div>
+    
+            <div class="form-group col-md-3">
+              <label for="inputSpecificationValue">Specification Value</label>
+              <input type="text" class="form-control" ngModel name="SpecificationValue" id="SpecificationValue" placeholder="Value" required>
+              <div class="invalid-feedback">
+                </div>
+            </div> 
+    
+        <button class="btn btn-primary" type="submit">Save</button>
+    </form>

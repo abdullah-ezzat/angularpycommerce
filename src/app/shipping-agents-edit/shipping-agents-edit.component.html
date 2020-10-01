@@ -1,0 +1,61 @@
+
+<form  #form="ngForm" (ngSubmit) = updateShippingAgents(form.value) class="was-validated ">
+
+    <div class="form-group col-md-3">
+        <input type="hidden" class="form-control" [(ngModel)]="ShippingAgent.Id" name="Id" id="Id"  placeholder="Id">
+        <div class="invalid-feedback">
+          </div> 
+      </div>
+
+
+     <div class="form-group col-md-3">
+        <label for="ArabicName">Arabic Name</label>
+        <input type="text" class="form-control" [(ngModel)]="ShippingAgent.NameA" name="NameA" id="NameA"  placeholder="Arabic Name">
+        <div class="invalid-feedback">
+            </div>     
+        </div>
+
+        <div class="form-group col-md-3">
+            <label for="EnglishName">English Name</label>
+            <input type="text" class="form-control" [(ngModel)]="ShippingAgent.NameL" name="NameL" id="NameL"  placeholder="English Name">
+            <div class="invalid-feedback">
+                </div>     
+            </div>
+
+        <div class="form-group col-md-3">
+            <label for="Adress1">Adress 1</label>
+            <input type="text" class="form-control" [(ngModel)]="ShippingAgent.Adress1" name="Adress1" id="Adress1"  placeholder="Adress 1">
+            <div class="invalid-feedback">
+                </div>     
+            </div>
+
+        <div class="form-group col-md-3">
+            <label for="Adress2">Adress 2</label>
+            <input type="text" class="form-control" [(ngModel)]="ShippingAgent.Adress2" name="Adress2" id="Adress2"  placeholder="Adress2">
+            <div class="invalid-feedback">
+                </div>     
+            </div>
+
+        <div class="form-group col-md-3">
+            <label for="Email">Email</label>
+            <input type="text" class="form-control" [(ngModel)]="ShippingAgent.Email" name="Email" id="Email"  placeholder="Email">
+            <div class="invalid-feedback">
+                </div>     
+            </div>
+            
+        <div class="form-group col-md-3">
+            <label for="Password">Password</label>
+            <input type="text" class="form-control" [(ngModel)]="ShippingAgent.Password" name="Password" id="Password"  placeholder="Password">
+            <div class="invalid-feedback">
+                </div>     
+            </div>
+
+        <div class="form-group col-md-3">
+            <label for="Phone">Phone Number</label>
+            <input type="text" class="form-control" [(ngModel)]="ShippingAgent.Phone" name="Phone" id="Phone"  placeholder="Phone">
+            <div class="invalid-feedback">
+                </div>     
+            </div>
+
+    <button class="btn btn-primary" type="submit">Save</button>
+</form>    

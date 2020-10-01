@@ -1,0 +1,51 @@
+<form
+  #form="ngForm"
+  (ngSubmit)="updateShippingUser(form.value)"
+  class="was-validated"
+>
+  <div class="form-group col-md-3">
+    <input
+      type="hidden"
+      class="form-control"
+      [(ngModel)]="shippingUser.Id"
+      name="Id"
+      id="Id"
+      placeholder="Id"
+    />
+    <div class="invalid-feedback"></div>
+  </div>
+
+  <div class="form-group col-md-3">
+    <label for="inputUserId">User Name</label>
+    <select
+      class="custom-select"
+      [(ngModel)]="shippingUser.UserId"
+      name="UserId"
+      id="UserId"
+    >
+      <option *ngFor="let user of Users; let i = index" [value]="Users[i].Id">
+        {{ Users[i].NameL }}
+      </option>
+    </select>
+  </div>
+
+  <div class="form-group col-md-3">
+    <label for="inputShippingAgentId">Shipping Agents</label>
+    <select
+      class="custom-select"
+      [(ngModel)]="shippingUser.ShippingAgentId"
+      name="ShippingAgentId"
+      id="ShippingAgentId"
+    >
+      <option
+        *ngFor="let shippingUser of ShippingUsers; let i = index"
+        [value]="ShippingUsers[i].Id"
+      >
+        {{ ShippingUsers[i].NameL }}
+      </option>
+    </select>
+  </div>
+
+  <br />
+  <button class="btn btn-primary" type="submit">Save</button>
+</form>
