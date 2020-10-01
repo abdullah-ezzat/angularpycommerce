@@ -133,7 +133,7 @@
                     >Login</a
                   >
                 </li>
-                <li
+                <!-- <li
                   style="margin-top: -13px; margin-top: -13px; margin-left: 8px"
                 >
                   <span
@@ -152,12 +152,37 @@
                     routerLink="/shopping-Cart"
                     class="shopping-cart"
                   ></i>
-                  <!-- <i style="font-size: 25px;margin-top: -4px;margin-left: -4px;cursor: pointer;" routerLink="/shopping-Cart" class="fa fa-shopping-cart" aria-hidden="true"></i> -->
-                </li>
+              
+                </li> -->
               </ul>
+            </div>
+            <div
+              style="
+                margin-top: -13px;
+                margin-left: 8px;
+                float: right;
+                cursor: pointer;
+              "
+              routerLink="/shopping-Cart"
+            >
+              <span
+                style="cursor: pointer; margin-left: 13px"
+                class="badge badge-warning"
+                >{{ CartItemsCount }}</span
+              ><br />
+              <i
+                style="
+                  font-size: 25px;
+                  margin-top: -6px;
+                  margin-left: 10px;
+                  cursor: pointer;
+                "
+                class="shopping-cart"
+              ></i>
             </div>
           </div>
         </nav>
+
         <router-outlet> </router-outlet>
       </div>
     </div>

@@ -1,31 +1,56 @@
-<div class="container" >
-
-<div class="row">
-  <div style="left: -29px;bottom: 0rem;" *ngIf="CategoryId" class="col-lg-2">
-<strong>
-  Specifications
-</strong>
-        <div *ngFor ="let specification of AllSpecifications">
-          <strong>
-            <button style="margin-left: -12px" class="btn btn-link order-md-last" data-toggle="collapse"  [attr.data-target]="'#TheSpecification' + specification.Id" >{{ specification.NameL }} </button>   
-          </strong>  
-          <div *ngFor ="let productSpecification of AllProductSpecifications">
-         
-            <div style="min-width: 200px;" *ngIf ="productSpecification.SpecificationId == specification.Id && productSpecification.CategoryId == specification.CategoryId" class="collapse show" id="{{'TheSpecification'+productSpecification.SpecificationId }}" >
-          <mat-checkbox
+<div class="container">
+  <div class="row">
+    <div style="left: -29px; bottom: 0rem" *ngIf="CategoryId" class="col-lg-2">
+      <strong> Specifications </strong>
+      <div *ngFor="let specification of AllSpecifications">
+        <strong>
+          <button
+            style="margin-left: -12px"
+            class="btn btn-link order-md-last"
+            data-toggle="collapse"
+            [attr.data-target]="'#TheSpecification' + specification.Id"
+          >
+            {{ specification.NameL }}
+          </button>
+        </strong>
+        <div *ngFor="let productSpecification of AllProductSpecifications">
+          <div
+            style="min-width: 200px"
+            *ngIf="
+              productSpecification.SpecificationId == specification.Id &&
+              productSpecification.CategoryId == specification.CategoryId
+            "
+            class="collapse show"
+            id="{{ 'TheSpecification' + productSpecification.SpecificationId }}"
+          >
+            <mat-checkbox
               color="primary"
-              name="{{'TheSpecification'+productSpecification.SpecificationId }}" [checked]="productSpecification.IsSelected"
-              [(ngModel)]="productSpecification.IsSelected" id="{{'TheSpecification'+productSpecification.SpecificationValue }}"
-              (change)="onChangeSelection(productSpecification.SpecificationValue,productSpecification.IsSelected)">            
-          </mat-checkbox>
-              {{ productSpecification.SpecificationValue }} ({{ productSpecification.SpecificationCount }}) &nbsp;
+              name="{{
+                'TheSpecification' + productSpecification.SpecificationId
+              }}"
+              [checked]="productSpecification.IsSelected"
+              [(ngModel)]="productSpecification.IsSelected"
+              id="{{
+                'TheSpecification' + productSpecification.SpecificationValue
+              }}"
+              (change)="
+                onChangeSelection(
+                  productSpecification.SpecificationValue,
+                  productSpecification.IsSelected
+                )
+              "
+            >
+            </mat-checkbox>
+            {{ productSpecification.SpecificationValue }} ({{
+              productSpecification.SpecificationCount
+            }}) &nbsp;
 
-              <!-- <mat-checkbox  (change)="onChangeSelection(productSpecification.SpecificationId,productSpecification.IsSelected)" [checked] ="productSpecification.IsSelected" >  </mat-checkbox> -->
+            <!-- <mat-checkbox  (change)="onChangeSelection(productSpecification.SpecificationId,productSpecification.IsSelected)" [checked] ="productSpecification.IsSelected" >  </mat-checkbox> -->
           </div>
         </div>
       </div>
     </div>
-<!--         
+    <!--         
             <div *ngFor ="let specification of AllSpecifications">
               <div id="accordion">
                 <div class="card">
@@ -54,7 +79,6 @@
 </div>  -->
 
     <div class="col-lg-10">
-    
       <div class="row row-cols-1">
         <!-- <form class="example-form">
           <mat-form-field class="example-full-width" >
@@ -67,72 +91,139 @@
           </mat-form-field>
         </form> -->
         <form class="example">
-          <mat-form-field  class="container">
-              <input style="margin-bottom: -10px;cursor: text;" type="text" placeholder="Search products..."
-                  matInput 
-                  [formControl]="searchTerm" 
-                  [matAutocomplete]="auto">  
+          <mat-form-field class="container">
+            <input
+              style="margin-bottom: -10px; cursor: text"
+              type="text"
+              placeholder="Search products..."
+              matInput
+              [formControl]="searchTerm"
+              [matAutocomplete]="auto"
+            />
 
-              <mat-autocomplete #auto="matAutocomplete">
-                <mat-option *ngFor="let product of ProductsString" [value]="product.NameL">
-                  {{ product.NameL }} in <strong style="color: #008BFF;">{{ product.CategoryName }}</strong>
-                </mat-option>  
-              </mat-autocomplete>
-              <div style="padding-bottom: 7px;cursor: text;">
-                <i style ="margin-top: -41px;font-size: 26px;cursor: pointer;" (click)="getProductAfterTerm()" class="fa fa-search"></i>
-              </div> 
+            <mat-autocomplete #auto="matAutocomplete">
+              <mat-option
+                *ngFor="let product of ProductsString"
+                [value]="product.NameL"
+              >
+                {{ product.NameL }} in
+                <strong style="color: #008bff">{{
+                  product.CategoryName
+                }}</strong>
+              </mat-option>
+            </mat-autocomplete>
+            <div style="padding-bottom: 7px; cursor: text">
+              <i
+                style="margin-top: -41px; font-size: 26px; cursor: pointer"
+                (click)="getProductAfterTerm()"
+                class="fa fa-search"
+              ></i>
+            </div>
           </mat-form-field>
         </form>
 
         <div *ngFor="let Homedetail of HomeDetails">
-
-            <div *ngIf = "Homedetail.PageNumber === page " class="card mb-3" id="class-card-image-boy-info" style="max-width: 60rem;">
-              <div class="row row-cols-3" id="home-row-col">
-                <div class="col-md-3" id="image-col">
-                  <img [routerLink]="['/product-Details',Homedetail.Id]" [src]="Homedetail.ImageUrl" class="card-img" alt="Responsive Image">
-                </div>
+          <div
+            *ngIf="Homedetail.PageNumber === page"
+            class="card mb-3"
+            id="class-card-image-boy-info"
+            style="max-width: 60rem"
+          >
+            <div class="row row-cols-3" id="home-row-col">
+              <div class="col-md-3" id="image-col">
+                <img
+                  [routerLink]="['/product-Details', Homedetail.Id]"
+                  [src]="Homedetail.ImageUrl"
+                  class="card-img"
+                  alt="Responsive Image"
+                />
+              </div>
               <div class="col-md-6" id="col-body-id">
-                <div style="margin-left: -3rem;min-width: 13rem;" class="card-body">
-                  <h5 [routerLink]="['/product-Details',Homedetail.Id]" class="card-title"> {{ Homedetail.ProductName }} </h5>
-                  <div class="star-ratings-sprite"><span [style.width]="Homedetail.ProductRating+'%'" style="width:52%" class="star-ratings-sprite-rating"></span></div>
+                <div
+                  style="margin-left: -3rem; min-width: 13rem"
+                  class="card-body"
+                >
+                  <h5
+                    [routerLink]="['/product-Details', Homedetail.Id]"
+                    class="card-title"
+                  >
+                    {{ Homedetail.ProductName }}
+                  </h5>
+                  <div class="star-ratings-sprite">
+                    <span
+                      [style.width]="Homedetail.ProductRating + '%'"
+                      style="width: 52%"
+                      class="star-ratings-sprite-rating"
+                    ></span>
+                  </div>
                   <div id="summary">
                     <p class="collapse" id="{{ 'productId' + Homedetail.Id }}">
                       {{ Homedetail.Description }}
                     </p>
-                    <a class="collapsed" data-toggle="collapse" href="#{{ 'productId' + Homedetail.Id }}" aria-expanded="false" aria-controls="collapseSummary"></a>
+                    <a
+                      class="collapsed"
+                      data-toggle="collapse"
+                      href="#{{ 'productId' + Homedetail.Id }}"
+                      aria-expanded="false"
+                      aria-controls="collapseSummary"
+                    ></a>
                   </div>
-                 
-                  <p class="card-text"><strong>Quantity : </strong>{{ Homedetail.QuantityBalance }}</p>
-                  
+
+                  <p class="card-text">
+                    <strong>Quantity : </strong>{{ Homedetail.QuantityBalance }}
+                  </p>
+                </div>
               </div>
-            
-              
+
+              <div class="col-md-3" id="price-info">
+                <br />
+
+                <p class="card-text">
+                  <strong
+                    style="
+                      color: #006fcc;
+                      font-size: 18px;
+                      font-weight: 700;
+                      margin-left: 7px;
+                    "
+                    >{{ Homedetail.Price | number }}</strong
+                  >
+                  <strong
+                    style="
+                      font-size: 0.8571428571rem;
+                      color: #006fcc;
+                      margin-left: 4px;
+                    "
+                    >{{ Homedetail.Currency }}</strong
+                  >
+                </p>
+                <p style="min-width: 300px; margin-left: 9px" class="card-text">
+                  <small class="text-muted"
+                    >Sold By : <br />{{ Homedetail.StoreName }}</small
+                  >
+                </p>
+                <button
+                  style="margin-left: 5px; margin-bottom: 5px"
+                  [routerLink]="['/product-Details', Homedetail.Id]"
+                  class="btn-info"
+                >
+                  <small>VIEW DETAILS</small>
+                </button>
+              </div>
             </div>
-    
-            <div class="col-md-3" id="price-info"><br>
-    
-              <p class="card-text"><strong style="color: #006fcc;font-size: 18px;font-weight: 700;margin-left: 7px;" >{{ Homedetail.Price | number }}</strong> 
-                <strong style="font-size: .8571428571rem; color: #006fcc; margin-left: 4px;">{{ Homedetail.Currency }}</strong></p>
-              <p style="min-width: 300px;margin-left: 9px;" class="card-text"><small class="text-muted">Sold By : <br>{{ Homedetail.StoreName }}</small></p>
-              <button style="margin-left: 5px;margin-bottom: 5px;" [routerLink]="['/product-Details',Homedetail.Id]" class="btn btn-info"><small>VIEW DETAILS</small></button>
-            </div>
-    
           </div>
         </div>
-      </div>   
+      </div>
     </div>
   </div>
-
 </div>
+<ngb-pagination
+  [(collectionSize)]="MaxPageNumber"
+  [(page)]="page"
+  aria-label="Default pagination"
+></ngb-pagination>
 
-
-  
-</div>    
-  <ngb-pagination [(collectionSize)]="MaxPageNumber" [(page)]="page" aria-label="Default pagination"></ngb-pagination>
-  
-  
 <!-- <p>Default pagination:</p> -->
-
 
 <!-- <p>No direction links:</p>
 <ngb-pagination [collectionSize]="70" [(page)]="page" [directionLinks]="false"></ngb-pagination>
@@ -144,7 +235,7 @@
 <!-- 
 <pre>Current page: {{page}} </pre>  -->
 
-    <!-- <ul class="pagination">
+<!-- <ul class="pagination">
       <li class="page-item"><a class="page-link" href="#">Previous</a></li>
       <li class="page-item"><a class="page-link" href="#">1</a></li>
       <li class="page-item"><a class="page-link" href="#">2</a></li>
@@ -152,10 +243,7 @@
       <li class="page-item"><a class="page-link" href="#">Next</a></li>
     </ul> -->
 
-
-    <!-- wrapper -->
-
-
+<!-- wrapper -->
 
 <!-- <!DOCTYPE html>
 <html lang="en" >
@@ -239,4 +327,3 @@
 
 </body>
 </html> -->
-

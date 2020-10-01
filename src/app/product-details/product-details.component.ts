@@ -208,6 +208,7 @@ export class ProductDetailsComponent implements OnInit {
       var LoginDateStamp = this.service.updateLastActiveTime();
       localStorage.setItem('LastActiveTime', JSON.stringify(LoginDateStamp));
       this.createNewShoppingCartItem(post);
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
   }
 
