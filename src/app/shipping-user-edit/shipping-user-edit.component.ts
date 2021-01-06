@@ -30,8 +30,6 @@ export class ShippingUserEditComponent implements OnInit {
     this.service.getAllShippingAgents().subscribe(
       (response) => {
         this.ShippingUsers = response;
-
-        console.log(this.ShippingUsers);
       },
       (error) => {
         alert('An unexpected error occured.');
@@ -42,8 +40,6 @@ export class ShippingUserEditComponent implements OnInit {
     this.service.getAllUsers().subscribe(
       (response) => {
         this.Users = response;
-
-        console.log(this.Users);
       },
       (error) => {
         alert('An unexpected error occured.');
@@ -53,7 +49,7 @@ export class ShippingUserEditComponent implements OnInit {
   }
 
   updateShippingUser(post: ShippingUserModel) {
-    console.log(post);
+    ;
 
     this.service
       .updateShippingUser(post)

@@ -139,7 +139,6 @@ export class PromotionPageComponent implements OnInit {
         this.Category1 = this.Categories.Category1;
         this.Category2 = this.Categories.Category2;
         this.Category3 = this.Categories.Category3;
-        console.log(this.Categories);
       },
       (error) => {
         alert('An unexpected error occured.');
@@ -217,7 +216,6 @@ export class PromotionPageComponent implements OnInit {
         this.Picture9Category3ImageUrlId = this.HomeProducts.Picture9Category3ImageUrlId;
         this.Picture10Category3ImageUrlId = this.HomeProducts.Picture10Category3ImageUrlId;
 
-        console.log(this.HomeProducts);
       },
       (error) => {
         alert('An unexpected error occured.');
@@ -228,7 +226,6 @@ export class PromotionPageComponent implements OnInit {
     this.service.getHomeProducts(null, null, 0).subscribe(
       (response) => {
         this.HomeDetails = response;
-        console.log(this.HomeDetails);
       },
       (error) => {
         alert('An unexpected error occured.');

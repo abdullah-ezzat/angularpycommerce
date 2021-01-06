@@ -17,7 +17,7 @@ ngOnInit(): void {
 
 createAgent(post : ShippingAgentDetails){
 
-  console.log(post);
+  ;
   this.service.addNewShippingAgent(post)
   .pipe().subscribe(response => {
   },error => {

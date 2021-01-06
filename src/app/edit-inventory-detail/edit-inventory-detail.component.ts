@@ -29,8 +29,7 @@ export class EditInventoryDetailComponent implements OnInit {
     this.service.getAllStores()
     .subscribe(response => {
       this.Stores = response;
-      
-       console.log( this.Stores);
+
     },error => {
       alert('An unexpected error occured.');
       console.log(error);
@@ -39,8 +38,7 @@ export class EditInventoryDetailComponent implements OnInit {
     this.service.GetAllProducts()
     .subscribe(response => {
       this.Products = response;
-      
-       console.log( this.Products);
+
     },error => {
       alert('An unexpected error occured.');
       console.log(error);
@@ -49,7 +47,7 @@ export class EditInventoryDetailComponent implements OnInit {
 
   updateDetail(post: InventoryDetails){
  
-  console.log(post);
+  ;
 
   this.service.updateInventoryDetail(post)
   .pipe().subscribe(response => {

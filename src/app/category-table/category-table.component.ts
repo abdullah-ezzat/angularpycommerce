@@ -36,7 +36,6 @@ export class CategoryTableComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
 
-       console.log( this.categories);
     },error => {
       alert('An unexpected error occured.');
       console.log(error);

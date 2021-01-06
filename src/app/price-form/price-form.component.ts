@@ -29,8 +29,7 @@ ngOnInit(): void {
   this.service.GetAllProducts()
   .subscribe(response => {
     this.Products  = response;
-    
-     console.log( this.Products);
+
   },error => {
     alert('An unexpected error occured.');
     console.log(error);
@@ -39,8 +38,7 @@ ngOnInit(): void {
   this.service.getAllVendors()
   .subscribe(response => {
     this.Vendors = response;
-    
-     console.log( this.Vendors);
+
   },error => {
     alert('An unexpected error occured.');
     console.log(error);
@@ -49,8 +47,7 @@ ngOnInit(): void {
   this.service.getAllCountries()
   .subscribe(response => {
     this.Countries = response;
-    
-     console.log( this.Countries);
+
   },error => {
     alert('An unexpected error occured.');
     console.log(error);
@@ -59,7 +56,6 @@ ngOnInit(): void {
 
 savePrice(post : PriceListDetails){
 
-  console.log(post);
   this.service.addNewPriceList(post)
   .pipe().subscribe(response => {
       

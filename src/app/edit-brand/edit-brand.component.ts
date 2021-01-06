@@ -23,8 +23,7 @@ export class EditBrandComponent implements OnInit {
     this.service.getAllBrands()
     .subscribe(response => {
       this.Brands = response;
-      
-       console.log( this.Brands);
+
     },error => {
       alert('An unexpected error occured.');
       console.log(error);
@@ -33,7 +32,7 @@ export class EditBrandComponent implements OnInit {
 
   updateBrand(post: BrandsDetail){
  
-  console.log(post);
+  ;
 
   this.service.updateBrand(post)
   .pipe().subscribe(response => {

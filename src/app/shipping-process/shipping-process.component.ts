@@ -23,17 +23,14 @@ export class ShippingProcessComponent implements OnInit {
 
     this.service.getOrdersForShipping(UserId).subscribe((response) => {
       this.Orders = response;
-      console.log(this.Orders);
     });
 
     this.service.getShippingDetails(UserId).subscribe((response) => {
       this.Details = response;
-      console.log(this.Details);
     });
 
     this.service.getOrderMaster(UserId).subscribe((response) => {
       this.Masters = response;
-      console.log(this.Masters);
     });
   }
 
@@ -49,7 +46,6 @@ export class ShippingProcessComponent implements OnInit {
         Longitude
       )
       .subscribe((response) => {
-        console.log(response);
         location.reload();
       });
   }
@@ -57,7 +53,7 @@ export class ShippingProcessComponent implements OnInit {
   DeliverOrder(OrderId) {
     let UserId = localStorage.getItem('UserId');
     this.service.DeliverOrder(OrderId, UserId).subscribe((response) => {
-      console.log(response);
+
       location.reload();
     });
   }
@@ -69,12 +65,10 @@ export class ShippingProcessComponent implements OnInit {
       .getOrdersForShippingFilterd(UserId, StatusId)
       .subscribe((response) => {
         this.Orders = response;
-        console.log(this.Orders);
       });
 
     this.service.getShippingDetails(UserId).subscribe((response) => {
       this.Details = response;
-      console.log(this.Details);
     });
   }
 }

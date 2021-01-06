@@ -20,7 +20,6 @@ ngOnInit(): void {
   .subscribe(response => {
     this.Brands = response;
     
-     console.log( this.Brands);
   },error => {
     alert('An unexpected error occured.');
     console.log(error);
@@ -29,7 +28,7 @@ ngOnInit(): void {
 
 saveBrand(post : BrandsDetail){
 
-  console.log(post);
+  ;
   this.service.addNewBrand(post)
   .pipe().subscribe(response => {
       

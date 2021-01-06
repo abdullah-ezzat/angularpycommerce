@@ -24,8 +24,7 @@ export class EditVendorComponent implements OnInit {
     this.service.getAllVendors()
     .subscribe(response => {
       this.vendors = response;
-      
-       console.log( this.vendors);
+
     },error => {
       alert('An unexpected error occured.');
       console.log(error);
@@ -34,7 +33,7 @@ export class EditVendorComponent implements OnInit {
 
 updateVendor(post: VendorDetails){
  
-  console.log(post);
+  ;
 
   this.service.updateVendor(post)
   .pipe().subscribe(response => {

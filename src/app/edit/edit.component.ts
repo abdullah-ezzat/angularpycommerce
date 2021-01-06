@@ -25,7 +25,6 @@ ngOnInit(): void {
   .subscribe(response => {
     this.Categories = response;
     
-     console.log( this.Categories);
   },error => {
     alert('An unexpected error occured.');
     console.log(error);
@@ -34,7 +33,7 @@ ngOnInit(): void {
 
 updateCategory(post : CategoryDetail){
 
-  console.log(post);
+  ;
 
   this.service.updateCategory(post)
   .pipe().subscribe(response => {

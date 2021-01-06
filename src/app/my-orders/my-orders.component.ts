@@ -26,12 +26,12 @@ export class MyOrdersComponent implements OnInit {
 
     this.service.getOrders(UserId).subscribe(response => {
       this.Orders = response;
-      console.log(this.Orders);
+
     })
 
     this.service.getOrderMaster(UserId).subscribe(response => {
       this.Masters = response;
-      console.log(this.Masters);
+ 
     })
 
   }
@@ -44,7 +44,7 @@ export class MyOrdersComponent implements OnInit {
       this.MapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.MapLocation);
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
-     console.log(this.MapUrl);
+
     });
 
   }

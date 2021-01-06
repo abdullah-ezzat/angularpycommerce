@@ -29,8 +29,7 @@ export class EditSpecificationComponent implements OnInit {
     this.service.GetAllProducts()
     .subscribe(response => {
       this.Products = response;
-      
-       console.log( this.Products);
+
     },error => {
       alert('An unexpected error occured.');
       console.log(error);
@@ -39,8 +38,7 @@ export class EditSpecificationComponent implements OnInit {
     this.service.getAllCategory()
     .subscribe(response => {
       this.Categories = response;
-      
-       console.log( this.Categories);
+
     },error => {
       alert('An unexpected error occured.');
       console.log(error);
@@ -49,7 +47,7 @@ export class EditSpecificationComponent implements OnInit {
 
 updateProductSpecification(post: ProductSpecificationDetails){
  
-  console.log(post);
+  ;
 
   this.service.updateProductSpecification(post)
   .pipe().subscribe(response => {

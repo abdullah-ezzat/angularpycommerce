@@ -46,8 +46,7 @@ ngOnInit(): void {
   this.service.GetAllProducts()
   .subscribe(response => {
     this.Products  = response;
-    
-     console.log( this.Products);
+
   },error => {
     alert('An unexpected error occured.');
     console.log(error);
@@ -63,7 +62,6 @@ ngOnInit(): void {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
 
-     console.log( this.specification);
   },error => {
     alert('An unexpected error occured.');
     console.log(error);
@@ -73,8 +71,7 @@ ngOnInit(): void {
   this.service.getSubCategory()
   .subscribe(response => {
     this.Categories = response;
-    
-     console.log( this.Categories);
+
   },error => {
     alert('An unexpected error occured.');
     console.log(error);
@@ -83,8 +80,7 @@ ngOnInit(): void {
   this.service.getAllBrands()
   .subscribe(response => {
     this.Brands = response;
-    
-     console.log( this.Brands);
+
   },error => {
     alert('An unexpected error occured.');
     console.log(error);
@@ -100,12 +96,10 @@ addProductSpecification(productId,CategoryId){
 }
 
 copyFromProductSpecification(fromProductId,productId,CategoryId){
-  console.log(productId);
-  console.log(fromProductId);
+
   this.service.copyFromProductSepcification(fromProductId,productId,CategoryId)
   .subscribe(response => {
     
-     console.log( response);
      this.router.navigate(['/editProduct/'+productId])
     
   },error => {
@@ -124,7 +118,7 @@ applyFilter(event: Event) {
 
 updateProduct(post : ProductsDetail){
  
-  console.log(post);
+  ;
 
   this.service.updateProduct(post)
   .pipe().subscribe(response => {

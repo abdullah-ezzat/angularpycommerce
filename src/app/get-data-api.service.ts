@@ -21,7 +21,7 @@ import { debounceTime } from 'rxjs/internal/operators/debounceTime';
   providedIn: 'root',
 })
 export class GetDataApiService {
-  private url = 'http://angularapi.hopto.org:50393/Products';
+  private url = 'http://www.angulardemo.somee.com/Products';
   // url for production //
   // private url = 'http://localhost:50393/Products'--
 
@@ -58,7 +58,7 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    console.log(post);
+    ;
     return this.http.post(this.url + '/addNewCategory', fromData.toString(), {
       headers,
     });
@@ -91,7 +91,7 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    console.log(post);
+    ;
     return this.http.post(this.url + '/addNewProduct', fromData.toString(), {
       headers,
     });
@@ -112,7 +112,7 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    console.log(post);
+    ;
     return this.http.post(this.url + '/updateProduct', fromData.toString(), {
       headers,
     });
@@ -125,7 +125,7 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    console.log(post);
+    ;
     return this.http.post(
       this.url + '/addProductSpecification',
       fromData.toString(),
@@ -134,14 +134,14 @@ export class GetDataApiService {
   }
 
   getAllproductSpecifications(ProductId) {
-    console.log(ProductId);
+
     return this.http.get(
       this.url + '/getAllproductSpecifications?ProductId=' + ProductId
     );
   }
 
   getAllproductSpecificationsFromBalance(Id) {
-    console.log(Id);
+
     return this.http.get(
       this.url + '/getAllproductSpecificationsFromBalance?Id=' + Id
     );
@@ -158,7 +158,7 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    console.log(post);
+    ;
     return this.http.post(
       this.url + '/updateProductSpecification',
       fromData.toString(),
@@ -173,7 +173,7 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    console.log(post);
+    ;
     return this.http.post(this.url + '/addNewVendor', fromData.toString(), {
       headers,
     });
@@ -212,7 +212,7 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    console.log(post);
+    ;
     return this.http.post(this.url + '/addNewStore', fromData.toString(), {
       headers,
     });
@@ -245,7 +245,7 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    console.log(post);
+    ;
     return this.http.post(this.url + '/addNewBrand', fromData.toString(), {
       headers,
     });
@@ -278,12 +278,16 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    console.log(post);
+    ;
     return this.http.post(
       this.url + '/addNewInventoryDetail',
       fromData.toString(),
       { headers }
     );
+  }
+
+  checkPriceListExist(storeId, productId) {
+    return this.http.get(this.url + '/checkPriceListExist?storeId=' + storeId + "&productId=" + productId);
   }
 
   getAllInventoryDetails() {
@@ -350,7 +354,7 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    console.log(post);
+    ;
 
     return this.http.post(
       this.url + '/addNewShoppingCartItem',
@@ -395,7 +399,7 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    console.log(post);
+    ;
     return this.http.post(this.url + '/addNewPriceList', fromData.toString(), {
       headers,
     });
@@ -514,7 +518,7 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    console.log(post);
+    ;
     return this.http.post(
       this.url + '/addNewShippingAgent',
       fromData.toString(),
@@ -533,7 +537,7 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    console.log(post);
+    ;
     return this.http.post(
       this.url + '/updateShippingAgents',
       fromData.toString(),
@@ -609,7 +613,7 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    console.log(post);
+    ;
     return this.http.post(
       this.url + '/addNewShippingUser',
       fromData.toString(),
@@ -628,7 +632,7 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    console.log(post);
+    ;
     return this.http.post(
       this.url + '/updateShippingUser',
       fromData.toString(),

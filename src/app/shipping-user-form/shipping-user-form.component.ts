@@ -20,8 +20,7 @@ ngOnInit(): void {
   this.service.getAllUsers()
   .subscribe(response => {
     this.Users  = response;
-    
-     console.log(this.Users);
+
   },error => {
     alert('An unexpected error occured.');
     console.log(error);
@@ -30,8 +29,7 @@ ngOnInit(): void {
   this.service.getAllShippingAgents()
   .subscribe(response => {
     this.ShippingUsers  = response;
-    
-     console.log( this.ShippingUsers);
+
   },error => {
     alert('An unexpected error occured.');
     console.log(error);
@@ -40,7 +38,7 @@ ngOnInit(): void {
 
 createShippingUser(post : ShippingUserModel){
 
-  console.log(post);
+  ;
   this.service.addNewShippingUser(post)
   .pipe().subscribe(response => {
       

@@ -25,7 +25,7 @@ export class LoginComponent implements OnInit {
 
   Login(post: LoginDetails){
 
-    console.log(post);
+    ;
     this.service.userAuthentication(post)
     .pipe().subscribe(response => {
 
@@ -38,12 +38,12 @@ export class LoginComponent implements OnInit {
         localStorage.setItem("UserName",userData.NameL );
   
         if (userData.Id > 0){
-        this.toastr.success('You Have Logged In Successfully');
+        this.toastr.success('You have logged in successfully.');
         location.assign('/');
         }
       }
       else{
-        this.toastr.error('This Email or Password is Wrong');
+        this.toastr.error('This email or password is invalid.');
       }
     }   
     ,error => {

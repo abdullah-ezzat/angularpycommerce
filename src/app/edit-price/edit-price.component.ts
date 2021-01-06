@@ -32,8 +32,7 @@ export class EditPriceComponent implements OnInit {
     this.service.GetAllProducts()
     .subscribe(response => {
       this.Products = response;
-      
-       console.log( this.Products);
+
     },error => {
       alert('An unexpected error occured.');
       console.log(error);
@@ -42,8 +41,7 @@ export class EditPriceComponent implements OnInit {
     this.service.getAllVendors()
     .subscribe(response => {
       this.Vendors = response;
-      
-       console.log( this.Vendors);
+
     },error => {
       alert('An unexpected error occured.');
       console.log(error);
@@ -52,8 +50,7 @@ export class EditPriceComponent implements OnInit {
     this.service.getAllCountries()
     .subscribe(response => {
       this.Countries = response;
-      
-       console.log( this.Countries);
+
     },error => {
       alert('An unexpected error occured.');
       console.log(error);
@@ -63,7 +60,7 @@ export class EditPriceComponent implements OnInit {
 
   updatePrice(post: PriceListDetails){
  
-  console.log(post);
+  ;
 
   this.service.updatePrice(post)
   .pipe().subscribe(response => {

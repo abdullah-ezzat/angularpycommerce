@@ -25,12 +25,12 @@ export class RegisterComponent implements OnInit {
   Register(post: UserData){
 
     
-    console.log(post);
+    ;
     this.service.userRegister(post)
     .pipe().subscribe(response => {
      
      if(response == 0){
-      this.toastr.error('This Email is Existing', '', {
+      this.toastr.error('This email is existing.', '', {
         timeOut: 2000,
         positionClass: 'toast-top-center'
       });
@@ -45,7 +45,7 @@ export class RegisterComponent implements OnInit {
       if (userData.Id > 0){
         localStorage.removeItem('cartId');
         location.assign('/')
-        this.toastr.success('You Have Registered Successfully', '', {
+        this.toastr.success('You have registered successfully.', '', {
           timeOut: 3000,
           positionClass: 'toast-top-center'
         });

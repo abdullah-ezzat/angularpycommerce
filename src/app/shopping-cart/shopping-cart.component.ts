@@ -27,16 +27,13 @@ export class ShoppingCartComponent implements OnInit {
     .subscribe(response => {
       this.ShoppingCartDetails = response;
 
-       console.log( this.ShoppingCartDetails);
     },);
 
     this.service.getCartTotal(cartId).then(response => {
-      console.log(response);
         this.TotalCart = response;
     } );
 
     this.service.getProductCount(cartId).subscribe(response => {
-      console.log(response);
         this.ProductCount = response;
         this.BsSidebar.CartItemCounter(this.ProductCount);
     })
@@ -44,10 +41,10 @@ export class ShoppingCartComponent implements OnInit {
 
   updateQuantity(Id, Quantity){
 
-    console.log(Id);
+
     this.service.updateCartQuantity(Id, Quantity)
     .pipe().subscribe(response => {
-      console.log(response);
+
       
     },error => {
       alert('An unexpected error occured.');
@@ -85,7 +82,7 @@ export class ShoppingCartComponent implements OnInit {
 
   if (!UserId){
     this.route.navigate(['/Login'])
-    this.toastr.error('You Must Login First');
+    this.toastr.error('You must login first.');
   }else{
     this.route.navigate(['/Checkout'])
   }

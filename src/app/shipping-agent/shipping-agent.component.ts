@@ -33,7 +33,6 @@ export class ShippingAgentComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
 
-       console.log( this.ShippingAgent);
     },error => {
       alert('An unexpected error occured.');
       console.log(error);

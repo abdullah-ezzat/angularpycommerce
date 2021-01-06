@@ -146,8 +146,9 @@ import { FooterComponent } from './footer/footer.component';
     AppRoutingModule,  
     NgxImageZoomModule,
     ToastrModule.forRoot({
-      timeOut: 2000,
-      positionClass: 'toast-top-center'
+      timeOut: 3500,
+      positionClass: 'toast-top-center',
+      progressBar: true
     }),
     RouterModule.forRoot([
       

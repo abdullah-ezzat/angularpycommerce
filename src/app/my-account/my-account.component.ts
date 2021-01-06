@@ -22,7 +22,7 @@ export class MyAccountComponent implements OnInit {
 
     this.service.getUser(UserId).subscribe(response => {
       this.User = response;
-      console.log(this.User);
+
     })
     ,error => {
       alert('An unexpected error occured.');
@@ -34,15 +34,15 @@ export class MyAccountComponent implements OnInit {
   
 updateUser(post : UserData){
 
-  console.log(post);
+  ;
 
   this.service.updateUser(post)
   .pipe().subscribe(response => {
   this.User = response;
     if(response == false){
-      this.toastr.error('This Email or Username is Already Taken');
+      this.toastr.error('This email or username is already taken.');
     }else{
-      this.toastr.success('Your account has been updated');
+      this.toastr.success('Your account has been updated.');
     }
   },error => {
     alert('An unexpected error occured.');

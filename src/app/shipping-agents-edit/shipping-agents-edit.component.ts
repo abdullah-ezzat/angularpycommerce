@@ -24,7 +24,7 @@ export class ShippingAgentsEditComponent implements OnInit {
 
   updateShippingAgents(post: ShippingAgentDetails){
  
-  console.log(post);
+  ;
 
   this.service.updateShippingAgents(post)
   .pipe().subscribe(response => {

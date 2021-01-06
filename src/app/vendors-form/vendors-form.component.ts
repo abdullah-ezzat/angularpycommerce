@@ -20,8 +20,7 @@ export class VendorsFormComponent implements OnInit {
     this.service.getAllVendors()
     .subscribe(response => {
       this.Vendors = response;
-      
-       console.log( this.Vendors);
+
     },error => {
       alert('An unexpected error occured.');
       console.log(error);
@@ -30,7 +29,7 @@ export class VendorsFormComponent implements OnInit {
 
   saveVendor(post : VendorDetails){
 
-    console.log(post);
+    ;
     this.service.addNewVendor(post)
     .pipe().subscribe(response => {
         

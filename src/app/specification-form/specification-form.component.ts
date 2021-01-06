@@ -35,8 +35,7 @@ ngOnInit(): void {
   this.service.getAllSpecifications(this.CategoryId)
   .subscribe(response => {
     this.AllSpecifications = response;
-    
-     console.log( this.AllSpecifications);
+
   },error => {
     alert('An unexpected error occured.');
     console.log(error);
@@ -47,10 +46,10 @@ ngOnInit(): void {
 
 addSpecification(post : ProductSpecificationDetails){
 
-  console.log(post);
+  ;
   this.service.addProductSpecification(post)
   .pipe().subscribe(response => {
-      console.log(response);
+      ;
   },error => {
     alert('An unexpected error occured.');
     console.log(error);

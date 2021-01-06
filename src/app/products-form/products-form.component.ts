@@ -22,8 +22,7 @@ export class ProductsFormComponent implements OnInit {
     this.service.getSubCategory()
     .subscribe(response => {
       this.Categories = response;
-      
-       console.log( this.Categories);
+
     },error => {
       alert('An unexpected error occured.');
       console.log(error);
@@ -32,8 +31,7 @@ export class ProductsFormComponent implements OnInit {
     this.service.getAllBrands()
     .subscribe(response => {
       this.Brands = response;
-      
-       console.log( this.Brands);
+
     },error => {
       alert('An unexpected error occured.');
       console.log(error);
@@ -42,7 +40,7 @@ export class ProductsFormComponent implements OnInit {
 
   saveProduct(post : ProductsDetail){
 
-    console.log(post);
+    ;
     this.service.addNewProduct(post)
     .pipe().subscribe(response => {
         

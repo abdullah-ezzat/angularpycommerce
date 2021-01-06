@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GetDataApiService } from '../get-data-api.service';
 import { Router } from '@angular/router';
 import { InventoryDetails } from '../inventory-detail/inventory-detail.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-inventory-detail-form',
@@ -19,15 +20,18 @@ export class InventoryDetailFormComponent implements OnInit {
   product: any;
   Products: any;
 
-constructor(private route: Router, private service: GetDataApiService) { }
+  checkExist: any;
+
+constructor(private route: Router, private service: GetDataApiService, private toastr: ToastrService) { }
+
+
 
 ngOnInit(): void {
 
   this.service.GetAllProducts()
   .subscribe(response => {
     this.Products  = response;
-    
-     console.log( this.Products);
+
   },error => {
     alert('An unexpected error occured.');
     console.log(error);
@@ -36,8 +40,7 @@ ngOnInit(): void {
   this.service.getAllStores()
   .subscribe(response => {
     this.Stores = response;
-    
-     console.log( this.Stores);
+
   },error => {
     alert('An unexpected error occured.');
     console.log(error);
@@ -46,14 +49,25 @@ ngOnInit(): void {
 
 saveDetail(post : InventoryDetails){
 
-  console.log(post);
-  this.service.addNewInventoryDetail(post)
+  this.service.checkPriceListExist(post.StoreId, post.ProductId)
   .pipe().subscribe(response => {
-      console.log(response);
-  },error => {
-    alert('An unexpected error occured.');
-    console.log(error);
-  });
-  this.route.navigate(['/inventoryDetail'])
+    if (response == true) {
+      this.service.addNewInventoryDetail(post)
+      .pipe().subscribe(response => {
+      },error => {
+        alert('An unexpected error occured.');
+        console.log(error);
+      });
+      this.route.navigate(['/inventoryDetail'])
+    }
+    else{
+      this.toastr.error("This product doesn't exist in price list. Click here to add it.")
+      .onTap
+      .subscribe(() => 
+      this.route.navigate(["/priceForm"])
+      );
+    }
+   } );
 }
+
 }

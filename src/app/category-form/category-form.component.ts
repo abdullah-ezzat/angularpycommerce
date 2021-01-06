@@ -21,8 +21,6 @@ export class CategoryFormComponent implements OnInit {
     .subscribe(response => {
       this.Categories = response;
 
-       console.log( this.Categories);
-
     },error => {
       alert('An unexpected error occured.');
       console.log(error);
@@ -32,7 +30,7 @@ export class CategoryFormComponent implements OnInit {
 
   saveCategory(post : CategoryDetail){
   
-    console.log(post);
+    ;
 
     this.service.addNewCategory(post)
     .pipe().subscribe(response => {

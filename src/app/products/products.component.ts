@@ -33,7 +33,6 @@ export class ProductsComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
 
-       console.log( this.products);
     },error => {
       alert('An unexpected error occured.');
       console.log(error);

@@ -26,7 +26,7 @@ export class BsSidebarComponent implements OnInit {
    this.CategoryId =  0;
    let cartId = localStorage.getItem('cartId');
    this.service.getProductCount(cartId).subscribe(response => {
-    console.log(response);
+    ;
       this.CartItemsCount = response;
       
   })
@@ -34,7 +34,6 @@ export class BsSidebarComponent implements OnInit {
     .subscribe(response => {
       this.Categories = response;
       
-       console.log( this.Categories);
     },error => {
       alert('An unexpected error occured.');
       console.log(error);
@@ -43,8 +42,6 @@ export class BsSidebarComponent implements OnInit {
     this.service.getSubCategory()
     .subscribe(response => {
       this.subCategories = response;
-      
-       console.log( this.subCategories);
     },error => {
       alert('An unexpected error occured.');
       console.log(error);
@@ -57,13 +54,12 @@ export class BsSidebarComponent implements OnInit {
     var DifferrenceBetweenLoginAndCheck =  CheckTimeStamp - LastActiveTime;
     var seconds = DifferrenceBetweenLoginAndCheck / 1000;
 
-    console.log(seconds);
     if (userId > 0){
       if ( seconds < 1800){
         this.userName = localStorage.getItem("UserName")
       }
       else{
-        this.toastr.error('You Have Logged Out Due To Inactivity');
+        this.toastr.error('You have logged out due to inactivity.');
         localStorage.removeItem("UserId")
       }
     }   
@@ -73,7 +69,7 @@ export class BsSidebarComponent implements OnInit {
   }
 
   Logout(){
-    this.toastr.error('You Have Logged Out');
+    this.toastr.error('You have logged out.');
     localStorage.removeItem('UserId');
     localStorage.removeItem('UserName');
     location.assign('/')

@@ -33,7 +33,6 @@ export class VendorsComponent implements OnInit {
       this.dataSource.sort = this.sort;
       this.dataSource.paginator = this.paginator;
 
-       console.log( this.Vendors);
     },error => {
       alert('An unexpected error occured.');
       console.log(error);

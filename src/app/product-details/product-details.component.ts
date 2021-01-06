@@ -80,7 +80,7 @@ export class ProductDetailsComponent implements OnInit {
         (response) => {
           this.Specifications = response;
 
-          console.log(this.Specifications);
+
         },
         (error) => {
           alert('An unexpected error occured.');
@@ -94,7 +94,7 @@ export class ProductDetailsComponent implements OnInit {
       .subscribe(
         (response) => {
           this.Reviews = response;
-          console.log(response);
+
         },
         (error) => {
           alert('An unexpected error occured.');
@@ -122,8 +122,6 @@ export class ProductDetailsComponent implements OnInit {
       this.averageRating = this.StarPercentage.averageRating;
       this.allReviewsCount = this.StarPercentage.allReviewsCount;
 
-      console.log(this.StarPercentage);
-      console.log(this.OutOfFive);
     });
 
     $('.add-to-cart').on('click', function () {
@@ -179,14 +177,14 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   addNewCart(post: CartDetails) {
-    console.log(post);
+    ;
 
     let cartId = localStorage.getItem('cartId');
 
     if (!cartId) {
       this.service.addNewShoppingCartMaster().then(
         (response) => {
-          console.log(response);
+
           this.CartId = Number(response);
           localStorage.setItem('cartId', this.CartId);
           post.MasterId = this.CartId;
@@ -202,6 +200,7 @@ export class ProductDetailsComponent implements OnInit {
           console.log(error);
         }
       );
+      document.body.scrollTop = document.documentElement.scrollTop = 0;
     } else {
       this.CartId = cartId;
       post.MasterId = this.CartId;
@@ -218,7 +217,7 @@ export class ProductDetailsComponent implements OnInit {
       .pipe()
       .subscribe(
         (response) => {
-          console.log(response);
+
           this.route.navigate(['shopping-Cart']);
         },
         (error) => {
@@ -230,7 +229,7 @@ export class ProductDetailsComponent implements OnInit {
 
   changeRateProduct(currentRate, productReview) {
     if (currentRate > 0) {
-      console.log(currentRate);
+
       let userId = localStorage.getItem('UserId');
 
       if (userId) {
@@ -247,7 +246,7 @@ export class ProductDetailsComponent implements OnInit {
             (response) => {
               productReview = this.CartDetail.productReview;
               this.ImageUrl = this.CartDetail.ImageUrl7;
-              console.log(response);
+
             },
             (error) => {
               alert('An unexpected error occured.');
@@ -256,7 +255,7 @@ export class ProductDetailsComponent implements OnInit {
           );
       } else {
         this.route.navigate(['/Login']);
-        this.toastr.error('You Must Login First', '', {
+        this.toastr.error('You must login first.', '', {
           timeOut: 2000,
           positionClass: 'toast-top-center',
         });

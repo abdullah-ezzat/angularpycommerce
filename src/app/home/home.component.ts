@@ -71,7 +71,6 @@ export class HomeComponent implements OnInit {
           this.service.getProductNames(term).subscribe(
             data => {
               this.ProductsString = data as any[];
-              //console.log(data[0].BookName);
 
             //  this.getProducts(CatId,term)
           })
@@ -81,7 +80,7 @@ export class HomeComponent implements OnInit {
   }
   getProductAfterTerm(){
 
-    console.log(this.searchTerm.value);
+
     this.getProducts(null,this.searchTerm.value)
   }
   // mapProduct(ProductString,value: string): string[]{
@@ -100,12 +99,11 @@ export class HomeComponent implements OnInit {
   //   this.TheProduct.split("'")
 
   //  //this.ProductsString = [this.TheProduct];
-  //  console.log(this.ProductsString);
+
   //  const filterValue = value.toLowerCase();
   //  return ;
   // }
   getProductNames(ProductName){
-    console.log(ProductName);
 
   }
   getProducts(CategoryId,searchTerms){
@@ -113,7 +111,6 @@ export class HomeComponent implements OnInit {
     this.service.getAllSpecifications(this.CategoryId)
     .subscribe(response => {
     this.AllSpecifications = response;
-    console.log( this.AllSpecifications);
 
     },error => {
       alert('An unexpected error occured.');
@@ -124,7 +121,6 @@ export class HomeComponent implements OnInit {
     this.service.getAllProductSpecification()
     .subscribe(response => {
     this.AllProductSpecifications = response;
-    console.log( this.AllProductSpecifications);
 
     },error => {
       alert('An unexpected error occured.');
@@ -139,7 +135,6 @@ export class HomeComponent implements OnInit {
 
       this.MaxPageNumber = response;
 
-       console.log( this.MaxPageNumber);
     },error => {
       alert('An unexpected error occured.');
       console.log(error);
@@ -148,8 +143,6 @@ export class HomeComponent implements OnInit {
     .subscribe(response => {
       this.HomeDetails = response;
 
-       console.log( this.HomeDetails);
-
     },error => {
       alert('An unexpected error occured.');
       console.log(error);
@@ -157,8 +150,7 @@ export class HomeComponent implements OnInit {
 
   }
   onChangeSelection(specificationId,isSelected){
-    console.log(specificationId);
-    console.log(isSelected);
+
     let selectedIds;
     if(isSelected == true){
 
@@ -181,8 +173,6 @@ export class HomeComponent implements OnInit {
     .subscribe(response => {
       this.HomeDetails = response;
 
-       console.log( this.HomeDetails);
-
     },error => {
       alert('An unexpected error occured.');
       console.log(error);
@@ -194,7 +184,6 @@ export class HomeComponent implements OnInit {
 
       this.MaxPageNumber = response;
 
-       console.log( this.MaxPageNumber);
     },error => {
       alert('An unexpected error occured.');
       console.log(error);

@@ -29,7 +29,6 @@ ngOnInit(): void {
   .subscribe(response => {
     this.Vendors = response;
     
-     console.log( this.Vendors);
   },error => {
     alert('An unexpected error occured.');
     console.log(error);
@@ -38,8 +37,7 @@ ngOnInit(): void {
   this.service.getAllShippingAgents()
   .subscribe(response => {
     this.ShippingAgents = response;
-    
-     console.log( this.ShippingAgents);
+
   },error => {
     alert('An unexpected error occured.');
     console.log(error);
@@ -48,8 +46,7 @@ ngOnInit(): void {
   this.service.getAllCountries()
   .subscribe(response => {
     this.Countries = response;
-    
-     console.log( this.Countries);
+
   },error => {
     alert('An unexpected error occured.');
     console.log(error);
@@ -61,7 +58,7 @@ saveStore(post : StoresDetail){
 post.MapLocation =  post.MapLocation.replace("<iframe src=", "");
 post.MapLocation =  post.MapLocation.replace("></iframe>", "");
 
-  console.log(post);
+  ;
   this.service.addNewStore(post)
   .pipe().subscribe(response => {
       
