@@ -39,7 +39,7 @@
     "bootstrap-select": "^1.13.17",
     "bootstrap-show-password": "^1.2.1",
     "core-js": "2.6.11",
-    "express": "^4.17.1",
+    "express": "^4.16.3",
     "ng-mat-search-bar": "^9.0.1",
     "ngx-image-zoom": "^0.6.0",
     "ngx-img-zoom": "^4.1.2",
@@ -77,5 +77,8 @@
     "tslint": "~6.1.0",
     "typescript": "^3.8.3"
   },
-  "engine": { "node": "14.15.3", "npm": "6.14.9" }
+  "engine": {
+    "node": "14.15.3",
+    "npm": "6.14.9"
+  }
 }
