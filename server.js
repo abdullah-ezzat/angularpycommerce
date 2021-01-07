@@ -5,7 +5,7 @@ const app = express();
 app.use(express.static('./dist/AngularProjectNew'));
 
 app.get('/*', function (req, res) {
-  res.sendFile('index.html', { root: 'dist/AngularProjectNew' }
+  res.sendFile('index.html', { root: 'dist/AngularProjectNew/src' }
   );
 });
 
