@@ -1,19 +1,19 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import { ProductsDetail } from './products/Products.model';
-import { VendorDetails } from './vendors/vendors.model';
-import { CategoryDetail } from './category-form/category.model';
-import { StoresDetail } from './stores/Stores.model';
-import { BrandsDetail } from './brands/brands.model';
-import { InventoryDetails } from './inventory-detail/inventory-detail.model';
-import { CartDetails } from './shopping-cart/cart.model';
-import { PriceListDetails } from './price-list/price-list.model';
-import { LoginDetails } from './login/login.model';
-import { UserData } from './login/userData.Model';
-import { ProductSpecificationDetails } from './product-specification/product-specification.model';
-import { ShippingAgentDetails } from './shipping-agent/shipping-agent.model';
-import { ShippingUserModel } from './shipping-agent-user/shipping-agent-user.model';
+import { ProductsDetail } from './manage/view/products/Products.model';
+import { VendorDetails } from './manage/view/vendors/vendors.model';
+import { CategoryDetail } from './manage/add/category-form/category.model';
+import { StoresDetail } from './manage/view/stores/Stores.model';
+import { BrandsDetail } from './manage/view/brands/brands.model';
+import { InventoryDetails } from './manage/view/inventory-detail/inventory-detail.model';
+import { CartDetails } from './screens/shopping-cart/cart.model';
+import { PriceListDetails } from './manage/view/price-list/price-list.model';
+import { LoginDetails } from './auth/login/login.model';
+import { UserData } from './auth/login/userData.Model';
+import { ProductSpecificationDetails } from './views/product-specification/product-specification.model';
+import { ShippingAgentDetails } from './manage/view/shipping-agent/shipping-agent.model';
+import { ShippingUserModel } from './manage/view/shipping-agent-user/shipping-agent-user.model';
 import { map } from 'rxjs/operators';
 import { debounceTime } from 'rxjs/internal/operators/debounceTime';
 
@@ -26,6 +26,14 @@ export class GetDataApiService {
   // private url = 'http://localhost:50393/Products'--
 
   constructor(private http: HttpClient) {}
+
+  GetHomeProducts() {
+    return this.http.get('https://pycommerceapp.herokuapp.com/api/all/getHomeProducts/')
+  }
+
+  GetAllData(fnName) {
+    return this.http.get('https://pycommerceapp.herokuapp.com/api/all/' + fnName)
+  }
 
   getAllCategory() {
     return this.http.get(this.url + '/GetAllCategory');
@@ -328,16 +336,8 @@ export class GetDataApiService {
     return this.http.get(this.url + '/getAllProductSpecification');
   }
 
-  getMaxPageNumber(selectedValues = '', searchTerm = '', CategoryId) {
-    return this.http.get(
-      this.url +
-        '/getMaxPageNumber?selectedValues=' +
-        selectedValues +
-        '&searchTerm=' +
-        searchTerm +
-        '&CategoryId=' +
-        CategoryId
-    );
+  getMaxPageNumber() {
+    return this.http.get('https://pycommerceapp.herokuapp.com/api/all/getHomeProducts/max');
   }
 
   async addNewShoppingCartMaster() {

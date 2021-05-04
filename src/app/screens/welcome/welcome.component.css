@@ -1,0 +1,32 @@
+.align {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.bg {
+  margin-bottom: 5rem;
+}
+.image {
+  object-fit: contain;
+  height: 58%;
+}
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  column-gap: 2rem;
+}
+.item {
+  width: 17rem;
+  height: 15rem;
+  margin-bottom: 3rem;
+}
+.welcome {
+  width: 60%;
+}
+
+@media screen and (max-width: 770px) {
+  .welcome {
+    width: 100%;
+  }
+}

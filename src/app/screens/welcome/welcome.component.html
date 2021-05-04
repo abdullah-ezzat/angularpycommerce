@@ -1,0 +1,23 @@
+<div class="align bg">
+  <img
+    class="welcome"
+    data-aos-duration="1500"
+    data-aos="fade-down"
+    src="assets/images/Ecommerce2.jpeg"
+    alt=""
+  />
+</div>
+<div class="items">
+  <div *ngFor="let category of Categories">
+    <div class="card item" data-aos="zoom-in" data-aos-duration="2500">
+      <img
+        [src]="category.ImageUrl"
+        [alt]="category.NameL"
+        class="card-img-top image"
+      />
+      <div class="card-body">
+        <p class="card-title">{{ category.NameL }}</p>
+      </div>
+    </div>
+  </div>
+</div>

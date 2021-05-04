@@ -1,0 +1,32 @@
+a {
+  text-decoration: unset;
+  color: black;
+}
+.align {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+img.cover {
+  object-fit: cover;
+}
+.font {
+  font-weight: bold;
+  font-size: larger;
+}
+.image {
+  object-fit: contain;
+  height: 65%;
+}
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  column-gap: 2rem;
+}
+.item {
+  width: 17rem;
+  height: 15rem;
+  margin-bottom: 3rem;
+  cursor: pointer;
+}

@@ -1,0 +1,182 @@
+<div class="align">
+  <div class="row align-show">
+    <div class="col-md-3" *ngIf="CategoryId">
+      <div *ngIf="CategoryId" class="align width">
+        <mat-card class="show-card width">
+          <div *ngFor="let specification of AllSpecifications">
+            <strong>
+              <button
+                style="margin-left: -12px"
+                class="btn btn-link order-md-last"
+                data-toggle="collapse"
+                [attr.data-target]="'#TheSpecification' + specification.Id"
+              >
+                {{ specification.NameL }}
+              </button>
+            </strong>
+            <div *ngFor="let productSpecification of AllProductSpecifications">
+              <div
+                *ngIf="
+                  productSpecification.SpecificationId == specification.Id &&
+                  productSpecification.CategoryId == specification.CategoryId
+                "
+                class="collapse show"
+                id="{{
+                  'TheSpecification' + productSpecification.SpecificationId
+                }}"
+              >
+                <mat-checkbox
+                  color="primary"
+                  name="{{
+                    'TheSpecification' + productSpecification.SpecificationId
+                  }}"
+                  [checked]="productSpecification.IsSelected"
+                  [(ngModel)]="productSpecification.IsSelected"
+                  id="{{
+                    'TheSpecification' + productSpecification.SpecificationValue
+                  }}"
+                  (change)="
+                    onChangeSelection(
+                      productSpecification.SpecificationValue,
+                      productSpecification.IsSelected
+                    )
+                  "
+                >
+                </mat-checkbox>
+                {{ productSpecification.SpecificationValue }} ({{
+                  productSpecification.SpecificationCount
+                }}) &nbsp;
+              </div>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+    <div class="col-md-9">
+      <form class="search-form">
+        <mat-form-field class="form-field" appearance="outline">
+          <mat-label>Search</mat-label>
+          <input
+            type="text"
+            placeholder="Search..."
+            aria-label="Search"
+            matInput
+            [formControl]="searchTerm"
+            [matAutocomplete]="auto"
+            [(ngModel)]="value"
+          />
+
+          <button
+            mat-button
+            style="padding: 5px; min-width: 0%"
+            *ngIf="value"
+            matSuffix
+            aria-label="Clear"
+            (click)="value = ''"
+          >
+            <mat-icon>close</mat-icon>
+          </button>
+
+          <button
+            mat-button
+            matSuffix
+            (click)="getProductAfterTerm()"
+            style="padding: 5px; min-width: 0%"
+          >
+            <mat-icon>search</mat-icon>
+          </button>
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option
+              *ngFor="let product of ProductsString"
+              [value]="product.NameL"
+            >
+              {{ product.NameL }} in
+              <strong style="color: #008bff">{{ product.CategoryName }}</strong>
+            </mat-option>
+          </mat-autocomplete>
+        </mat-form-field>
+      </form>
+
+      <div *ngFor="let Homedetail of HomeDetails">
+        <div class="d-flex">
+          <div class="card contain" *ngIf="Homedetail.PageNumber === page">
+            <div class="row g-0">
+              <div class="col-3 align">
+                <img
+                  [routerLink]="['/product-Details', Homedetail.Id]"
+                  [src]="Homedetail.ImageUrl"
+                  class="product-image"
+                  alt="Responsive Image"
+                />
+              </div>
+              <div class="col-6 align">
+                <div class="card-body">
+                  <h5
+                    [routerLink]="['/product-Details', Homedetail.Id]"
+                    class="card-title"
+                  >
+                    {{ Homedetail.ProductName }}
+                  </h5>
+                  <div class="star-ratings-sprite">
+                    <span
+                      [style.width]="Homedetail.finalProductRating + '%'"
+                      class="star-ratings-sprite-rating"
+                    ></span>
+                  </div>
+                  <div id="summary">
+                    <p class="collapse" id="{{ 'productId' + Homedetail.Id }}">
+                      {{ Homedetail.Description }}
+                    </p>
+                    <a
+                      class="collapsed"
+                      data-toggle="collapse"
+                      href="#{{ 'productId' + Homedetail.Id }}"
+                      aria-expanded="false"
+                      aria-controls="collapseSummary"
+                    ></a>
+                  </div>
+
+                  <p class="card-text">
+                    <strong>Quantity : </strong>{{ Homedetail.QuantityBalance }}
+                  </p>
+                </div>
+              </div>
+              <div class="col-3 align">
+                <div class="details">
+                  <p class="card-text">
+                    <strong style="color: #006fcc"
+                      >{{ Homedetail.Price | number }}
+                    </strong>
+                    <strong class="currency">{{ Homedetail.Currency }}</strong>
+                  </p>
+                  <p class="card-text" style="margin-left: 3px">
+                    <small class="text-muted font"
+                      >Sold By <br />{{ Homedetail.StoreName }}</small
+                    >
+                  </p>
+                  <button
+                    style="margin-top: -3px"
+                    [routerLink]="['/product-Details', Homedetail.Id]"
+                    class="btn-infos"
+                  >
+                    <small class="font">VIEW DETAILS</small>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <ngb-pagination
+    (click)="scrollTop()"
+    class="d-flex justify-content-center"
+    [(collectionSize)]="MaxPageNumber"
+    [(page)]="page"
+    [maxSize]="5"
+    [boundaryLinks]="true"
+  >
+  </ngb-pagination>
+</div>

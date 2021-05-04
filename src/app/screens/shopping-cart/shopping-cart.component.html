@@ -1,0 +1,114 @@
+<div class="container align">
+  <h3>
+    Shopping Cart ({{ ProductCount }})
+    <button (click)="DeleteAllItems()" class="btn btn-link">
+      Delete All Items
+    </button>
+  </h3>
+
+  <div *ngFor="let shoppingCartDetail of ShoppingCartDetails">
+    <div class="d-flex">
+      <div class="card contain">
+        <div class="row g-0">
+          <div class="col-3 align border">
+            <img
+              [routerLink]="['/product-Details', shoppingCartDetail.Id]"
+              [src]="shoppingCartDetail.ImageUrl"
+              class="product-image"
+              alt="Responsive Image"
+            />
+          </div>
+          <div class="col-6 align border">
+            <div class="card-body">
+              <h5
+                style="cursor: pointer"
+                [routerLink]="[
+                  '/product-Details',
+                  shoppingCartDetail.InventoryBalanceId
+                ]"
+                class="card-title"
+              >
+                {{ shoppingCartDetail.ProductName }}
+              </h5>
+              <p class="blue">
+                <strong>
+                  {{ shoppingCartDetail.TotalPrice | number }}
+                  {{ shoppingCartDetail.Currency }}</strong
+                >
+              </p>
+              <div id="summary">
+                <p
+                  class="collapse"
+                  id="{{ 'productId' + shoppingCartDetail.ProductId }}"
+                >
+                  {{ shoppingCartDetail.Description }}
+                </p>
+                <a
+                  class="collapsed"
+                  data-toggle="collapse"
+                  href="#{{ 'productId' + shoppingCartDetail.ProductId }}"
+                  aria-expanded="false"
+                  aria-controls="collapseSummary"
+                ></a>
+              </div>
+
+              <p class="card-text">
+                <strong>Quantity : {{ shoppingCartDetail.Quantity }}</strong>
+              </p>
+            </div>
+          </div>
+          <div class="col-3 align border">
+            <p style="margin-bottom: 0.5rem" class="card-text">
+              <strong> Quantity</strong>
+            </p>
+            <select
+              class="form-control"
+              (change)="
+                updateQuantity(
+                  shoppingCartDetail.Id,
+                  shoppingCartDetail.Quantity
+                )
+              "
+              #Quantity="ngModel"
+              [(ngModel)]="shoppingCartDetail.Quantity"
+              style="width: 70px; text-align: center"
+              name="Quantity"
+              id="Quantity"
+            >
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="4">4</option>
+              <option value="5">5</option>
+              <option value="6">6</option>
+              <option value="7">7</option>
+              <option value="8">8</option>
+              <option value="9">9</option>
+              <option value="10">10</option>
+            </select>
+            <button
+              id="delete-btn-link"
+              (click)="DeleteItem(shoppingCartDetail.Id)"
+              class="btn btn-link"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card border-info contain mb-3">
+    <img class="card-img-top" />
+    <div class="card-body text-info">
+      <h5 style="text-align: left" class="card-title">Total</h5>
+      <p style="text-align: center" class="card-text">
+        <strong>{{ TotalCart | number }}</strong>
+      </p>
+    </div>
+    <button (click)="checkOut()" type="button" class="btn btn-success">
+      Procced To Checkout
+    </button>
+  </div>
+</div>
