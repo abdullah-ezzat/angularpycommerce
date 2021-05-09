@@ -45,7 +45,7 @@
   margin-bottom: 1.5rem;
 }
 .details {
-  margin-left: 4%;
+  margin-left: -10%;
 }
 .form-field {
   width: 100%;
@@ -63,7 +63,7 @@ img:hover {
 
 .product-image {
   margin: 1rem;
-  width: 90%;
+  width: 100%;
   object-fit: contain;
   cursor: pointer;
   -webkit-transition: all 0.7s ease;
@@ -74,11 +74,18 @@ img:hover {
   top: 20;
 }
 
-.pagination {
-  justify-content: center;
-  flex-flow: wrap;
+.pagination a {
+  margin: 0 1px;
 }
 
+.page-item {
+  color: #007bff;
+  cursor: pointer;
+}
+.row {
+  margin-left: 0;
+  margin-right: 0;
+}
 .searchTerm {
   display: none;
   position: absolute;
@@ -146,12 +153,12 @@ img:hover {
   content: "- Read Less";
 }
 
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .btn-font {
     font-size: 14px;
   }
   .contain {
-    width: 65rem;
+    width: 100%;
   }
   .product-image {
     width: 60%;
@@ -160,7 +167,11 @@ img:hover {
     width: 100%;
   }
 }
-
+@media screen and (min-width: 1300px) {
+  .contain {
+    width: 60rem;
+  }
+}
 @media screen and (max-width: 1024px) {
   .show-card {
     display: flex;
@@ -174,20 +185,17 @@ img:hover {
     width: 100%;
   }
 }
-
 @media screen and (min-width: 768px) {
   .align-show {
     display: flex;
     justify-content: center;
   }
 }
-
 @media screen and (max-width: 550px) {
   .details {
     font-size: 12px;
   }
 }
-
 @media screen and (max-width: 440px) {
   .btn-infos {
     font-size: 9px;

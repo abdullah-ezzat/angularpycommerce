@@ -28,11 +28,15 @@ export class GetDataApiService {
   constructor(private http: HttpClient) {}
 
   GetHomeProducts() {
-    return this.http.get('https://pycommerceapp.herokuapp.com/api/all/getHomeProducts/')
+    return this.http.get(
+      'https://pycommerceapp.herokuapp.com/api/all/getHomeProducts/'
+    );
   }
 
   GetAllData(fnName) {
-    return this.http.get('https://pycommerceapp.herokuapp.com/api/all/' + fnName)
+    return this.http.get(
+      'https://pycommerceapp.herokuapp.com/api/all/' + fnName
+    );
   }
 
   getAllCategory() {
@@ -66,7 +70,6 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    ;
     return this.http.post(this.url + '/addNewCategory', fromData.toString(), {
       headers,
     });
@@ -99,7 +102,6 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    ;
     return this.http.post(this.url + '/addNewProduct', fromData.toString(), {
       headers,
     });
@@ -120,7 +122,6 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    ;
     return this.http.post(this.url + '/updateProduct', fromData.toString(), {
       headers,
     });
@@ -133,7 +134,6 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    ;
     return this.http.post(
       this.url + '/addProductSpecification',
       fromData.toString(),
@@ -142,14 +142,12 @@ export class GetDataApiService {
   }
 
   getAllproductSpecifications(ProductId) {
-
     return this.http.get(
       this.url + '/getAllproductSpecifications?ProductId=' + ProductId
     );
   }
 
   getAllproductSpecificationsFromBalance(Id) {
-
     return this.http.get(
       this.url + '/getAllproductSpecificationsFromBalance?Id=' + Id
     );
@@ -166,7 +164,6 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    ;
     return this.http.post(
       this.url + '/updateProductSpecification',
       fromData.toString(),
@@ -181,7 +178,6 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    ;
     return this.http.post(this.url + '/addNewVendor', fromData.toString(), {
       headers,
     });
@@ -220,7 +216,6 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    ;
     return this.http.post(this.url + '/addNewStore', fromData.toString(), {
       headers,
     });
@@ -253,7 +248,6 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    ;
     return this.http.post(this.url + '/addNewBrand', fromData.toString(), {
       headers,
     });
@@ -286,7 +280,6 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    ;
     return this.http.post(
       this.url + '/addNewInventoryDetail',
       fromData.toString(),
@@ -295,7 +288,13 @@ export class GetDataApiService {
   }
 
   checkPriceListExist(storeId, productId) {
-    return this.http.get(this.url + '/checkPriceListExist?storeId=' + storeId + "&productId=" + productId);
+    return this.http.get(
+      this.url +
+        '/checkPriceListExist?storeId=' +
+        storeId +
+        '&productId=' +
+        productId
+    );
   }
 
   getAllInventoryDetails() {
@@ -337,7 +336,9 @@ export class GetDataApiService {
   }
 
   getMaxPageNumber() {
-    return this.http.get('https://pycommerceapp.herokuapp.com/api/all/getHomeProducts/max');
+    return this.http.get(
+      'https://pycommerceapp.herokuapp.com/api/all/getHomeProducts/max'
+    );
   }
 
   async addNewShoppingCartMaster() {
@@ -353,8 +354,6 @@ export class GetDataApiService {
       'content-type',
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
-
-    ;
 
     return this.http.post(
       this.url + '/addNewShoppingCartItem',
@@ -399,7 +398,6 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    ;
     return this.http.post(this.url + '/addNewPriceList', fromData.toString(), {
       headers,
     });
@@ -518,7 +516,6 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    ;
     return this.http.post(
       this.url + '/addNewShippingAgent',
       fromData.toString(),
@@ -537,7 +534,6 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    ;
     return this.http.post(
       this.url + '/updateShippingAgents',
       fromData.toString(),
@@ -613,7 +609,6 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    ;
     return this.http.post(
       this.url + '/addNewShippingUser',
       fromData.toString(),
@@ -632,7 +627,6 @@ export class GetDataApiService {
       'application/x-www-form-urlencoded; charset=UTF-8'
     );
 
-    ;
     return this.http.post(
       this.url + '/updateShippingUser',
       fromData.toString(),

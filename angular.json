@@ -27,8 +27,7 @@
               "src/styles.css"
             ],
             "scripts": [
-              "src/assets/jquery.min.js",
-              "src/assets/jquery-ui.min.js"
+ 
             ]
           },
           "configurations": {

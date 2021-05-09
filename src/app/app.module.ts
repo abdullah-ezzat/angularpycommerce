@@ -6,9 +6,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -72,6 +72,7 @@ import { ImageDialogComponent } from './views/image-dialog/image-dialog.componen
 import { ShippingAgentsEditComponent } from './manage/edit/shipping-agents-edit/shipping-agents-edit.component';
 import { MyAccountComponent } from './manage-user/my-account/my-account.component';
 import { FooterComponent } from './views/footer/footer.component';
+import { GetAllService } from './api/all/get-all.service';
 
 @NgModule({
   declarations: [
@@ -239,7 +240,12 @@ import { FooterComponent } from './views/footer/footer.component';
     ]),
     NgbModule,
   ],
-  providers: [GetDataApiService, HomeComponent, SpecificationFormComponent],
+  providers: [
+    GetDataApiService,
+    GetAllService,
+    HomeComponent,
+    SpecificationFormComponent,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

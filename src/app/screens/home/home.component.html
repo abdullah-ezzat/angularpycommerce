@@ -72,7 +72,7 @@
             *ngIf="value"
             matSuffix
             aria-label="Clear"
-            (click)="value = ''"
+            (click)="clearSearch()"
           >
             <mat-icon>close</mat-icon>
           </button>
@@ -99,7 +99,7 @@
 
       <div *ngFor="let Homedetail of HomeDetails">
         <div class="d-flex">
-          <div class="card contain" *ngIf="Homedetail.PageNumber === page">
+          <div class="card contain">
             <div class="row g-0">
               <div class="col-3 align">
                 <img
@@ -169,14 +169,27 @@
       </div>
     </div>
   </div>
-
-  <ngb-pagination
-    (click)="scrollTop()"
-    class="d-flex justify-content-center"
-    [(collectionSize)]="MaxPageNumber"
-    [(page)]="page"
-    [maxSize]="5"
-    [boundaryLinks]="true"
-  >
-  </ngb-pagination>
+  <nav>
+    <ul style="flex-flow: wrap" class="pagination justify-content-center">
+      <li
+        *ngIf="has_prev == true"
+        class="page-item"
+        (click)="getHomeProducts('previous', null)"
+      >
+        <a class="page-link">Previous</a>
+      </li>
+      <li
+        *ngFor="let page of MaxPageNumber"
+        class="page-item"
+        id="page {{ page }}"
+      >
+        <a class="page-link" (click)="getHomeProducts(page, null)">{{
+          page
+        }}</a>
+      </li>
+      <li class="page-item" (click)="getHomeProducts('next', null)">
+        <a class="page-link">Next</a>
+      </li>
+    </ul>
+  </nav>
 </div>
