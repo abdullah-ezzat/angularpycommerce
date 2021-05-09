@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class GetAllService {
-  private all = 'http://127.0.0.1:8000/api/all/';
+  private all = 'https://pycommerceapp.herokuapp.com/api/all/';
 
   constructor(private http: HttpClient) {}
 
