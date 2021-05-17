@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
   value = '';
   search = '';
   has_prev = false;
-  has_next = false;
+  has_next = true;
 
   constructor(
     public service: GetDataApiService,
@@ -46,9 +46,8 @@ export class HomeComponent implements OnInit {
 
     this.getProducts(1, CartId, null);
 
-    this.searchTerm.valueChanges.subscribe((term) => {
-      this.service.getProductNames(term).subscribe((data) => {
-        console.log(data);
+    this.searchTerm.valueChanges.subscribe((search) => {
+      this.services.getProductNames(search).subscribe((data) => {
         this.ProductsString = data as any[];
       });
     });
@@ -92,6 +91,7 @@ export class HomeComponent implements OnInit {
     this.services.getMaxPage(null, searchTerms, (CategoryId = 0)).subscribe(
       (response) => {
         this.MaxPageNumber = response;
+        console.log(this.MaxPageNumber);
       },
       (error) => {
         alert('An unexpected error occured.');
@@ -110,7 +110,7 @@ export class HomeComponent implements OnInit {
         }
       );
   }
-  getHomeProducts(page, searchTerms) {
+  getHomeProducts(page, searchTerms, selectedIds, CategoryId = 0) {
     if (page == 'previous') {
       page = this.page - 1;
       this.page = page;
@@ -124,6 +124,20 @@ export class HomeComponent implements OnInit {
     } else {
       this.has_prev = false;
     }
+    var MaxPageNumber: [] = this.MaxPageNumber;
+    var last_page = MaxPageNumber[MaxPageNumber.length - 1];
+    if (page == 'last') {
+      page = last_page;
+      this.page = page;
+      if (page > 1) {
+        this.has_prev = true;
+      }
+    }
+    if (page == last_page) {
+      this.has_next = false;
+    } else {
+      this.has_next = true;
+    }
     for (var p of this.MaxPageNumber) {
       let pages = document.getElementById('page ' + p);
       pages.className = 'page-item';
@@ -131,9 +145,9 @@ export class HomeComponent implements OnInit {
 
     let pages = document.getElementById('page ' + page);
     pages.className = 'page-item active';
-
+    this.page = page;
     this.services
-      .getHomeProducts(page, null, searchTerms, (this.CategoryId = 0))
+      .getHomeProducts(page, selectedIds, searchTerms, CategoryId)
       .subscribe(
         (response) => {
           this.HomeDetails = response;
@@ -180,18 +194,17 @@ export class HomeComponent implements OnInit {
       }
       localStorage.setItem('selectedIds', selectedIds);
     }
-
-    this.services
-      .getHomeProducts(this.page, selectedIds, 'null', this.CategoryId)
-      .subscribe(
-        (response) => {
-          this.HomeDetails = response;
-        },
-        (error) => {
-          alert('An unexpected error occured.');
-          console.log(error);
-        }
-      );
+    this.services.getMaxPage(selectedIds, null, this.CategoryId).subscribe(
+      (response) => {
+        this.MaxPageNumber = response;
+        console.log(this.MaxPageNumber);
+      },
+      (error) => {
+        alert('An unexpected error occured.');
+        console.log(error);
+      }
+    );
+    this.getHomeProducts(this.page, null, selectedIds, this.CategoryId);
   }
   scrollTop() {
     document.body.scrollTop = document.documentElement.scrollTop = 0;

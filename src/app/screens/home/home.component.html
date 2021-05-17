@@ -88,9 +88,9 @@
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option
               *ngFor="let product of ProductsString"
-              [value]="product.NameL"
+              [value]="product.ProductName"
             >
-              {{ product.NameL }} in
+              {{ product.ProductName }} in
               <strong style="color: #008bff">{{ product.CategoryName }}</strong>
             </mat-option>
           </mat-autocomplete>
@@ -167,29 +167,47 @@
           </div>
         </div>
       </div>
+      <nav>
+        <ul style="flex-flow: wrap" class="pagination justify-content-center">
+          <li
+            *ngIf="has_prev == true"
+            class="page-item"
+            (click)="getHomeProducts(1, null, null)"
+          >
+            <a class="page-link">« First</a>
+          </li>
+          <li
+            *ngIf="has_prev == true"
+            class="page-item"
+            (click)="getHomeProducts('previous', null, null)"
+          >
+            <a class="page-link">Previous</a>
+          </li>
+          <li
+            *ngFor="let page of MaxPageNumber"
+            class="page-item"
+            id="page {{ page }}"
+          >
+            <a class="page-link" (click)="getHomeProducts(page, null, null)">{{
+              page
+            }}</a>
+          </li>
+          <li
+            *ngIf="has_next == true"
+            class="page-item"
+            (click)="getHomeProducts('next', null, null)"
+          >
+            <a class="page-link">Next</a>
+          </li>
+          <li
+            *ngIf="has_next == true"
+            class="page-item"
+            (click)="getHomeProducts('last', null, null)"
+          >
+            <a class="page-link">Last »</a>
+          </li>
+        </ul>
+      </nav>
     </div>
   </div>
-  <nav>
-    <ul style="flex-flow: wrap" class="pagination justify-content-center">
-      <li
-        *ngIf="has_prev == true"
-        class="page-item"
-        (click)="getHomeProducts('previous', null)"
-      >
-        <a class="page-link">Previous</a>
-      </li>
-      <li
-        *ngFor="let page of MaxPageNumber"
-        class="page-item"
-        id="page {{ page }}"
-      >
-        <a class="page-link" (click)="getHomeProducts(page, null)">{{
-          page
-        }}</a>
-      </li>
-      <li class="page-item" (click)="getHomeProducts('next', null)">
-        <a class="page-link">Next</a>
-      </li>
-    </ul>
-  </nav>
 </div>
