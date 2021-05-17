@@ -45,7 +45,7 @@ export class ShippingProcessComponent implements OnInit {
         Latitude,
         Longitude
       )
-      .subscribe((response) => {
+      .subscribe(() => {
         location.reload();
       });
   }
@@ -53,7 +53,6 @@ export class ShippingProcessComponent implements OnInit {
   DeliverOrder(OrderId) {
     let UserId = localStorage.getItem('UserId');
     this.service.DeliverOrder(OrderId, UserId).subscribe((response) => {
-
       location.reload();
     });
   }
