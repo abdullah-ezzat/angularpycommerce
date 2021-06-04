@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { NgxImageZoomModule } from 'ngx-image-zoom';
+import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -23,6 +24,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatListModule } from '@angular/material/list';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -136,7 +139,9 @@ import { GetAllService } from './api/all/get-all.service';
     ReactiveFormsModule,
     MatButtonModule,
     MatSelectModule,
+    MatDividerModule,
     MatPaginatorModule,
+    MatListModule,
     MatFormFieldModule,
     MatInputModule,
     MatStepperModule,
@@ -146,105 +151,131 @@ import { GetAllService } from './api/all/get-all.service';
     AppRoutingModule,
     NgxImageZoomModule,
     ToastrModule.forRoot({
-      timeOut: 3500,
       positionClass: 'toast-top-center',
+      timeOut: 2000,
       progressBar: true,
     }),
     RouterModule.forRoot([
       { path: '', component: WelcomeComponent },
       { path: 'Home', component: HomeComponent },
-      { path: 'ManageStore', component: ManageStoreComponent },
+      { path: 'manage', component: ManageStoreComponent },
 
-      { path: 'myOrders', component: MyOrdersComponent },
-      { path: 'myAccount', component: MyAccountComponent },
+      { path: 'orders', component: MyOrdersComponent },
+      { path: 'account', component: MyAccountComponent },
 
-      { path: 'product-Details', component: ProductDetailsComponent },
-      { path: 'product-Details/:Id', component: ProductDetailsComponent },
+      { path: 'product', component: ProductDetailsComponent },
+      { path: 'product/:Id', component: ProductDetailsComponent },
 
-      { path: 'category-form', component: CategoryFormComponent },
-      { path: 'category-table', component: CategoryTableComponent },
+      { path: 'login', component: LoginComponent },
+      { path: 'register', component: RegisterComponent },
 
-      { path: 'products', component: ProductsComponent },
-      { path: 'products-form', component: ProductsFormComponent },
+      { path: 'cart', component: ShoppingCartComponent },
+      { path: 'checkout', component: CheckoutComponent },
+
+      { path: 'manage/shipping/process', component: ShippingProcessComponent },
+
+      { path: 'manage/add/category', component: CategoryFormComponent },
+      { path: 'manage/categories', component: CategoryTableComponent },
+
+      { path: 'manage/add/products', component: ProductsFormComponent },
+      { path: 'manage/products', component: ProductsComponent },
 
       {
-        path: 'product-Specification',
+        path: 'manage/add/specification',
+        component: SpecificationFormComponent,
+      },
+      {
+        path: 'manage/specifications',
         component: ProductSpecificationComponent,
       },
-      { path: 'specification-Form', component: SpecificationFormComponent },
 
-      { path: 'vendors', component: VendorsComponent },
-      { path: 'vendors-Form', component: VendorsFormComponent },
+      { path: 'manage/add/vendor', component: VendorsFormComponent },
+      { path: 'manage/vendors', component: VendorsComponent },
 
-      { path: 'Stores', component: StoresComponent },
-      { path: 'stores-Form', component: StoresFormComponent },
+      { path: 'manage/add/store', component: StoresFormComponent },
+      { path: 'manage/stores', component: StoresComponent },
 
-      { path: 'Brands', component: BrandsComponent },
-      { path: 'brands-Form', component: BrandsFormComponent },
+      { path: 'manage/add/brand', component: BrandsFormComponent },
+      { path: 'manage/brands', component: BrandsComponent },
 
-      { path: 'PriceList', component: PriceListComponent },
-      { path: 'priceForm', component: PriceFormComponent },
+      { path: 'manage/add/price', component: PriceFormComponent },
+      { path: 'manage/prices', component: PriceListComponent },
 
-      { path: 'inventoryDetail', component: InventoryDetailComponent },
-      { path: 'inventoryDetail-Form', component: InventoryDetailFormComponent },
+      { path: 'manage/add/inventory', component: InventoryDetailFormComponent },
+      { path: 'manage/inventories', component: InventoryDetailComponent },
 
-      { path: 'shopping-Cart', component: ShoppingCartComponent },
-      { path: 'Checkout', component: CheckoutComponent },
-
-      { path: 'shippingAgent', component: ShippingAgentComponent },
-      { path: 'shippingAgent-Form', component: ShippingAgentFormComponent },
-
-      { path: 'ShippingProcess', component: ShippingProcessComponent },
-
-      { path: 'shippingAgentUser', component: ShippingAgentUserComponent },
-      { path: 'shippingUserForm', component: ShippingUserFormComponent },
-
-      { path: 'shippingUserEdit', component: ShippingUserEditComponent },
-      { path: 'shippingUserEdit/:Id', component: ShippingUserEditComponent },
-
-      { path: 'Login', component: LoginComponent },
-      { path: 'Register', component: RegisterComponent },
-
-      { path: 'edit', component: EditComponent },
-      { path: 'edit/:Id', component: EditComponent },
-
-      { path: 'editProduct', component: EditProductComponent },
-      { path: 'editProduct/:Id', component: EditProductComponent },
-
-      { path: 'edit-Vendor', component: EditVendorComponent },
-      { path: 'edit-Vendor/:Id', component: EditVendorComponent },
-
-      { path: 'edit-Store', component: EditStoreComponent },
-      { path: 'edit-Store/:Id', component: EditStoreComponent },
-
-      { path: 'edit-Brand', component: EditBrandComponent },
-      { path: 'edit-Brand/:Id', component: EditBrandComponent },
-
-      { path: 'edit-inventoryDetail', component: EditInventoryDetailComponent },
       {
-        path: 'edit-inventoryDetail/:Id',
+        path: 'manage/add/shippingagent',
+        component: ShippingAgentFormComponent,
+      },
+      { path: 'manage/shippingagents', component: ShippingAgentComponent },
+
+      { path: 'manage/add/shippinguser', component: ShippingUserFormComponent },
+      { path: 'manage/shippingusers', component: ShippingAgentUserComponent },
+
+      {
+        path: 'manage/edit/shippinguser',
+        component: ShippingUserEditComponent,
+      },
+      {
+        path: 'manage/edit/shippinguser/:Id',
+        component: ShippingUserEditComponent,
+      },
+
+      { path: 'mange/edit/category', component: EditComponent },
+      { path: 'manage/edit/category/:Id', component: EditComponent },
+
+      { path: 'manage/edit/product', component: EditProductComponent },
+      { path: 'manage/edit/product/:Id', component: EditProductComponent },
+
+      { path: 'manage/edit/vendor', component: EditVendorComponent },
+      { path: 'manage/edit/vendor/:Id', component: EditVendorComponent },
+
+      { path: 'manage/edit/store', component: EditStoreComponent },
+      { path: 'manage/edit/store/:Id', component: EditStoreComponent },
+
+      { path: 'manage/edit/brand', component: EditBrandComponent },
+      { path: 'manage/edit/brand/:Id', component: EditBrandComponent },
+
+      {
+        path: 'manage/edit/inventory',
+        component: EditInventoryDetailComponent,
+      },
+      {
+        path: 'manage/edit/inventory/:Id',
         component: EditInventoryDetailComponent,
       },
 
-      { path: 'editSpecification', component: EditSpecificationComponent },
-      { path: 'editSpecification/:Id', component: EditSpecificationComponent },
-
-      { path: 'edit-Price', component: EditPriceComponent },
-      { path: 'edit-Price/:Id', component: EditPriceComponent },
-
-      { path: 'edit-Shipping-Agent', component: ShippingAgentsEditComponent },
       {
-        path: 'edit-Shipping-Agent/:Id',
+        path: 'manage/edit/specification',
+        component: EditSpecificationComponent,
+      },
+      {
+        path: 'manage/edit/specification/:Id',
+        component: EditSpecificationComponent,
+      },
+
+      { path: 'manage/edit/price', component: EditPriceComponent },
+      { path: 'manage/edit/price/:Id', component: EditPriceComponent },
+
+      {
+        path: 'manage/edit/shippingagent',
+        component: ShippingAgentsEditComponent,
+      },
+      {
+        path: 'manage/edit/shippingagent/:Id',
         component: ShippingAgentsEditComponent,
       },
     ]),
     NgbModule,
+    MaterialFileInputModule,
   ],
   providers: [
     GetDataApiService,
     GetAllService,
     HomeComponent,
     SpecificationFormComponent,
+    ShoppingCartComponent,
   ],
   bootstrap: [AppComponent],
 })

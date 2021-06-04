@@ -42,6 +42,7 @@
     "ng-mat-search-bar": "^9.0.1",
     "ngx-image-zoom": "^0.6.0",
     "ngx-img-zoom": "^4.1.2",
+    "ngx-material-file-input": "^2.1.1",
     "ngx-slider": "0.0.5",
     "ngx-toastr": "^12.1.0",
     "path": "^0.12.7",
