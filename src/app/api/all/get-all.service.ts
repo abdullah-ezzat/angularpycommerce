@@ -49,4 +49,32 @@ export class GetAllService {
   getAllData(fn) {
     return this.http.get(this.all + fn);
   }
+
+  getAllCategories() {
+    return this.http.get(this.all + 'mainCategories');
+  }
+
+  getAllSpecifications(CategoryId) {
+    return this.http.get(this.all + 'spec/' + CategoryId);
+  }
+
+  getProSpecInv(ProductId) {
+    return this.http.get(this.all + 'proSpecInv/' + ProductId);
+  }
+
+  getAllReviews(ProductId) {
+    return this.http.get(this.all + 'reviews/' + ProductId);
+  }
+
+  getAllCart(CartId) {
+    return this.http.get(this.all + 'cart/' + CartId);
+  }
+
+  getSubCategories() {
+    return this.http.get(this.all + 'subCategories');
+  }
+
+  getOrdersFilterd(UserId, Status) {
+    return this.http.get(this.all + 'ordersFiltered/' + UserId + '/' + Status);
+  }
 }
