@@ -15,7 +15,7 @@ export class BrandsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  displayedColumns: string[] = ['Id', 'NameA', 'NameL', 'edit'];
+  displayedColumns: string[] = ['id', 'NameA', 'NameL', 'edit'];
   dataSource;
   Brands: any;
 
@@ -42,7 +42,6 @@ export class BrandsComponent implements OnInit {
   }
 
   BrandsForm() {
-    this.Brands = new BrandsDetail();
-    this.router.navigate(['/brands-Form', this.Brands]);
+    this.router.navigate(['/manage/add/brand']);
   }
 }

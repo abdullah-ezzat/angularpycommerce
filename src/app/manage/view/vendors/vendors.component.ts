@@ -15,7 +15,7 @@ export class VendorsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  displayedColumns: string[] = ['Id', 'NameL', 'Email', 'edit'];
+  displayedColumns: string[] = ['id', 'NameL', 'Email', 'edit'];
   dataSource;
   Vendors: any;
 
@@ -43,6 +43,6 @@ export class VendorsComponent implements OnInit {
 
   VendorsForm() {
     this.Vendors = new VendorDetails();
-    this.router.navigate(['vendors-Form', this.Vendors]);
+    this.router.navigate(['/manage/add/vendors', this.Vendors]);
   }
 }

@@ -1,34 +1,63 @@
-<form  #form="ngForm" (ngSubmit) = updateVendor(form.value) class="was-validated ">
+<form
+  #form="ngForm"
+  (ngSubmit)="updateVendor(form.value)"
+  class="was-validated"
+>
+  <div class="form-group col-md-3">
+    <input
+      type="hidden"
+      class="form-control"
+      [(ngModel)]="vendor.id"
+      name="id"
+      id="id"
+      placeholder="Id"
+    />
+    <div class="invalid-feedback"></div>
+  </div>
 
-    <div class="form-group col-md-3">
-      <input type="hidden" class="form-control" [(ngModel)]="vendor.Id" name="Id" id="Id"  placeholder="Id">
-      <div class="invalid-feedback">
-        </div>
-  
-    </div>
+  <div class="form-group col-md-3">
+    <label for="inputTitle">English Name</label>
+    <input
+      type="text"
+      class="form-control"
+      [(ngModel)]="vendor.NameL"
+      name="NameL"
+      id="NameL"
+      placeholder="Name"
+      required
+    />
+    <div class="invalid-feedback"></div>
+  </div>
 
-        <div class="form-group col-md-3">
-          <label for="inputTitle">English Name</label>
-          <input type="text" class="form-control" [(ngModel)]="vendor.NameL" name="NameL" id="NameL" placeholder="Name" required>
-          <div class="invalid-feedback">
-            </div>
-        </div> 
+  <div class="form-group col-md-3">
+    <label for="inputEmail">Email</label>
+    <input
+      type="text"
+      class="form-control"
+      [(ngModel)]="vendor.Email"
+      name="Email"
+      id="Email"
+      placeholder="Email"
+      required
+    />
+    <div class="invalid-feedback"></div>
+  </div>
 
-        <div class="form-group col-md-3">
-            <label for="inputEmail">Email</label>
-            <input type="text" class="form-control" [(ngModel)]="vendor.Email" name="Email" id="Email" placeholder="Email" required>
-            <div class="invalid-feedback">
-              </div>
-          </div>
+  <div class="form-group col-md-3">
+    <label for="inputPassword">Password</label>
+    <input
+      type="password"
+      class="form-control"
+      [(ngModel)]="vendor.Password"
+      name="Password"
+      id="Password"
+      placeholder="Password"
+      data-toggle="password"
+      required
+    />
 
-          <div class="form-group col-md-3">
-            <label for="inputPassword">Password</label>
-            <input type="password" class="form-control" [(ngModel)]="vendor.Password" name="Password" id="Password" placeholder="Password" data-toggle="password" required>
-            
-            <div class="invalid-feedback">
-              </div>
-          </div>
-    <br>   
-    <button class="btn btn-primary" type="submit">Save</button>
-
-    </form> 
+    <div class="invalid-feedback"></div>
+  </div>
+  <br />
+  <button class="btn btn-success" type="submit">Update</button>
+</form>

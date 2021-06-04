@@ -15,7 +15,7 @@ export class CategoryTableComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  displayedColumns: string[] = ['Id', 'NameA', 'NameL', 'edit'];
+  displayedColumns: string[] = ['id', 'NameA', 'NameL', 'edit'];
   dataSource;
   categories: any;
   resultOfMultiplication: any;
@@ -45,6 +45,6 @@ export class CategoryTableComponent implements OnInit {
 
   categoryForm() {
     this.categories = new CategoryDetail();
-    this.router.navigate(['category-form', this.categories]);
+    this.router.navigate(['/manage/add/category', this.categories]);
   }
 }

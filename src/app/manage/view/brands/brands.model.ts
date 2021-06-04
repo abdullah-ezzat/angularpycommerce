@@ -1,8 +1,11 @@
-
 export class BrandsDetail {
-
-    Id: Number;
-    NameA: string;
-    NameL: string;
-
+  id: Number;
+  NameA: string;
+  NameL: string;
 }
+
+export const initialState: BrandsDetail = {
+  id: 1,
+  NameA: '',
+  NameL: '',
+};

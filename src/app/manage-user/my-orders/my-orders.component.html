@@ -1,5 +1,4 @@
-<!-- <iframe *ngIf="MapUrl" class="map" src="https://maps.google.com/maps?q=30.063750,31.338130&hl=es;z=14&amp;output=embed"></iframe> -->
-<!-- <iframe *ngIf="MapLocation" class="map" [src]="MapUrl"></iframe> -->
+<!-- 
 <div style="margin-left: 21rem" class="col-md-3">
   <iframe
     id="map-iframe-location"
@@ -22,12 +21,12 @@
       <div class="row">
         <div class="col-md-6">
           <strong>
-            Order Number : {{ master.Id }} <br /><br />
-            Recipient: &nbsp; {{ master.UserName }}
+            Order Number:&nbsp; {{ master.id }} <br /><br />
+            Recipient: &nbsp; {{ master.Username }}
           </strong>
         </div>
         <div class="col-md-6">
-          <strong> Order Total : {{ master.OrderTotal | number }} </strong>
+          <strong> Order Total:&nbsp; {{ master.OrderTotal | number }} </strong>
         </div>
       </div>
     </div>
@@ -76,18 +75,18 @@
     <br />
 
     <div *ngFor="let order of Orders">
-      <div *ngIf="order.MasterId == master.Id">
+      <div *ngIf="order.MasterId == master.id">
         <div class="container">
           <div class="row row-cols-3">
             <div class="col-md-3">
-              <img [src]="order.ImageUrl7" class="Img" alt="Responsive image" />
+              <img [src]="order.Image" class="Img" alt="Responsive image" />
             </div>
 
             <div id="shipping-id-col" class="col-md-6">
               <div
                 style="cursor: pointer; display: inline-block; color: #1585cf"
                 id="product-link"
-                [routerLink]="['/product-Details', order.InventoryBalanceId]"
+                [routerLink]="['/product/', order.InventoryBalanceId]"
               >
                 {{ order.ProductName }}
               </div>
@@ -121,4 +120,65 @@
 
   <br />
   <br />
-</div>
+</div> -->
+
+<mat-card class="p-3 mb-3">
+  <div *ngFor="let master of Masters" class="mb-3">
+    <div class="master-list d-flex justify-content-evenly mb-3">
+      <strong class="mb-2">Order: &nbsp;{{ master.id }}</strong>
+      <strong class="mb-2"
+        >Order Total: &nbsp;{{ master.OrderTotal | number }}
+        {{ Currency }}</strong
+      >
+      <strong>Recipient: &nbsp;{{ master.Username }}</strong>
+    </div>
+
+    <mat-horizontal-stepper
+      *ngIf="master.OrderStatusId < 3"
+      [selectedIndex]="master.OrderStatusId"
+      labelPosition="bottom"
+      linear
+    >
+      <ng-template matStepperIcon="edit">
+        <mat-icon>done</mat-icon>
+      </ng-template>
+      <mat-step label="Ready For Shipping" [editable]="false"></mat-step>
+      <mat-step label="Out For Delivery" [editable]="false"></mat-step>
+      <mat-step label="Delivered" [editable]="false"></mat-step>
+    </mat-horizontal-stepper>
+
+    <div *ngFor="let order of Orders">
+      <div *ngIf="order.MasterId == master.id">
+        <div class="row">
+          <div class="col-12 col-md-3 align align-items-center mb-3">
+            <img
+              [src]="order.Image"
+              class="product_img"
+              [routerLink]="['/product/', order.InventoryBalanceId]"
+              [alt]="order.ProductName"
+            />
+          </div>
+          <div class="col-12 col-md-6 align align-items-center mb-3">
+            <button
+              mat-button
+              [routerLink]="['/product/', order.InventoryBalanceId]"
+              color="primary"
+            >
+              <strong>
+                {{ order.ProductName }}
+              </strong>
+            </button>
+            <strong>Shipped By: &nbsp; {{ order.StoreName }}</strong>
+          </div>
+          <div class="col-12 col-md-3 align">
+            <strong class="mb-2" style="color: #1585cf"
+              >{{ order.UnitPrice | number }} {{ Currency }}</strong
+            >
+            <strong class="mb-2">Seller: &nbsp; {{ order.VendorName }}</strong>
+            <button mat-raised-button color="primary">Map Location</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</mat-card>

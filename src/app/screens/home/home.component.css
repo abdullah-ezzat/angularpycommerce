@@ -161,7 +161,8 @@ img:hover {
     width: 100%;
   }
   .product-image {
-    width: 60%;
+    width: 110px;
+    height: 110px;
   }
   .search-form {
     width: 100%;

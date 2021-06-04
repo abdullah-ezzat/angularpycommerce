@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ShippingUserModel } from '../../view/shipping-agent-user/shipping-agent-user.model';
 import { Router, ActivatedRoute } from '@angular/router';
-import { GetDataApiService } from '../../../get-data-api.service';
+import { GetAllService } from 'src/app/api/all/get-all.service';
+import { GetDataService } from 'src/app/api/get/get-data.service';
+import { AddDataService } from 'src/app/api/add/add-data.service';
 
 @Component({
   selector: 'app-shipping-user-edit',
@@ -11,23 +13,24 @@ import { GetDataApiService } from '../../../get-data-api.service';
 export class ShippingUserEditComponent implements OnInit {
   shippingUser: any;
   ShippingUsers: any;
-
   Users: any;
 
   constructor(
     private router: Router,
-    private service: GetDataApiService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private all: GetAllService,
+    private get: GetDataService,
+    private update: AddDataService
   ) {
-    let id = this.route.snapshot.paramMap.get('Id');
+    let id = this.route.snapshot.paramMap.get('id');
     if (id)
-      this.service
-        .getShippingUser(id)
+      this.get
+        .getData('shippingAgentUsers', id)
         .subscribe((response) => (this.shippingUser = response));
   }
 
   ngOnInit(): void {
-    this.service.getAllShippingAgents().subscribe(
+    this.all.getAllData('shippingAgentUsers').subscribe(
       (response) => {
         this.ShippingUsers = response;
       },
@@ -37,7 +40,7 @@ export class ShippingUserEditComponent implements OnInit {
       }
     );
 
-    this.service.getAllUsers().subscribe(
+    this.all.getAllData('users').subscribe(
       (response) => {
         this.Users = response;
       },
@@ -49,19 +52,17 @@ export class ShippingUserEditComponent implements OnInit {
   }
 
   updateShippingUser(post: ShippingUserModel) {
-    ;
-
-    this.service
-      .updateShippingUser(post)
+    this.update
+      .updateData('shippingAgentUsers', post.id, post)
       .pipe()
       .subscribe(
-        (response) => {},
+        () => {},
         (error) => {
           alert('An unexpected error occured.');
           console.log(error);
         }
       );
 
-    this.router.navigate(['/shippingAgentUser']);
+    this.router.navigate(['/manage/shippingusers']);
   }
 }

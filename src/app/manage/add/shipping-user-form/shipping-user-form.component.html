@@ -1,32 +1,32 @@
-<form  #form="ngForm" (ngSubmit) = createShippingUser(form.value) class="was-validated ">
+<form
+  #form="ngForm"
+  (ngSubmit)="createShippingUser(form.value)"
+  class="p-3"
+  ngNativeValidate
+>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>User</mat-label>
+    <mat-select id="UserId_id" name="UserId_id">
+      <mat-option
+        *ngFor="let user of Users; let i = index"
+        [value]="Users[i].id"
+        >{{ Users[i].NameL }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
 
-    <div class="form-group col-md-3">
-      <input type="hidden" class="form-control" ngModel name="Id" id="Id"  placeholder="Id">
-      <div class="invalid-feedback">
-        </div>
-    </div>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Shipping Agent</mat-label>
+    <mat-select id="ShippingAgentId_id" name="ShippingAgentId_id">
+      <mat-option
+        *ngFor="let shippingUser of ShippingUsers; let i = index"
+        [value]="ShippingUsers[i].id"
+        >{{ ShippingUsers[i].NameL }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
 
-    <div class="form-group col-md-3">
-        <label for="inputUserId">User Id</label>
-            <select class="custom-select"  ngModel name="UserId"  id="UserId" >
-            <option *ngFor="let user of Users; let i = index" [value]="Users[i].Id">
-                {{Users[i].NameL}}
-            </option>
-            </select>
-        <div class="invalid-feedback"></div>
-        </div>
-
-        <div class="form-group col-md-3">
-            <label for="inputShippingAgentId">Shipping Agent</label>
-                <select class="custom-select"  ngModel name="ShippingAgentId"  id="ShippingAgentId" >
-                <option *ngFor="let shippingUser of ShippingUsers; let i = index" [value]="ShippingUsers[i].Id">
-                    {{ShippingUsers[i].NameL}}
-                </option>
-                </select>
-            <div class="invalid-feedback"></div>
-            </div>
-
-    <br>   
-    <button class="btn btn-primary" type="submit">Save</button>
-
-    </form> 
+  <div class="d-grid gap-2">
+    <button type="submit" mat-raised-button color="primary">Save</button>
+  </div>
+</form>

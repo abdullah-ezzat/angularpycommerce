@@ -15,7 +15,7 @@ export class ShippingAgentUserComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  displayedColumns: string[] = ['Id', 'UserId', 'ShippingAgentId', 'edit'];
+  displayedColumns: string[] = ['id', 'UserId', 'ShippingAgentId', 'edit'];
   dataSource;
   ShippingAgentUser: any;
 
@@ -43,6 +43,6 @@ export class ShippingAgentUserComponent implements OnInit {
 
   shippingAgentUser() {
     this.ShippingAgentUser = new ShippingUserModel();
-    this.router.navigate(['shippingUserForm', this.ShippingAgentUser]);
+    this.router.navigate(['/manage/add/shippinguser', this.ShippingAgentUser]);
   }
 }

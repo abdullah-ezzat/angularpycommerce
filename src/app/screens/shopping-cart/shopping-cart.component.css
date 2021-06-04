@@ -32,7 +32,12 @@
 }
 
 .btn-font {
-  font-size: 10px;
+  font-size: 12px;
+}
+
+.btn-content {
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
 }
 
 .currency {
@@ -58,7 +63,7 @@ img:hover {
 
 .product-image {
   margin: 1rem;
-  width: 90%;
+  width: 60%;
   object-fit: contain;
   cursor: pointer;
   -webkit-transition: all 0.7s ease;
@@ -96,14 +101,12 @@ img:hover {
 }
 
 @media (min-width: 750px) {
-  .btn-font {
-    font-size: 14px;
-  }
   .contain {
     width: 41rem;
   }
   .product-image {
-    width: 60%;
+    width: 130px;
+    height: 130px;
   }
   .search-form {
     width: 56%;

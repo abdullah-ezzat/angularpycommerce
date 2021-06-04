@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { GetDataApiService } from '../get-data-api.service';
 import { HomeComponent } from '../screens/home/home.component';
 import { ToastrService } from 'ngx-toastr';
+import { GetAllService } from '../api/all/get-all.service';
 
 @Component({
   selector: 'bs-sidebar',
@@ -19,19 +20,13 @@ export class BsSidebarComponent implements OnInit {
   mainId: BigInteger;
   CategoryId: number;
 
-  constructor(
-    private service: GetDataApiService,
-    private home: HomeComponent,
-    private toastr: ToastrService
-  ) {}
+  constructor(private all: GetAllService, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.CategoryId = 0;
-    let cartId = localStorage.getItem('cartId');
-    this.service.getProductCount(cartId).subscribe((response) => {
-      this.CartItemsCount = response;
-    });
-    this.service.getAllCategory().subscribe(
+    let cart_count = localStorage.getItem('cart_count');
+    this.CartItemsCount = cart_count;
+    this.all.getAllCategories().subscribe(
       (response) => {
         this.Categories = response;
       },
@@ -41,7 +36,7 @@ export class BsSidebarComponent implements OnInit {
       }
     );
 
-    this.service.getSubCategory().subscribe(
+    this.all.getSubCategories().subscribe(
       (response) => {
         this.subCategories = response;
       },
@@ -62,8 +57,9 @@ export class BsSidebarComponent implements OnInit {
       if (seconds < 1800) {
         this.userName = localStorage.getItem('UserName');
       } else {
-        this.toastr.error('You have logged out due to inactivity.');
+        this.toastr.error('You have logged out due to inactivity');
         localStorage.removeItem('UserId');
+        localStorage.removeItem('UserName');
       }
     }
   }
@@ -72,7 +68,7 @@ export class BsSidebarComponent implements OnInit {
   }
 
   Logout() {
-    this.toastr.error('You have logged out.');
+    this.toastr.error('You have logged out');
     localStorage.removeItem('UserId');
     localStorage.removeItem('UserName');
     location.assign('/');
@@ -84,8 +80,7 @@ export class BsSidebarComponent implements OnInit {
 
   AssignCategoryId(CategoryId) {
     localStorage.setItem('CategoryId', CategoryId);
-
-    location.assign('/Home');
+    this.Home();
   }
 
   Home() {

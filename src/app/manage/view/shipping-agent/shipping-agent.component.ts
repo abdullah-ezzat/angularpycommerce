@@ -16,7 +16,7 @@ export class ShippingAgentComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   displayedColumns: string[] = [
-    'Id',
+    'id',
     'NameA',
     'NameL',
     'Email',
@@ -50,6 +50,6 @@ export class ShippingAgentComponent implements OnInit {
 
   shippingAgent() {
     this.ShippingAgents = new ShippingAgentDetails();
-    this.router.navigate(['shippingAgent-Form', this.ShippingAgents]);
+    this.router.navigate(['/manage/add/shippingagent', this.ShippingAgents]);
   }
 }

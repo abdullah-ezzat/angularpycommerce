@@ -1,45 +1,52 @@
-<button (click)="PriceListForm()" class="btn btn-primary">New Price</button><br><br>
-
 <mat-form-field>
   <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Search">
+  <input matInput (keyup)="applyFilter($event)" placeholder="Search" />
 </mat-form-field>
 
-  <div class="mat-elevation-z8"> 
-  <table mat-table [dataSource]="dataSource" matSort >
-
-    <ng-container matColumnDef="Id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
-      <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
     </ng-container>
 
     <ng-container matColumnDef="VendorId">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Vendor Name </th>
-      <td mat-cell *matCellDef="let element"> {{element.VendorName}} </td>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Vendor Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.VendorName }}</td>
     </ng-container>
 
     <ng-container matColumnDef="ProductId">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.ProductName}} </td>
-      </ng-container>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Product Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.ProductName }}</td>
+    </ng-container>
 
-      <ng-container matColumnDef="CountryId">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Country </th>
-        <td mat-cell *matCellDef="let element"> {{element.CountryName}} </td>
-      </ng-container>
+    <ng-container matColumnDef="CountryId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Country</th>
+      <td mat-cell *matCellDef="let element">{{ element.CountryName }}</td>
+    </ng-container>
 
-      <ng-container matColumnDef="Price">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Price </th>
-        <td mat-cell *matCellDef="let element"> {{element.Price}} </td>
-      </ng-container>
+    <ng-container matColumnDef="Price">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Price</th>
+      <td mat-cell *matCellDef="let element">{{ element.Price }}</td>
+    </ng-container>
 
-      <ng-container matColumnDef="edit">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
-        <td mat-cell *matCellDef="let element"><a [routerLink]="['/edit-Price',element.Id]">Edit</a></td>
-      </ng-container> 
-      
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-         <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
-  </div>
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let element">
+        <a [routerLink]="['/manage/edit/price', element.id]">Edit</a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 25, 50, 100]"
+    showFirstLastButtons
+  ></mat-paginator>
+</div>
+
+<br />
+<button (click)="PriceListForm()" class="btn btn-primary btn-lg btn-block">
+  Add Price
+</button>

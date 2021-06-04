@@ -9,7 +9,7 @@
                 style="margin-left: -12px"
                 class="btn btn-link order-md-last"
                 data-toggle="collapse"
-                [attr.data-target]="'#TheSpecification' + specification.Id"
+                [attr.data-target]="'#TheSpecification' + specification.id"
               >
                 {{ specification.NameL }}
               </button>
@@ -17,7 +17,7 @@
             <div *ngFor="let productSpecification of AllProductSpecifications">
               <div
                 *ngIf="
-                  productSpecification.SpecificationId == specification.Id &&
+                  productSpecification.SpecificationId == specification.id &&
                   productSpecification.CategoryId == specification.CategoryId
                 "
                 class="collapse show"
@@ -100,19 +100,19 @@
       <div *ngFor="let Homedetail of HomeDetails">
         <div class="d-flex">
           <div class="card contain">
-            <div class="row g-0">
+            <div class="row">
               <div class="col-3 align">
                 <img
-                  [routerLink]="['/product-Details', Homedetail.Id]"
-                  [src]="Homedetail.ImageUrl"
+                  [routerLink]="['/product/', Homedetail.id]"
+                  [src]="Homedetail.Image"
                   class="product-image"
-                  alt="Responsive Image"
+                  [alt]="Homedetail.ProductName"
                 />
               </div>
               <div class="col-6 align">
                 <div class="card-body">
                   <h5
-                    [routerLink]="['/product-Details', Homedetail.Id]"
+                    [routerLink]="['/product/', Homedetail.id]"
                     class="card-title"
                   >
                     {{ Homedetail.ProductName }}
@@ -124,20 +124,20 @@
                     ></span>
                   </div>
                   <div id="summary">
-                    <p class="collapse" id="{{ 'productId' + Homedetail.Id }}">
+                    <p class="collapse" id="{{ 'product' + Homedetail.id }}">
                       {{ Homedetail.Description }}
                     </p>
                     <a
                       class="collapsed"
                       data-toggle="collapse"
-                      href="#{{ 'productId' + Homedetail.Id }}"
+                      href="#{{ 'product' + Homedetail.id }}"
                       aria-expanded="false"
                       aria-controls="collapseSummary"
                     ></a>
                   </div>
 
                   <p class="card-text">
-                    <strong>Quantity : </strong>{{ Homedetail.QuantityBalance }}
+                    <strong>Quantity: {{ Homedetail.QuantityBalance }}</strong>
                   </p>
                 </div>
               </div>
@@ -156,7 +156,7 @@
                   </p>
                   <button
                     style="margin-top: -3px"
-                    [routerLink]="['/product-Details', Homedetail.Id]"
+                    [routerLink]="['/product/', Homedetail.id]"
                     class="btn-infos"
                   >
                     <small class="font">VIEW DETAILS</small>

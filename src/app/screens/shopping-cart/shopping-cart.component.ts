@@ -2,89 +2,118 @@ import { Component, OnInit } from '@angular/core';
 import { GetDataApiService } from '../../get-data-api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { BsSidebarComponent } from '../../bs-sidebar/bs-sidebar.component'
-
+import { BsSidebarComponent } from '../../bs-sidebar/bs-sidebar.component';
+import { GetAllService } from 'src/app/api/all/get-all.service';
+import { GetDataService } from 'src/app/api/get/get-data.service';
+import { AddDataService } from 'src/app/api/add/add-data.service';
 
 @Component({
   selector: 'app-shopping-cart',
   templateUrl: './shopping-cart.component.html',
-  styleUrls: ['./shopping-cart.component.css']
+  styleUrls: ['./shopping-cart.component.css'],
 })
 export class ShoppingCartComponent implements OnInit {
-
   ShoppingCartDetails: any;
   TotalCart: any;
   ProductCount: any;
-  
+  Currency: any;
+  Cart: any;
 
-  constructor(private service: GetDataApiService, private route: Router, private router: ActivatedRoute, private toastr: ToastrService, private BsSidebar: BsSidebarComponent) { 
-   }
+  constructor(
+    private services: GetAllService,
+    private service: GetDataApiService,
+    private add: AddDataService,
+    private route: Router,
+    private router: ActivatedRoute,
+    private toastr: ToastrService,
+    private BsSidebar: BsSidebarComponent
+  ) {}
 
   ngOnInit(): void {
     let cartId = localStorage.getItem('cartId');
-  
-    this.service.getAllCarts(cartId)
-    .subscribe(response => {
+    this.Cart = cartId;
+    this.services.getAllCart(cartId).subscribe((response: any) => {
       this.ShoppingCartDetails = response;
+      if (response.length > 0) {
+        const prices = this.ShoppingCartDetails.map((item) => item.TotalPrice);
+        const total = prices.reduce(this.total);
+        this.TotalCart = total;
 
-    },);
+        const quantities = this.ShoppingCartDetails.map(
+          (item) => item.Quantity
+        );
+        const sum = quantities.reduce(this.total);
+        this.count(sum);
+        localStorage.setItem('cart_count', sum);
+        this.BsSidebar.CartItemCounter(sum);
 
-    this.service.getCartTotal(cartId).then(response => {
-        this.TotalCart = response;
-    } );
-
-    this.service.getProductCount(cartId).subscribe(response => {
-        this.ProductCount = response;
-        this.BsSidebar.CartItemCounter(this.ProductCount);
-    })
+        const currency = this.ShoppingCartDetails.map((item) => item.Currency);
+        this.Currency = currency[0];
+      } else {
+        this.count(0);
+        localStorage.removeItem('cart_count');
+      }
+    });
   }
 
-  updateQuantity(Id, Quantity){
-
-
-    this.service.updateCartQuantity(Id, Quantity)
-    .pipe().subscribe(response => {
-
-      
-    },error => {
-      alert('An unexpected error occured.');
-      console.log(error);
-    });   
-    location.reload();
+  total(total, num) {
+    return total + num;
   }
 
-  DeleteItem(Id){
-      this.service.DeleteFormItemCart(Id).subscribe(response => {
-      })
-      ,error => {
+  count(count) {
+    this.ProductCount = count;
+  }
+
+  updateQuantity(Id, Quantity) {
+    this.add
+      .updateCartQuantity(Id, Quantity)
+      .pipe()
+      .subscribe(
+        () => {},
+        (error) => {
+          alert('An unexpected error occured.');
+          console.log(error);
+        }
+      );
+    this.reloadPage();
+  }
+
+  DeleteItem(Id) {
+    this.add.deleteCartItem(Id).subscribe(() => {}),
+      (error) => {
         alert('An unexpected error occured.');
         console.log(error);
-      }
-      location.reload();
+      };
+    if (this.ProductCount == 1) {
+      localStorage.removeItem('cart_count');
+    }
+    this.reloadPage();
   }
 
-  DeleteAllItems(){
-    
-    let cartId = localStorage.getItem('cartId')
-    this.service.DeleteAllCart(cartId).subscribe(response => {})
-
-    ,error => {
-      alert('An unexpected error occured.');
-      console.log(error);}
-    location.reload();
+  DeleteAllItems() {
+    let cartId = localStorage.getItem('cartId');
+    this.add.deleteCart(cartId).subscribe(() => {}),
+      (error) => {
+        alert('An unexpected error occured.');
+        console.log(error);
+      };
+    localStorage.removeItem('cart_count');
+    this.reloadPage();
   }
 
-  checkOut(){    
-
-    let UserId =  localStorage.getItem('UserId');
-
+  checkOut() {
+    let UserId = localStorage.getItem('UserId');
     localStorage.getItem('cartId');
 
-  if (!UserId){
-    this.route.navigate(['/Login'])
-    this.toastr.error('You must login first.');
-  }else{
-    this.route.navigate(['/Checkout'])
+    if (!UserId) {
+      this.route.navigate(['/login']);
+      this.toastr.error('You must login first.');
+    } else {
+      this.route.navigate(['/checkout']);
+    }
   }
+
+  reloadPage() {
+    location.reload();
   }
 }

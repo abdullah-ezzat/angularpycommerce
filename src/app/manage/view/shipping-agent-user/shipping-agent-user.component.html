@@ -1,37 +1,44 @@
-<button (click)="shippingAgentUser()" class="btn btn-primary">New User Agent</button><br><br>
-
 <mat-form-field>
   <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Search">
+  <input matInput (keyup)="applyFilter($event)" placeholder="Search" />
 </mat-form-field>
 
-  <div class="mat-elevation-z8"> 
-  <table mat-table [dataSource]="dataSource" matSort >
-
-    <ng-container matColumnDef="Id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
-      <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
     </ng-container>
 
     <ng-container matColumnDef="UserId">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> User Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.UserName}} </td>
-      </ng-container>
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>User Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.UserName }}</td>
+    </ng-container>
 
-      <ng-container matColumnDef="ShippingAgentId">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Shipping Agent </th>
-        <td mat-cell *matCellDef="let element"> {{element.ShippingAgentName}} </td>
-      </ng-container>
+    <ng-container matColumnDef="ShippingAgentId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Shipping Agent</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.ShippingAgentName }}
+      </td>
+    </ng-container>
 
-      <ng-container matColumnDef="edit">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
-        <td mat-cell *matCellDef="let element"><a [routerLink]="['/shippingUserEdit',element.Id]">Edit</a></td>
-      </ng-container> 
-      
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-         <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
-  </div>
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let element">
+        <a [routerLink]="['/manage/edit/shippinguser', element.id]">Edit</a>
+      </td>
+    </ng-container>
 
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 25, 50, 100]"
+    showFirstLastButtons
+  ></mat-paginator>
+</div>
 
+<br />
+<button (click)="shippingAgentUser()" class="btn btn-primary btn-lg btn-block">
+  Add User Agent
+</button>

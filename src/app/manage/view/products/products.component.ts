@@ -15,7 +15,7 @@ export class ProductsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  displayedColumns: string[] = ['Id', 'NameA', 'NameL', 'edit'];
+  displayedColumns: string[] = ['id', 'NameA', 'NameL', 'edit'];
   dataSource;
   products: any;
 
@@ -43,6 +43,6 @@ export class ProductsComponent implements OnInit {
 
   productForm() {
     this.products = new ProductsDetail();
-    this.router.navigate(['products-form', this.products]);
+    this.router.navigate(['/manage/add/products', this.products]);
   }
 }

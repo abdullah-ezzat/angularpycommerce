@@ -16,10 +16,10 @@ export class StoresComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   displayedColumns: string[] = [
-    'Id',
+    'id',
     'VendorName',
     'NameL',
-    'email',
+    'Email',
     'ShippingAgentName',
     'CountryName',
     'edit',
@@ -51,6 +51,6 @@ export class StoresComponent implements OnInit {
 
   StoresForm() {
     this.Stores = new StoresDetail();
-    this.router.navigate(['stores-Form', this.Stores]);
+    this.router.navigate(['/manage/add/stores', this.Stores]);
   }
 }

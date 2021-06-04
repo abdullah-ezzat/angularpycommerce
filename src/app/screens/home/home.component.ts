@@ -32,11 +32,7 @@ export class HomeComponent implements OnInit {
   has_prev = false;
   has_next = true;
 
-  constructor(
-    public service: GetDataApiService,
-    public services: GetAllService,
-    public route: Router
-  ) {}
+  constructor(public service: GetAllService, public route: Router) {}
 
   ngOnInit(): void {
     localStorage.removeItem('selectedIds');
@@ -47,7 +43,7 @@ export class HomeComponent implements OnInit {
     this.getProducts(1, CartId, null);
 
     this.searchTerm.valueChanges.subscribe((search) => {
-      this.services.getProductNames(search).subscribe((data) => {
+      this.service.getProductNames(search).subscribe((data) => {
         this.ProductsString = data as any[];
       });
     });
@@ -68,8 +64,10 @@ export class HomeComponent implements OnInit {
 
   getProducts(page, CategoryId, searchTerms) {
     this.service.getAllSpecifications(this.CategoryId).subscribe(
-      (response) => {
-        this.AllSpecifications = response;
+      (response: any) => {
+        this.AllSpecifications = response
+          .map((item) => item)
+          .filter((value, index, self) => self.indexOf(value) === index);
       },
       (error) => {
         alert('An unexpected error occured.');
@@ -77,7 +75,7 @@ export class HomeComponent implements OnInit {
       }
     );
 
-    this.service.getAllProductSpecification().subscribe(
+    this.service.getAllData('specificationValueCount').subscribe(
       (response) => {
         this.AllProductSpecifications = response;
       },
@@ -88,21 +86,21 @@ export class HomeComponent implements OnInit {
     );
 
     this.CategoryId = CategoryId;
-    this.services.getMaxPage(null, searchTerms, (CategoryId = 0)).subscribe(
+    this.service.getMaxPage(null, searchTerms, (CategoryId = 0)).subscribe(
       (response) => {
         this.MaxPageNumber = response;
-        console.log(this.MaxPageNumber);
       },
       (error) => {
         alert('An unexpected error occured.');
         console.log(error);
       }
     );
-    this.services
+    this.service
       .getHomeProducts(page, null, searchTerms, (CategoryId = 0))
       .subscribe(
         (response) => {
           this.HomeDetails = response;
+          document.getElementById('page 1').className = 'page-item active';
         },
         (error) => {
           alert('An unexpected error occured.');
@@ -146,7 +144,7 @@ export class HomeComponent implements OnInit {
     let pages = document.getElementById('page ' + page);
     pages.className = 'page-item active';
     this.page = page;
-    this.services
+    this.service
       .getHomeProducts(page, selectedIds, searchTerms, CategoryId)
       .subscribe(
         (response) => {
@@ -159,22 +157,7 @@ export class HomeComponent implements OnInit {
       );
     this.scrollTop();
   }
-  // onChangeSelection(specificationId, isSelected) {
-  //   let selectedIds;
-  //   if (isSelected == true) {
-  //     selectedIds = localStorage.getItem('selectedIds');
-  //     if (selectedIds == null) {
-  //       selectedIds = '';
-  //     }
-  //     selectedIds = selectedIds + ',' + specificationId + ',';
-  //     localStorage.setItem('selectedIds', selectedIds);
-  //     document.body.scrollTop = document.documentElement.scrollTop = 0;
-  //   }
-  //   if (isSelected == false) {
-  //     selectedIds = localStorage.getItem('selectedIds');
-  //     selectedIds = selectedIds.replace(',' + specificationId + ',', '');
-  //     localStorage.setItem('selectedIds', selectedIds);
-  //   }
+
   onChangeSelection(specificationId, isSelected) {
     let selectedIds;
     if (isSelected == true) {
@@ -194,10 +177,9 @@ export class HomeComponent implements OnInit {
       }
       localStorage.setItem('selectedIds', selectedIds);
     }
-    this.services.getMaxPage(selectedIds, null, this.CategoryId).subscribe(
+    this.service.getMaxPage(selectedIds, null, this.CategoryId).subscribe(
       (response) => {
         this.MaxPageNumber = response;
-        console.log(this.MaxPageNumber);
       },
       (error) => {
         alert('An unexpected error occured.');

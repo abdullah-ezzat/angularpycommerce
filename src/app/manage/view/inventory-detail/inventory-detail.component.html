@@ -1,41 +1,47 @@
-<button (click)="DetailForm()" class="btn btn-primary">New Transaction</button><br><br>
-
 <mat-form-field>
   <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Search">
+  <input matInput (keyup)="applyFilter($event)" placeholder="Search" />
 </mat-form-field>
 
-  <div class="mat-elevation-z8"> 
-  <table mat-table [dataSource]="dataSource" matSort >
-
-    <ng-container matColumnDef="Id">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Id </th>
-      <td mat-cell *matCellDef="let element"> {{element.Id}} </td>
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource" matSort>
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Id</th>
+      <td mat-cell *matCellDef="let element">{{ element.id }}</td>
     </ng-container>
 
-      <ng-container matColumnDef="Quantity">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Quantity </th>
-        <td mat-cell *matCellDef="let element"> {{element.Quantity}} </td>
-      </ng-container>
+    <ng-container matColumnDef="Quantity">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</th>
+      <td mat-cell *matCellDef="let element">{{ element.Quantity }}</td>
+    </ng-container>
 
-      
-      <ng-container matColumnDef="ProductName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Product Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.ProductName}} </td>
-      </ng-container>
+    <ng-container matColumnDef="ProductName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Product Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.ProductName }}</td>
+    </ng-container>
 
-      <ng-container matColumnDef="StoreName">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> Store Name </th>
-        <td mat-cell *matCellDef="let element"> {{element.StoreName}} </td>
-      </ng-container>
+    <ng-container matColumnDef="StoreName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Store Name</th>
+      <td mat-cell *matCellDef="let element">{{ element.StoreName }}</td>
+    </ng-container>
 
-      <ng-container matColumnDef="edit">
-        <th mat-header-cell *matHeaderCellDef mat-sort-header> </th>
-        <td mat-cell *matCellDef="let element"><a [routerLink]="['/edit-inventoryDetail',element.Id]">Edit</a></td>
-      </ng-container> 
-      
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-    </table>
-         <mat-paginator [pageSizeOptions]="[5, 10, 25, 50, 100]" showFirstLastButtons></mat-paginator>
-  </div>
+    <ng-container matColumnDef="edit">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td mat-cell *matCellDef="let element">
+        <a [routerLink]="['/manage/edit/inventory', element.id]">Edit</a>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+  <mat-paginator
+    [pageSizeOptions]="[5, 10, 25, 50, 100]"
+    showFirstLastButtons
+  ></mat-paginator>
+</div>
+
+<br />
+<button (click)="DetailForm()" class="btn btn-primary btn-lg btn-block">
+  Add Transaction
+</button>

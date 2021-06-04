@@ -1,7 +1,7 @@
-<div class="container align">
+<div *ngIf="ProductCount > 0" class="container align">
   <h3>
     Shopping Cart ({{ ProductCount }})
-    <button (click)="DeleteAllItems()" class="btn btn-link">
+    <button (click)="DeleteAllItems()" class="btn btn-danger btn-font">
       Delete All Items
     </button>
   </h3>
@@ -12,8 +12,11 @@
         <div class="row g-0">
           <div class="col-3 align">
             <img
-              [routerLink]="['/product-Details', shoppingCartDetail.Id]"
-              [src]="shoppingCartDetail.ImageUrl"
+              [routerLink]="[
+                '/product/',
+                shoppingCartDetail.InventoryBalanceId
+              ]"
+              [src]="shoppingCartDetail.Image"
               class="product-image"
               alt="Responsive Image"
             />
@@ -23,7 +26,7 @@
               <h5
                 style="cursor: pointer"
                 [routerLink]="[
-                  '/product-Details',
+                  '/product/',
                   shoppingCartDetail.InventoryBalanceId
                 ]"
                 class="card-title"
@@ -65,7 +68,7 @@
               class="form-control"
               (change)="
                 updateQuantity(
-                  shoppingCartDetail.Id,
+                  shoppingCartDetail.id,
                   shoppingCartDetail.Quantity
                 )
               "
@@ -88,8 +91,8 @@
             </select>
             <button
               id="delete-btn-link"
-              (click)="DeleteItem(shoppingCartDetail.Id)"
-              class="btn btn-link"
+              (click)="DeleteItem(shoppingCartDetail.id)"
+              class="btn btn-danger btn-content btn-font"
             >
               Delete
             </button>
@@ -99,16 +102,23 @@
     </div>
   </div>
 
-  <div class="card border-info contain mb-3">
-    <img class="card-img-top" />
-    <div class="card-body text-info">
+  <div class="card contain mb-3">
+    <div class="card-body text-success">
       <h5 style="text-align: left" class="card-title">Total</h5>
       <p style="text-align: center" class="card-text">
-        <strong>{{ TotalCart | number }}</strong>
+        <strong>{{ TotalCart | number }} {{ Currency }}</strong>
       </p>
     </div>
     <button (click)="checkOut()" type="button" class="btn btn-success">
       Procced To Checkout
+    </button>
+  </div>
+</div>
+<div *ngIf="ProductCount == 0 || Cart == null">
+  <div class="d-flex justify-content-center align-items-center flex-column">
+    <p class="card-text">There is no items in the cart.</p>
+    <button type="button" routerLink="/Home" class="btn btn-info">
+      Go Home
     </button>
   </div>
 </div>

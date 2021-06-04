@@ -1,9 +1,7 @@
-
-export class PriceListDetails{
-
-    Id: Number;
-    VendorId: Number;
-    ProductId: Number;
-    CountryId: Number;
-    Price: Number;
+export class PriceListDetails {
+  id: Number;
+  VendorId: Number;
+  ProductId: Number;
+  CountryId: Number;
+  Price: Number;
 }

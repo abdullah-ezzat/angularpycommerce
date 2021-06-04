@@ -16,7 +16,7 @@ export class InventoryDetailComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   displayedColumns: string[] = [
-    'Id',
+    'id',
     'StoreName',
     'ProductName',
     'Quantity',
@@ -28,7 +28,7 @@ export class InventoryDetailComponent implements OnInit {
   constructor(private service: GetAllService, private router: Router) {}
 
   ngOnInit(): void {
-    this.service.getAllData('inventoryDetail').subscribe(
+    this.service.getAllData('inventoryDetails').subscribe(
       (response) => {
         this.Details = response;
         this.dataSource = new MatTableDataSource(this.Details);
@@ -49,6 +49,6 @@ export class InventoryDetailComponent implements OnInit {
 
   DetailForm() {
     this.Details = new InventoryDetails();
-    this.router.navigate(['inventoryDetail-Form', this.Details]);
+    this.router.navigate(['manage/add/inventory', this.Details]);
   }
 }

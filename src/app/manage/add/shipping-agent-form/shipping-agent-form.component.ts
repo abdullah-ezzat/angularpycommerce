@@ -2,29 +2,32 @@ import { Component, OnInit } from '@angular/core';
 import { ShippingAgentDetails } from '../../view/shipping-agent/shipping-agent.model';
 import { GetDataApiService } from '../../../get-data-api.service';
 import { Router } from '@angular/router';
+import { AddDataService } from 'src/app/api/add/add-data.service';
 
 @Component({
   selector: 'app-shipping-agent-form',
   templateUrl: './shipping-agent-form.component.html',
-  styleUrls: ['./shipping-agent-form.component.css']
+  styleUrls: ['./shipping-agent-form.component.css'],
 })
-export class ShippingAgentFormComponent implements OnInit {
+export class ShippingAgentFormComponent {
+  constructor(private route: Router, private add: AddDataService) {}
 
-constructor(private route: Router, private service: GetDataApiService) { }
+  createAgent(post: ShippingAgentDetails) {
+    this.add
+      .addData('shippingAgents', post)
+      .pipe()
+      .subscribe(
+        () => {},
+        (error) => {
+          alert('An unexpected error occured.');
+          console.log(error);
+        }
+      );
 
-ngOnInit(): void {
-}
-
-createAgent(post : ShippingAgentDetails){
-
-  ;
-  this.service.addNewShippingAgent(post)
-  .pipe().subscribe(response => {
-  },error => {
-    alert('An unexpected error occured.');
-    console.log(error);
-  });
-
-  this.route.navigate(['/shippingAgent'])
-}
+    this.route.navigate(['/manage/shippingagents']);
+  }
+  autoGrowTextZone(e) {
+    e.target.style.height = '0px';
+    e.target.style.height = e.target.scrollHeight + 0 + 'px';
+  }
 }

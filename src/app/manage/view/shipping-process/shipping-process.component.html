@@ -36,7 +36,7 @@
               id="order-product-name-link"
               style="cursor: pointer"
               class="btn btn-link"
-              [routerLink]="['/product-Details', order.InventoryBalanceId]"
+              [routerLink]="['/product/', order.InventoryBalanceId]"
             >
               {{ order.ProductName }}
             </div>
@@ -67,7 +67,7 @@
                 <div
                   class="container"
                   id="contain-delivery-notes"
-                  *ngIf="detail.OrderId == order.Id"
+                  *ngIf="detail.OrderId == order.id"
                 >
                   <div id="detail-deliver-notes">
                     &nbsp;<br />
@@ -84,25 +84,17 @@
           <div id="seller-order-vendor-name">
             Seller: {{ order.VendorName }}
           </div>
-          <form id="form-map-delivery">
-            <mat-form-field id="mat-form-map-card" class="full-width">
-              <mat-label>Add Map Location...</mat-label>
-              <textarea
-                [(ngModel)]="order.MapLocation"
-                name="MapLocation"
-                id="MapLocation"
-                style="margin-top: -2px; margin-bottom: 10px; height: 32px"
-                matInput
-                placeholder="Map Url..."
-              ></textarea>
-            </mat-form-field>
-
+          <form
+            id="form-map-delivery"
+            #form="ngForm"
+            (ngSubmit)="addDeliveryNotes(form.value, order.id)"
+          >
             <mat-form-field id="map-form-delivery-card" class="full-width">
               <mat-label>Add delivery note...</mat-label>
               <textarea
-                [(ngModel)]="order.DeliveryNote"
-                name="DeliveryNote"
-                id="DeliveryNote"
+                [(ngModel)]="order.Notes"
+                name="Notes"
+                id="Notes"
                 style="margin-top: -2px; margin-bottom: -2px; height: 32px"
                 matInput
                 placeholder="Comment..."
@@ -111,22 +103,14 @@
 
             <button
               id="btn-add-delivery-note"
-              (click)="
-                addDeliveryNotes(
-                  order.DeliveryNote,
-                  order.Id,
-                  order.MapLocation,
-                  order.Latitude,
-                  order.Longitude
-                )
-              "
+              type="submit"
               class="btn btn-outline-secondary"
             >
               Add a note
             </button>
             <button
               id="btn-add-delivered-note"
-              (click)="DeliverOrder(order.Id)"
+              (click)="DeliverOrder(order.id)"
               class="btn btn-outline-secondary"
             >
               Delivered

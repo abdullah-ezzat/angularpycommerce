@@ -16,7 +16,7 @@ export class PriceListComponent implements OnInit {
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
   displayedColumns: string[] = [
-    'Id',
+    'id',
     'VendorId',
     'ProductId',
     'CountryId',
@@ -29,7 +29,7 @@ export class PriceListComponent implements OnInit {
   constructor(private service: GetAllService, private router: Router) {}
 
   ngOnInit(): void {
-    this.service.getAllData('vendorPriceList').subscribe(
+    this.service.getAllData('vendorPriceLists').subscribe(
       (response) => {
         this.Prices = response;
         this.dataSource = new MatTableDataSource(this.Prices);

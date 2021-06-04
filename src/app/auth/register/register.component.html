@@ -1,58 +1,124 @@
-
-<form #form="ngForm" (ngSubmit) = Register(form.value) class="was-validated " class="login">
-
-  <!-- <input type="UserName" ngModel name="NameL" id="NameL" placeholder="User Name">
-  <input type="Email" ngModel name="Email" id="Email" placeholder="Email">
-  <input type="Adress1" ngModel name="Adress1" id="Adress1" placeholder="Adress 1">
-  <input type="Adress2" ngModel name="Adress2" id="Adress2" placeholder="Adress 2 (optional)">
-  <input type="City" ngModel name="City" id="City" placeholder="City">
-  <input type="PhoneNumber" ngModel name="PhoneNumber" id="PhoneNumber" placeholder="Phone Number">
-  <input type="password" ngModel name="Password" id="Password" placeholder="Password"> -->
-
+<form
+  #form="ngForm"
+  (ngSubmit)="Register(form.value)"
+  class="was-validated"
+  class="login"
+>
   <div>
-    <mat-form-field style="width: 20rem;margin-bottom: -16px;" appearance="outline">
+    <mat-form-field
+      style="width: 20rem; margin-bottom: -16px"
+      appearance="outline"
+    >
       <mat-label>UserName</mat-label>
-      <input ngModel name="NameL" id="NameL" matInput placeholder="User Name" required>
+      <input
+        ngModel
+        name="NameL"
+        id="NameL"
+        matInput
+        placeholder="User Name"
+        required
+      />
     </mat-form-field>
 
-    <mat-form-field style="width: 20rem;margin-bottom: -16px;" appearance="outline">
+    <mat-form-field
+      style="width: 20rem; margin-bottom: -16px"
+      appearance="outline"
+    >
       <mat-label>Email</mat-label>
-      <input ngModel name="Email" id="Email" matInput  placeholder="Email" required>
+      <input
+        ngModel
+        name="Email"
+        id="Email"
+        matInput
+        placeholder="Email"
+        required
+      />
     </mat-form-field>
 
-    <mat-form-field style="width: 20rem;margin-bottom: -16px;" appearance="outline">
+    <mat-form-field
+      style="width: 20rem; margin-bottom: -16px"
+      appearance="outline"
+    >
       <mat-label>Adress 1</mat-label>
-      <input ngModel name="Adress1" id="Adress1" matInput placeholder="Adress 1">
+      <input
+        ngModel
+        name="Adress1"
+        id="Adress1"
+        matInput
+        placeholder="Adress 1"
+      />
     </mat-form-field>
 
-    <mat-form-field style="width: 20rem;margin-bottom: -16px;" appearance="outline">
+    <mat-form-field
+      style="width: 20rem; margin-bottom: -16px"
+      appearance="outline"
+    >
       <mat-label>Adress 2</mat-label>
-      <input ngModel name="Adress2" id="Adress2" matInput placeholder="Adress 2 (optional)">
+      <input
+        ngModel
+        name="Adress2"
+        id="Adress2"
+        matInput
+        placeholder="Adress 2 (optional)"
+      />
     </mat-form-field>
 
-    <mat-form-field style="width: 20rem;margin-bottom: -16px;" appearance="outline">
+    <mat-form-field
+      style="width: 20rem; margin-bottom: -16px"
+      appearance="outline"
+    >
       <mat-label>City</mat-label>
-      <input ngModel name="City" id="City" matInput placeholder="City (optional)">
+      <input
+        ngModel
+        name="City"
+        id="City"
+        matInput
+        placeholder="City (optional)"
+      />
     </mat-form-field>
 
-    <mat-form-field style="width: 20rem;margin-bottom: -16px;" appearance="outline">
+    <mat-form-field
+      style="width: 20rem; margin-bottom: -16px"
+      appearance="outline"
+    >
       <mat-label>PhoneNumber</mat-label>
-      <input ngModel name="PhoneNumber" id="PhoneNumber" matInput placeholder="Phone Number (optional)">
+      <input
+        ngModel
+        name="PhoneNumber"
+        id="PhoneNumber"
+        matInput
+        placeholder="Phone Number (optional)"
+      />
     </mat-form-field>
 
-    <mat-form-field style="width: 20rem;margin-bottom: -16px;" appearance="outline">
+    <mat-form-field
+      style="width: 20rem; margin-bottom: -16px"
+      appearance="outline"
+    >
       <mat-label>Password</mat-label>
-      <input ngModel name="Password" id="Password" #message maxlength="16" [type]="hide ? 'password' : 'text'" matInput placeholder="Password" required>
-      <mat-hint align="end">{{message.value.length}} / 16</mat-hint>
-      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
-        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <input
+        ngModel
+        name="Password"
+        id="Password"
+        #message
+        maxlength="16"
+        [type]="hide ? 'password' : 'text'"
+        matInput
+        placeholder="Password"
+        required
+      />
+      <mat-hint align="end">{{ message.value.length }} / 16</mat-hint>
+      <button
+        mat-icon-button
+        matSuffix
+        (click)="hide = !hide"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hide"
+      >
+        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
       </button>
     </mat-form-field>
   </div>
-
-  
   <button type="submit">Register</button>
-
-  <a routerLink="/Login">Sign In</a>
+  <a routerLink="/login">Sign In</a>
 </form>
-

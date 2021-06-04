@@ -1,26 +1,36 @@
-.scroll {
-  max-height: 484px;
-  max-width: 333px;
-  overflow-y: scroll;
-  margin-bottom: 86px;
+.align {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.title {
-  margin-left: 40px;
+.items-card {
+  overflow-y: auto;
+  height: 14rem;
 }
 
-.card-img {
-    width: 100px;
-    max-height: 8rem;
-    margin-left: -2rem;
-    margin-bottom: -29px;
+.product_img {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
 }
 
-  h5 {
-    margin-left: 120px;
+.user-card {
+  height: 100%;
 }
 
-.card-body {
-  flex: 2 1 auto;
-  padding: 2.25rem;
+dl,
+ol,
+ul {
+  margin-bottom: 0rem !important;
+  padding-left: 1.3rem !important;
+}
+
+@media screen and (min-width: 767px) {
+  .items-card {
+    height: 9rem;
+  }
+  .user-card {
+    height: 14rem;
+  }
 }

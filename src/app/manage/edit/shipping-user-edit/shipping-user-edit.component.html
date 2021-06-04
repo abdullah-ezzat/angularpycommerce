@@ -7,9 +7,9 @@
     <input
       type="hidden"
       class="form-control"
-      [(ngModel)]="shippingUser.Id"
-      name="Id"
-      id="Id"
+      [(ngModel)]="shippingUser.id"
+      name="id"
+      id="id"
       placeholder="Id"
     />
     <div class="invalid-feedback"></div>
@@ -23,7 +23,7 @@
       name="UserId"
       id="UserId"
     >
-      <option *ngFor="let user of Users; let i = index" [value]="Users[i].Id">
+      <option *ngFor="let user of Users; let i = index" [value]="Users[i].id">
         {{ Users[i].NameL }}
       </option>
     </select>
@@ -39,7 +39,7 @@
     >
       <option
         *ngFor="let shippingUser of ShippingUsers; let i = index"
-        [value]="ShippingUsers[i].Id"
+        [value]="ShippingUsers[i].id"
       >
         {{ ShippingUsers[i].NameL }}
       </option>
@@ -47,5 +47,5 @@
   </div>
 
   <br />
-  <button class="btn btn-primary" type="submit">Save</button>
+  <button class="btn btn-success" type="submit">Update</button>
 </form>

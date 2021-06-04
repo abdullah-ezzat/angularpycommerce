@@ -1,54 +1,49 @@
 import { Component, OnInit } from '@angular/core';
 import { UserData } from '../../auth/login/userData.Model';
-import { GetDataApiService } from '../../get-data-api.service';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { GetDataService } from 'src/app/api/get/get-data.service';
+import { AddDataService } from 'src/app/api/add/add-data.service';
 
 @Component({
   selector: 'app-my-account',
   templateUrl: './my-account.component.html',
-  styleUrls: ['./my-account.component.css']
+  styleUrls: ['./my-account.component.css'],
 })
 export class MyAccountComponent implements OnInit {
-
   User: any;
-
-  constructor(private router: Router, private service: GetDataApiService, private toastr: ToastrService) { 
-  }
-
+  constructor(
+    private get: GetDataService,
+    private add: AddDataService,
+    private toastr: ToastrService
+  ) {}
   ngOnInit(): void {
-
-    let UserId = localStorage.getItem('UserId')
-
-    this.service.getUser(UserId).subscribe(response => {
+    let UserId = localStorage.getItem('UserId');
+    this.get.getUser(UserId).subscribe((response) => {
       this.User = response;
-
-    })
-    ,error => {
-      alert('An unexpected error occured.');
-      console.log(error);
-    }
-
+    }),
+      (error) => {
+        alert('An unexpected error occured.');
+        console.log(error);
+      };
   }
 
-  
-updateUser(post : UserData){
-
-  ;
-
-  this.service.updateUser(post)
-  .pipe().subscribe(response => {
-  this.User = response;
-    if(response == false){
-      this.toastr.error('This email or username is already taken.');
-    }else{
-      this.toastr.success('Your account has been updated.');
-    }
-  },error => {
-    alert('An unexpected error occured.');
-    console.log(error);
-  });
-
+  updateUser(post: UserData) {
+    this.add
+      .updateData('users', post.id, post)
+      .pipe()
+      .subscribe(
+        (response) => {
+          this.User = response;
+          if (response == false) {
+            this.toastr.error('This email or username is already taken');
+          } else {
+            this.toastr.success('Your account has been updated');
+          }
+        },
+        (error) => {
+          alert('An unexpected error occured.');
+          console.log(error);
+        }
+      );
   }
-
 }

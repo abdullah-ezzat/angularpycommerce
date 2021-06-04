@@ -1,15 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AddDataService } from 'src/app/api/add/add-data.service';
+import { GetAllService } from 'src/app/api/all/get-all.service';
 import { GetDataApiService } from '../../../get-data-api.service';
 import { StoresDetail } from '../../view/stores/Stores.model';
 
 @Component({
   selector: 'app-stores-form',
   templateUrl: './stores-form.component.html',
-  styleUrls: ['./stores-form.component.css']
+  styleUrls: ['./stores-form.component.css'],
 })
 export class StoresFormComponent implements OnInit {
-
   store: any;
   Stores: any;
 
@@ -17,56 +18,65 @@ export class StoresFormComponent implements OnInit {
   Vendors: any;
 
   Country: any;
-  Countries: any
+  Countries: any;
 
   shippingAgent: any;
   ShippingAgents: any;
-  
-constructor(private route: Router, private service: GetDataApiService) { }
 
-ngOnInit(): void {
-  this.service.getAllVendors()
-  .subscribe(response => {
-    this.Vendors = response;
-    
-  },error => {
-    alert('An unexpected error occured.');
-    console.log(error);
-  });
+  constructor(
+    private route: Router,
+    private service: GetAllService,
+    private add: AddDataService
+  ) {}
 
-  this.service.getAllShippingAgents()
-  .subscribe(response => {
-    this.ShippingAgents = response;
+  ngOnInit(): void {
+    this.service.getAllData('vendors').subscribe(
+      (response) => {
+        this.Vendors = response;
+      },
+      (error) => {
+        alert('An unexpected error occured.');
+        console.log(error);
+      }
+    );
 
-  },error => {
-    alert('An unexpected error occured.');
-    console.log(error);
-  });
+    this.service.getAllData('shippingAgents').subscribe(
+      (response) => {
+        this.ShippingAgents = response;
+      },
+      (error) => {
+        alert('An unexpected error occured.');
+        console.log(error);
+      }
+    );
 
-  this.service.getAllCountries()
-  .subscribe(response => {
-    this.Countries = response;
+    this.service.getAllData('categories').subscribe(
+      (response) => {
+        this.Countries = response;
+      },
+      (error) => {
+        alert('An unexpected error occured.');
+        console.log(error);
+      }
+    );
+  }
 
-  },error => {
-    alert('An unexpected error occured.');
-    console.log(error);
-  });
-}
+  saveStore(post: StoresDetail) {
+    this.add
+      .addData('stores', post)
+      .pipe()
+      .subscribe(
+        () => {},
+        (error) => {
+          alert('An unexpected error occured.');
+          console.log(error);
+        }
+      );
 
-saveStore(post : StoresDetail){
-
-post.MapLocation =  post.MapLocation.replace("<iframe src=", "");
-post.MapLocation =  post.MapLocation.replace("></iframe>", "");
-
-  ;
-  this.service.addNewStore(post)
-  .pipe().subscribe(response => {
-      
-  },error => {
-    alert('An unexpected error occured.');
-    console.log(error);
-  });
-
-  this.route.navigate(['Stores'])
-}
+    this.route.navigate(['Stores']);
+  }
+  autoGrowTextZone(e) {
+    e.target.style.height = '0px';
+    e.target.style.height = e.target.scrollHeight + 0 + 'px';
+  }
 }

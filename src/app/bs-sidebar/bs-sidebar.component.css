@@ -24,6 +24,18 @@ a:focus {
   transition: all 0.3s;
 }
 
+.cart {
+  display: flex;
+  cursor: pointer;
+  flex-direction: column;
+  align-items: center;
+}
+
+.badge-bg {
+  cursor: pointer;
+  font-size: 11px;
+  background-color: #4d88a5 !important;
+}
 .navbar {
   padding: 15px 10px;
   background: #fff;
@@ -256,14 +268,10 @@ a.article:hover {
     no-repeat 0 0;
   width: 24px;
   height: 24px;
-  margin: 0 10px 0 0;
+  margin-top: -4px;
+  margin-left: 4px;
 }
 
-@media (max-width: 1480px) {
-  #nav-navbar-nav-ml-auto {
-    margin-right: -1rem;
-  }
-}
 .dropdown:hover .dropdown-menu {
   display: block;
   cursor: pointer;

@@ -1,7 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
+import { AddDataService } from 'src/app/api/add/add-data.service';
+import { GetAllService } from 'src/app/api/all/get-all.service';
+import { GetDataService } from 'src/app/api/get/get-data.service';
 import { GetDataApiService } from '../../../get-data-api.service';
-
+import { Notes } from './Notes.model';
 @Component({
   selector: 'app-shipping-process',
   templateUrl: './shipping-process.component.html',
@@ -13,60 +16,50 @@ export class ShippingProcessComponent implements OnInit {
   Masters: any;
 
   constructor(
-    private service: GetDataApiService,
-    private router: Router,
-    private route: ActivatedRoute
+    private add: AddDataService,
+    private all: GetAllService,
+    private get: GetDataService
   ) {}
 
   ngOnInit(): void {
     let UserId = localStorage.getItem('UserId');
 
-    this.service.getOrdersForShipping(UserId).subscribe((response) => {
+    this.get.getOrdersShipping(UserId).subscribe((response) => {
       this.Orders = response;
     });
 
-    this.service.getShippingDetails(UserId).subscribe((response) => {
+    this.get.getShippingDetails(UserId).subscribe((response) => {
       this.Details = response;
     });
 
-    this.service.getOrderMaster(UserId).subscribe((response) => {
+    this.get.getOrdersMaster(UserId).subscribe((response) => {
       this.Masters = response;
     });
   }
 
-  addDeliveryNotes(DeliveryNote, OrderId, MapLocation, Latitude, Longitude) {
+  addDeliveryNotes(post: Notes, OrderId) {
+    console.log(OrderId);
+    console.log(post);
     let UserId = localStorage.getItem('UserId');
-    this.service
-      .addDeliveryNote(
-        DeliveryNote,
-        OrderId,
-        UserId,
-        MapLocation,
-        Latitude,
-        Longitude
-      )
-      .subscribe(() => {
-        location.reload();
-      });
+    this.add.addNotes(post, OrderId, UserId).subscribe(() => {
+      location.reload();
+    });
   }
 
   DeliverOrder(OrderId) {
     let UserId = localStorage.getItem('UserId');
-    this.service.DeliverOrder(OrderId, UserId).subscribe((response) => {
+    this.add.deliverOrder(OrderId, UserId).subscribe(() => {
       location.reload();
     });
   }
 
   getFilteredOrders(StatusId) {
     let UserId = localStorage.getItem('UserId');
+    this.all.getOrdersFilterd(UserId, StatusId).subscribe((response) => {
+      this.Orders = response;
+    });
 
-    this.service
-      .getOrdersForShippingFilterd(UserId, StatusId)
-      .subscribe((response) => {
-        this.Orders = response;
-      });
-
-    this.service.getShippingDetails(UserId).subscribe((response) => {
+    this.get.getShippingDetails(UserId).subscribe((response) => {
       this.Details = response;
     });
   }

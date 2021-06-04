@@ -1,34 +1,33 @@
-<form  #form="ngForm" (ngSubmit) = addSpecification(form.value) class="was-validated ">
+<form
+  #form="ngForm"
+  (ngSubmit)="addSpecification(form.value)"
+  class="p-3"
+  ngNativeValidate
+>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Specification Value</mat-label>
+    <textarea
+      matInput
+      id="SpecificationValue"
+      name="SpecificationValue"
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Specification"
+      required
+    ></textarea>
+  </mat-form-field>
 
-    <div class="form-group col-md-3">
-        <label for="hidden">Product Id</label>
-        <input type="hidden" class="form-control" [(ngModel)]="ProductId" name="ProductId"  id="ProductId" placeholder="Name" required>
-        <div class="invalid-feedback">
-          </div>
-      </div>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Specification Name</mat-label>
+    <mat-select name="SpecificationId_id" id="SpecificationId_id">
+      <mat-option
+        *ngFor="let specification of Specifications; let i = index"
+        [value]="Specifications[i].id"
+        >{{ Specifications[i].NameL }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
 
-      <div class="form-group col-md-3">
-        <label for="hidden">Category Id</label>
-        <input type="hidden" class="form-control" [(ngModel)]="CategoryId" name="CategoryId"  id="CategoryId" placeholder="Name" required>
-        <div class="invalid-feedback">
-          </div>
-      </div>
-
-          <div class="form-group col-md-3">
-            <label for="inputSpecification">Specification Name</label>
-               <select class="custom-select"  ngModel name="SpecificationId"  id="SpecificationId">
-                <option *ngFor="let specification of AllSpecifications; let i = index" [value]="AllSpecifications[i].Id">
-                  {{AllSpecifications[i].NameL}}
-                </option>
-              </select>
-        </div>
-    
-            <div class="form-group col-md-3">
-              <label for="inputSpecificationValue">Specification Value</label>
-              <input type="text" class="form-control" ngModel name="SpecificationValue" id="SpecificationValue" placeholder="Value" required>
-              <div class="invalid-feedback">
-                </div>
-            </div> 
-    
-        <button class="btn btn-primary" type="submit">Save</button>
-    </form>
+  <div class="d-grid gap-2">
+    <button type="submit" mat-raised-button color="primary">Save</button>
+  </div>
+</form>
