@@ -17,7 +17,11 @@
             <strong>City: &nbsp; {{ User.City }}</strong>
           </li>
         </ul>
-        <button style="float: right" mat-icon-button routerLink="/account">
+        <button
+          style="float: right"
+          mat-icon-button
+          (click)="assign('/account')"
+        >
           <mat-icon>edit</mat-icon>
         </button>
       </mat-card>

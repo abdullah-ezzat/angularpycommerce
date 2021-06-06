@@ -3,9 +3,3 @@ export class BrandsDetail {
   NameA: string;
   NameL: string;
 }
-
-export const initialState: BrandsDetail = {
-  id: 1,
-  NameA: '',
-  NameL: '',
-};

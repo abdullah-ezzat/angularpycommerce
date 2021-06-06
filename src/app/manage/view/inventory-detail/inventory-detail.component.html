@@ -1,4 +1,4 @@
-<mat-form-field>
+<mat-form-field appearance="outline">
   <mat-label>Filter</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Search" />
 </mat-form-field>
@@ -42,6 +42,8 @@
 </div>
 
 <br />
-<button (click)="DetailForm()" class="btn btn-primary btn-lg btn-block">
-  Add Transaction
-</button>
+<div class="d-grid gap-2">
+  <button (click)="DetailForm()" mat-raised-button color="primary">
+    Add Transaction
+  </button>
+</div>

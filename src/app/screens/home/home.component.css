@@ -51,7 +51,7 @@
   width: 100%;
 }
 
-img:hover {
+.product-image:hover {
   filter: brightness(110%);
   -webkit-transform: scale(1.1);
   transform: scale(1.1);

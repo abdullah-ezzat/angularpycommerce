@@ -1,63 +1,88 @@
 <form
   #form="ngForm"
   (ngSubmit)="updateVendor(form.value)"
-  class="was-validated"
+  class="p-3"
+  ngNativeValidate
 >
-  <div class="form-group col-md-3">
-    <input
-      type="hidden"
-      class="form-control"
-      [(ngModel)]="vendor.id"
-      name="id"
-      id="id"
-      placeholder="Id"
-    />
-    <div class="invalid-feedback"></div>
-  </div>
-
-  <div class="form-group col-md-3">
-    <label for="inputTitle">English Name</label>
-    <input
-      type="text"
-      class="form-control"
-      [(ngModel)]="vendor.NameL"
-      name="NameL"
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Vendor Name</mat-label>
+    <textarea
+      matInput
       id="NameL"
+      name="NameL"
+      [(ngModel)]="vendor.NameL"
+      (keyup)="autoGrowTextZone($event)"
       placeholder="Name"
       required
-    />
-    <div class="invalid-feedback"></div>
-  </div>
+    ></textarea>
+  </mat-form-field>
 
-  <div class="form-group col-md-3">
-    <label for="inputEmail">Email</label>
-    <input
-      type="text"
-      class="form-control"
-      [(ngModel)]="vendor.Email"
-      name="Email"
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Email</mat-label>
+    <textarea
+      matInput
       id="Email"
+      name="Email"
+      [(ngModel)]="vendor.Email"
+      (keyup)="autoGrowTextZone($event)"
       placeholder="Email"
       required
-    />
-    <div class="invalid-feedback"></div>
-  </div>
+    ></textarea>
+  </mat-form-field>
 
-  <div class="form-group col-md-3">
-    <label for="inputPassword">Password</label>
-    <input
-      type="password"
-      class="form-control"
-      [(ngModel)]="vendor.Password"
-      name="Password"
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Password</mat-label>
+    <textarea
+      matInput
       id="Password"
+      name="Password"
+      [(ngModel)]="vendor.Password"
+      (keyup)="autoGrowTextZone($event)"
       placeholder="Password"
-      data-toggle="password"
       required
-    />
+    ></textarea>
+  </mat-form-field>
 
-    <div class="invalid-feedback"></div>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Address</mat-label>
+    <textarea
+      matInput
+      id="Address1"
+      name="Address1"
+      [(ngModel)]="vendor.Address1"
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Adress"
+      required
+    ></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Address 2 (optional)</mat-label>
+    <textarea
+      matInput
+      id="Address2"
+      name="Address2"
+      [(ngModel)]="vendor.Address2"
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Address"
+    ></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Phone Number</mat-label>
+    <textarea
+      matInput
+      id="Phone"
+      name="Phone"
+      [(ngModel)]="vendor.Phone"
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Phone"
+      maxlength="11"
+      required
+    ></textarea>
+  </mat-form-field>
+
+  <div class="d-grid gap-2">
+    <button type="submit" mat-raised-button color="primary">Update</button>
   </div>
-  <br />
-  <button class="btn btn-success" type="submit">Update</button>
 </form>

@@ -17,13 +17,12 @@ export class EditSpecificationComponent implements OnInit {
   Categories: any;
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private all: GetAllService,
     private get: GetDataService,
     private update: AddDataService
   ) {
-    let id = this.route.snapshot.paramMap.get('id');
+    let id = this.route.snapshot.paramMap.get('Id');
     this.ProductId = id;
     if (id)
       this.get
@@ -54,6 +53,7 @@ export class EditSpecificationComponent implements OnInit {
   }
 
   updateProductSpecification(post: ProductSpecificationDetails) {
+    post.id = this.specification.id;
     this.update
       .updateData('productSpecifications', post.id, post)
       .pipe()
@@ -64,6 +64,10 @@ export class EditSpecificationComponent implements OnInit {
           console.log(error);
         }
       );
-    this.router.navigate(['/manage/edit/product/' + this.ProductId]);
+    location.assign('/manage/edit/product/' + this.ProductId);
+  }
+  autoGrowTextZone(e) {
+    e.target.style.height = '0px';
+    e.target.style.height = e.target.scrollHeight + 0 + 'px';
   }
 }

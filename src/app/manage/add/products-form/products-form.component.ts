@@ -43,12 +43,12 @@ export class ProductsFormComponent implements OnInit {
       }
     );
 
-    function readURL(input) {
+    function readURL(input, img) {
       if (input.value && input.value[0]) {
         var reader = new FileReader();
 
         reader.onload = function (e) {
-          $('#imgsrc').attr('src', e.target.result);
+          $(img).attr('src', e.target.result);
         };
 
         reader.readAsDataURL(input.value[0]);
@@ -56,7 +56,16 @@ export class ProductsFormComponent implements OnInit {
     }
 
     $('#Image').change(function () {
-      readURL(this);
+      readURL(this, '#imgsrc');
+    });
+    $('#Image2').change(function () {
+      readURL(this, '#imgsrc2');
+    });
+    $('#Image3').change(function () {
+      readURL(this, '#imgsrc3');
+    });
+    $('#Image4').change(function () {
+      readURL(this, '#imgsrc4');
     });
   }
 

@@ -116,4 +116,7 @@ export class ShoppingCartComponent implements OnInit {
   reloadPage() {
     location.reload();
   }
+  assign(url) {
+    location.assign(url);
+  }
 }

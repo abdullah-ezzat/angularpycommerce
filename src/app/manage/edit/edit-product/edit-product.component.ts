@@ -37,7 +37,6 @@ export class EditProductComponent implements OnInit {
   dataSource;
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private services: GetDataApiService,
     private all: GetAllService,
@@ -75,12 +74,12 @@ export class EditProductComponent implements OnInit {
 
     this.product = ProductsDetail;
 
-    function readURL(input) {
+    function readURL(input, img) {
       if (input.value && input.value[0]) {
         var reader = new FileReader();
 
         reader.onload = function (e) {
-          $('#imgsrc').attr('src', e.target.result);
+          $(img).attr('src', e.target.result);
         };
 
         reader.readAsDataURL(input.value[0]);
@@ -88,14 +87,23 @@ export class EditProductComponent implements OnInit {
     }
 
     $('#Image').change(function () {
-      readURL(this);
+      readURL(this, '#imgsrc');
+    });
+    $('#Image2').change(function () {
+      readURL(this, '#imgsrc2');
+    });
+    $('#Image3').change(function () {
+      readURL(this, '#imgsrc3');
+    });
+    $('#Image4').change(function () {
+      readURL(this, '#imgsrc4');
     });
   }
 
   addProductSpecification(productId, CategoryId) {
     localStorage.setItem('CategoryId', CategoryId);
     localStorage.setItem('SpecificationProductId', productId);
-    this.router.navigate(['/manage/specifications']);
+    location.assign('/manage/specifications');
   }
 
   copyFromProductSpecification(fromProductId, productId, CategoryId) {
@@ -103,7 +111,7 @@ export class EditProductComponent implements OnInit {
       .copyFromProductSepcification(fromProductId, productId, CategoryId)
       .subscribe(
         () => {
-          this.router.navigate(['/manage/edit/product/' + productId]);
+          location.assign('/manage/edit/product/' + productId);
         },
         (error) => {
           alert('An unexpected error occured.');
@@ -122,18 +130,26 @@ export class EditProductComponent implements OnInit {
 
     if (post.Image) {
       post.Image = post.Image._fileNames;
+    } else {
+      post.Image = this.product.Image;
     }
 
     if (post.Image2) {
       post.Image2 = post.Image2._fileNames;
+    } else {
+      post.Image2 = this.product.Image2;
     }
 
     if (post.Image3) {
       post.Image3 = post.Image3._fileNames;
+    } else {
+      post.Image3 = this.product.Image3;
     }
 
     if (post.Image4) {
       post.Image4 = post.Image4._fileNames;
+    } else {
+      post.Image4 = this.product.Image4;
     }
 
     this.update
@@ -146,7 +162,7 @@ export class EditProductComponent implements OnInit {
           console.log(error);
         }
       );
-    this.router.navigate(['/manage/products']);
+    location.assign('/manage/products');
   }
   autoGrowTextZone(e) {
     e.target.style.height = '0px';

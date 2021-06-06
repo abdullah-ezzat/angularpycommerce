@@ -56,10 +56,12 @@ export class BsSidebarComponent implements OnInit {
     if (userId > 0) {
       if (seconds < 1800) {
         this.userName = localStorage.getItem('UserName');
+        localStorage.setItem('LastActiveTime', JSON.stringify(CheckTimeStamp));
       } else {
         this.toastr.error('You have logged out due to inactivity');
         localStorage.removeItem('UserId');
         localStorage.removeItem('UserName');
+        localStorage.removeItem('LastActiveTime');
       }
     }
   }
@@ -71,7 +73,7 @@ export class BsSidebarComponent implements OnInit {
     this.toastr.error('You have logged out');
     localStorage.removeItem('UserId');
     localStorage.removeItem('UserName');
-    location.assign('/');
+    this.assign('/');
   }
 
   CartItemCounter(NumberOfItems) {
@@ -80,10 +82,10 @@ export class BsSidebarComponent implements OnInit {
 
   AssignCategoryId(CategoryId) {
     localStorage.setItem('CategoryId', CategoryId);
-    this.Home();
+    this.assign('/Home');
   }
 
-  Home() {
-    location.assign('/Home');
+  assign(url) {
+    location.assign(url);
   }
 }

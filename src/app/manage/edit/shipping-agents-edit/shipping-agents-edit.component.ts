@@ -13,12 +13,11 @@ export class ShippingAgentsEditComponent {
   ShippingAgent: any;
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private get: GetDataService,
     private update: AddDataService
   ) {
-    let id = this.route.snapshot.paramMap.get('id');
+    let id = this.route.snapshot.paramMap.get('Id');
     if (id)
       this.get
         .getData('shippingAgents', id)
@@ -26,6 +25,7 @@ export class ShippingAgentsEditComponent {
   }
 
   updateShippingAgents(post: ShippingAgentDetails) {
+    post.id = this.ShippingAgent.id;
     this.update
       .updateData('shippingAgents', post.id, post)
       .pipe()
@@ -36,6 +36,10 @@ export class ShippingAgentsEditComponent {
           console.log(error);
         }
       );
-    this.router.navigate(['/manage/shippingagents']);
+    location.assign('/manage/shippingagents');
+  }
+  autoGrowTextZone(e) {
+    e.target.style.height = '0px';
+    e.target.style.height = e.target.scrollHeight + 0 + 'px';
   }
 }

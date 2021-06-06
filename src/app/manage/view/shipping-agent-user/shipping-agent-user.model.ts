@@ -1,5 +1,5 @@
 export class ShippingUserModel {
   id: Number;
-  UserId: Number;
-  ShippingAgentId: Number;
+  UserId_id: Number;
+  ShippingAgentId_id: Number;
 }

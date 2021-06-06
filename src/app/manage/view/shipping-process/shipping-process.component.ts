@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AddDataService } from 'src/app/api/add/add-data.service';
 import { GetAllService } from 'src/app/api/all/get-all.service';
 import { GetDataService } from 'src/app/api/get/get-data.service';
-import { GetDataApiService } from '../../../get-data-api.service';
 import { Notes } from './Notes.model';
 @Component({
   selector: 'app-shipping-process',
@@ -14,11 +13,13 @@ export class ShippingProcessComponent implements OnInit {
   Orders: any;
   Details: any;
   Masters: any;
+  Currency: any;
 
   constructor(
     private add: AddDataService,
     private all: GetAllService,
-    private get: GetDataService
+    private get: GetDataService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -26,6 +27,8 @@ export class ShippingProcessComponent implements OnInit {
 
     this.get.getOrdersShipping(UserId).subscribe((response) => {
       this.Orders = response;
+      const currency = this.Orders.map((item) => item.Currency);
+      this.Currency = currency[0];
     });
 
     this.get.getShippingDetails(UserId).subscribe((response) => {
@@ -38,12 +41,34 @@ export class ShippingProcessComponent implements OnInit {
   }
 
   addDeliveryNotes(post: Notes, OrderId) {
-    console.log(OrderId);
-    console.log(post);
-    let UserId = localStorage.getItem('UserId');
-    this.add.addNotes(post, OrderId, UserId).subscribe(() => {
+    var options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    };
+    function error(err) {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(setPosition, error, options);
+    } else {
+      this.toastr.error('You must allow location to get coordinates');
+    }
+
+    function setPosition(position) {
+      post.Latitude = position.coords.latitude;
+      post.Longitude = position.coords.longitude;
+    }
+
+    if (post.Latitude || post.Longitude == null) {
+      this.toastr.error('You must allow location to get coordinates');
+    } else {
       location.reload();
-    });
+    }
+
+    let UserId = localStorage.getItem('UserId');
+    this.add.addNotes(post, OrderId, UserId).subscribe(() => {});
   }
 
   DeliverOrder(OrderId) {
@@ -62,5 +87,10 @@ export class ShippingProcessComponent implements OnInit {
     this.get.getShippingDetails(UserId).subscribe((response) => {
       this.Details = response;
     });
+  }
+
+  autoGrowTextZone(e) {
+    e.target.style.height = '0px';
+    e.target.style.height = e.target.scrollHeight + 0 + 'px';
   }
 }

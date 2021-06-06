@@ -46,4 +46,7 @@ export class MyAccountComponent implements OnInit {
         }
       );
   }
+  assign(url) {
+    location.assign(url);
+  }
 }

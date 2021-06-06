@@ -16,13 +16,12 @@ export class ShippingUserEditComponent implements OnInit {
   Users: any;
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private all: GetAllService,
     private get: GetDataService,
     private update: AddDataService
   ) {
-    let id = this.route.snapshot.paramMap.get('id');
+    let id = this.route.snapshot.paramMap.get('Id');
     if (id)
       this.get
         .getData('shippingAgentUsers', id)
@@ -52,6 +51,7 @@ export class ShippingUserEditComponent implements OnInit {
   }
 
   updateShippingUser(post: ShippingUserModel) {
+    post.id = this.shippingUser.id;
     this.update
       .updateData('shippingAgentUsers', post.id, post)
       .pipe()
@@ -63,6 +63,10 @@ export class ShippingUserEditComponent implements OnInit {
         }
       );
 
-    this.router.navigate(['/manage/shippingusers']);
+    location.assign('/manage/shippingusers');
+  }
+  autoGrowTextZone(e) {
+    e.target.style.height = '0px';
+    e.target.style.height = e.target.scrollHeight + 0 + 'px';
   }
 }

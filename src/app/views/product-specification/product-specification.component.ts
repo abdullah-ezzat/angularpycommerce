@@ -9,47 +9,51 @@ import { ProductSpecificationDetails } from './product-specification.model';
 @Component({
   selector: 'app-product-specification',
   templateUrl: './product-specification.component.html',
-  styleUrls: ['./product-specification.component.css']
+  styleUrls: ['./product-specification.component.css'],
 })
 export class ProductSpecificationComponent implements OnInit {
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
-  @ViewChild(MatSort, {static: true}) sort: MatSort;
-
-  displayedColumns: string[] = [ 'Id','ProductId','SpecificationName','SpecificationValue','edit' ];
-  dataSource ;
+  displayedColumns: string[] = [
+    'Id',
+    'ProductId',
+    'SpecificationName',
+    'SpecificationValue',
+    'edit',
+  ];
+  dataSource;
   specification: any;
   ProductId: any;
 
-  constructor(private service: GetDataApiService, private router: Router) { }
+  constructor(private service: GetDataApiService, private router: Router) {}
 
-  ngOnInit(): void{
-    
-    this.service.getAllproductSpecifications(this.ProductId)
-    .subscribe(response => {
-      this.specification = response;
+  ngOnInit(): void {
+    this.service.getAllproductSpecifications(this.ProductId).subscribe(
+      (response) => {
+        this.specification = response;
 
-      this.dataSource = new MatTableDataSource(this.specification); 
-      
-      this.dataSource.sort = this.sort;
-      this.dataSource.paginator = this.paginator;
+        this.dataSource = new MatTableDataSource(this.specification);
 
-    },error => {
-      alert('An unexpected error occured.');
-      console.log(error);
-
-    });
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
+      },
+      (error) => {
+        alert('An unexpected error occured.');
+        console.log(error);
+      }
+    );
   }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
-      {   
-    };
+    {
+    }
   }
 
-  addSpecification(){
+  addSpecification() {
     this.specification = new ProductSpecificationDetails();
-    this.router.navigate(['specification-Form',this.specification ])
+    location.assign('/manage/add/specification' + this.specification);
   }
 }

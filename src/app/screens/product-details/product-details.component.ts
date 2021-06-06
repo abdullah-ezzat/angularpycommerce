@@ -50,7 +50,7 @@ export class ProductDetailsComponent implements OnInit {
 
   constructor(
     private service: GetDataApiService,
-    private services: GetAllService,
+    private all: GetAllService,
     private get: GetDataService,
     private add: AddDataService,
     private route: Router,
@@ -66,7 +66,7 @@ export class ProductDetailsComponent implements OnInit {
         .subscribe((response) => (this.CartDetail = response));
   }
   ngOnInit(): void {
-    this.services.getProSpecInv(this.ProductId).subscribe(
+    this.all.getProSpecInv(this.ProductId).subscribe(
       (response) => {
         this.Specifications = response;
       },
@@ -75,7 +75,7 @@ export class ProductDetailsComponent implements OnInit {
         console.log(error);
       }
     );
-    this.services
+    this.all
       .getAllReviews(this.ProductId)
       .pipe()
       .subscribe(
@@ -177,11 +177,6 @@ export class ProductDetailsComponent implements OnInit {
           this.CartId = Number(response);
           localStorage.setItem('cartId', this.CartId);
           post.MasterId = this.CartId;
-          var LoginDateStamp = this.service.updateLastActiveTime();
-          localStorage.setItem(
-            'LastActiveTime',
-            JSON.stringify(LoginDateStamp)
-          );
           this.createNewShoppingCartItem(post);
         },
         (error) => {
@@ -193,7 +188,7 @@ export class ProductDetailsComponent implements OnInit {
     } else {
       this.CartId = cartId;
       post.MasterId = this.CartId;
-      var LoginDateStamp = this.service.updateLastActiveTime();
+      var LoginDateStamp = this.add.updateTimestamp();
       localStorage.setItem('LastActiveTime', JSON.stringify(LoginDateStamp));
       console.log(post);
       this.createNewShoppingCartItem(post);
@@ -274,5 +269,8 @@ export class ProductDetailsComponent implements OnInit {
         Image3: this.CartDetail.Image3,
       },
     });
+  }
+  assign(url) {
+    location.assign(url);
   }
 }

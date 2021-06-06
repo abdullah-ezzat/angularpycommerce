@@ -4,9 +4,13 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class GetDataService {
-  private get = 'http://127.0.0.1:8000/api/get/';
+  private get = 'http://pycommerceapp.herokuapp.com/api/get/';
 
   constructor(private http: HttpClient) {}
+
+  checkProductExist(StoreId, ProductId) {
+    return this.http.get(this.get + StoreId + '/' + ProductId);
+  }
 
   getData(fn, id) {
     return this.http.get(this.get + fn + '/' + id);

@@ -4,7 +4,7 @@ import { InventoryDetails } from '../../view/inventory-detail/inventory-detail.m
 import { ToastrService } from 'ngx-toastr';
 import { GetAllService } from 'src/app/api/all/get-all.service';
 import { AddDataService } from 'src/app/api/add/add-data.service';
-import { GetDataApiService } from 'src/app/get-data-api.service';
+import { GetDataService } from 'src/app/api/get/get-data.service';
 
 @Component({
   selector: 'app-inventory-detail-form',
@@ -20,8 +20,8 @@ export class InventoryDetailFormComponent implements OnInit {
   constructor(
     private route: Router,
     private toastr: ToastrService,
-    private services: GetDataApiService,
     private all: GetAllService,
+    private get: GetDataService,
     private add: AddDataService
   ) {}
 
@@ -48,8 +48,8 @@ export class InventoryDetailFormComponent implements OnInit {
   }
 
   saveDetail(post: InventoryDetails) {
-    this.services
-      .checkPriceListExist(post.StoreId, post.ProductId)
+    this.get
+      .checkProductExist(post.StoreId_id, post.ProductId_id)
       .pipe()
       .subscribe((response) => {
         if (response == true) {
@@ -63,13 +63,14 @@ export class InventoryDetailFormComponent implements OnInit {
                 console.log(error);
               }
             );
-          this.route.navigate(['/manage/inventories']);
+          location.assign('/manage/inventories');
         } else {
           this.toastr
             .error(
-              "This product doesn't exist in price list. Click here to add it."
+              "This product doesn't exist in price list",
+              'Click here to add it'
             )
-            .onTap.subscribe(() => this.route.navigate(['/manage/prices']));
+            .onTap.subscribe(() => location.assign('/manage/prices'));
         }
       });
   }

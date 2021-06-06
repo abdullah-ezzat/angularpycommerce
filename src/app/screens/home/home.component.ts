@@ -65,9 +65,14 @@ export class HomeComponent implements OnInit {
   getProducts(page, CategoryId, searchTerms) {
     this.service.getAllSpecifications(this.CategoryId).subscribe(
       (response: any) => {
-        this.AllSpecifications = response
-          .map((item) => item)
-          .filter((value, index, self) => self.indexOf(value) === index);
+        this.AllSpecifications = response;
+        const arrayUniqueByKey = [
+          ...new Map(
+            this.AllSpecifications.map((item) => [item['id'], item])
+          ).values(),
+        ];
+
+        this.AllSpecifications = arrayUniqueByKey;
       },
       (error) => {
         alert('An unexpected error occured.');
@@ -78,6 +83,12 @@ export class HomeComponent implements OnInit {
     this.service.getAllData('specificationValueCount').subscribe(
       (response) => {
         this.AllProductSpecifications = response;
+        this.AllProductSpecifications = this.AllProductSpecifications.filter(
+          (v, i, a) =>
+            a.findIndex(
+              (t) => t.SpecificationValue === v.SpecificationValue
+            ) === i
+        );
       },
       (error) => {
         alert('An unexpected error occured.');
@@ -190,5 +201,8 @@ export class HomeComponent implements OnInit {
   }
   scrollTop() {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
+  }
+  assign(url) {
+    location.assign(url);
   }
 }

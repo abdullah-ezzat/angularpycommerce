@@ -5,8 +5,8 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AddDataService {
-  private add = 'http://127.0.0.1:8000/api/add/';
-  private delete = 'http://127.0.0.1:8000/api/delete/';
+  private add = 'http://pycommerceapp.herokuapp.com/api/add/';
+  private delete = 'http://pycommerceapp.herokuapp.com/api/delete/';
 
   constructor(private http: HttpClient) {}
 
@@ -55,8 +55,10 @@ export class AddDataService {
     return this.http.post(this.add + model + '/' + id, post);
   }
 
-  updateImage(post: any, id) {
-    return this.http.post(this.add + 'updateImages/' + id, post);
+  updateTimestamp() {
+    var LoginDate = new Date();
+    var LoginDateStamp = LoginDate.getTime();
+    return LoginDateStamp;
   }
 
   deleteCartItem(id) {

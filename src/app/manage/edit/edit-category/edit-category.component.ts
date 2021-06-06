@@ -22,7 +22,7 @@ export class EditComponent implements OnInit {
     private get: GetDataService,
     private update: AddDataService
   ) {
-    let id = this.route.snapshot.paramMap.get('id');
+    let id = this.route.snapshot.paramMap.get('Id');
     if (id)
       this.get
         .getData('categories', id)
@@ -42,6 +42,7 @@ export class EditComponent implements OnInit {
   }
 
   updateCategory(post: CategoryDetail) {
+    post.id = this.category.id;
     this.update
       .updateData('categories', post.id, post)
       .pipe()
@@ -52,6 +53,10 @@ export class EditComponent implements OnInit {
           console.log(error);
         }
       );
-    this.router.navigate(['/manage/categories']);
+    location.assign('/manage/categories');
+  }
+  autoGrowTextZone(e) {
+    e.target.style.height = '0px';
+    e.target.style.height = e.target.scrollHeight + 0 + 'px';
   }
 }

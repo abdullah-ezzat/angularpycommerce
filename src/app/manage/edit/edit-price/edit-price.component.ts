@@ -17,13 +17,12 @@ export class EditPriceComponent implements OnInit {
   Countries: any;
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private all: GetAllService,
     private get: GetDataService,
     private update: AddDataService
   ) {
-    let id = this.route.snapshot.paramMap.get('id');
+    let id = this.route.snapshot.paramMap.get('Id');
     if (id)
       this.get
         .getData('vendorPriceLists', id)
@@ -51,7 +50,7 @@ export class EditPriceComponent implements OnInit {
       }
     );
 
-    this.all.getAllData('categories').subscribe(
+    this.all.getAllData('countries').subscribe(
       (response) => {
         this.Countries = response;
       },
@@ -63,6 +62,7 @@ export class EditPriceComponent implements OnInit {
   }
 
   updatePrice(post: PriceListDetails) {
+    post.id = this.price.id;
     this.update
       .updateData('vendorPriceLists', post.id, post)
       .pipe()
@@ -73,6 +73,10 @@ export class EditPriceComponent implements OnInit {
           console.log(error);
         }
       );
-    this.router.navigate(['/manage/prices']);
+    location.assign('/manage/prices');
+  }
+  autoGrowTextZone(e) {
+    e.target.style.height = '0px';
+    e.target.style.height = e.target.scrollHeight + 0 + 'px';
   }
 }

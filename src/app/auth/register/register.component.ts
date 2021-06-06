@@ -16,12 +16,7 @@ export class RegisterComponent {
   UserName: any;
   hide = true;
 
-  constructor(
-    private service: GetDataApiService,
-    private add: AddDataService,
-    private route: Router,
-    private toastr: ToastrService
-  ) {}
+  constructor(private add: AddDataService, private toastr: ToastrService) {}
 
   Register(post: UserData) {
     this.add
@@ -37,7 +32,7 @@ export class RegisterComponent {
           }
           var userData = this.mapResponse(response);
 
-          var LoginDateStamp = this.service.updateLastActiveTime();
+          var LoginDateStamp = this.add.updateTimestamp();
           localStorage.setItem(
             'LastActiveTime',
             JSON.stringify(LoginDateStamp)
@@ -47,12 +42,12 @@ export class RegisterComponent {
           if (userData.id > 0) {
             localStorage.removeItem('cartId');
             this.toastr.success('You have registered successfully', '', {
-              timeOut: 3000,
+              timeOut: 800,
               positionClass: 'toast-top-center',
             });
             setTimeout(function () {
               location.assign('/');
-            }, 3000);
+            }, 800);
           }
         },
         (error) => {
@@ -65,5 +60,9 @@ export class RegisterComponent {
   mapResponse(response) {
     var userData: UserData = response;
     return userData;
+  }
+
+  assign(url) {
+    location.assign(url);
   }
 }

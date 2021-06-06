@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddDataService } from 'src/app/api/add/add-data.service';
+import { GetAllService } from 'src/app/api/all/get-all.service';
 import { GetDataApiService } from 'src/app/get-data-api.service';
 import { ProductSpecificationDetails } from '../../../views/product-specification/product-specification.model';
 
@@ -15,11 +16,13 @@ export class SpecificationFormComponent implements OnInit {
   Specifications: any;
   ProductId: any;
   CategoryId: any;
+  Categories: any;
 
   constructor(
     private route: Router,
     private service: GetDataApiService,
-    private add: AddDataService
+    private add: AddDataService,
+    private all: GetAllService
   ) {}
 
   ngOnInit(): void {
@@ -31,9 +34,29 @@ export class SpecificationFormComponent implements OnInit {
     this.ProductId = SpecificationProductId;
     localStorage.removeItem('SpecificationProductId');
 
-    this.service.getAllSpecifications(this.CategoryId).subscribe(
+    this.all.getAllSpecifications(this.CategoryId).subscribe(
       (response) => {
         this.Specifications = response;
+      },
+      (error) => {
+        alert('An unexpected error occured.');
+        console.log(error);
+      }
+    );
+
+    this.all.getAllData('products').subscribe(
+      (response) => {
+        this.Products = response;
+      },
+      (error) => {
+        alert('An unexpected error occured.');
+        console.log(error);
+      }
+    );
+
+    this.all.getAllData('categories').subscribe(
+      (response) => {
+        this.Categories = response;
       },
       (error) => {
         alert('An unexpected error occured.');

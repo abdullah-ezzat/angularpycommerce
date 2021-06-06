@@ -122,12 +122,16 @@ a[data-toggle="collapse"] {
   position: relative;
 }
 
-.dropdown-toggle::after {
+.dropdown-toggle::after:hover {
   display: block;
   position: absolute;
   top: 50%;
   right: 14px;
   transform: translateY(-50%);
+}
+
+.dropdown-item {
+  cursor: pointer;
 }
 
 ul ul a {

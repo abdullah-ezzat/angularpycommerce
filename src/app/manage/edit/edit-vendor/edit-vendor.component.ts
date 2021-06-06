@@ -13,12 +13,11 @@ export class EditVendorComponent {
   vendor: any;
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private get: GetDataService,
     private update: AddDataService
   ) {
-    let id = this.route.snapshot.paramMap.get('id');
+    let id = this.route.snapshot.paramMap.get('Id');
     if (id)
       this.get
         .getData('vendors', id)
@@ -26,6 +25,7 @@ export class EditVendorComponent {
   }
 
   updateVendor(post: VendorDetails) {
+    post.id = this.vendor.id;
     this.update
       .updateData('vendors', post.id, post)
       .pipe()
@@ -36,6 +36,10 @@ export class EditVendorComponent {
           console.log(error);
         }
       );
-    this.router.navigate(['/manage/vendors']);
+    location.assign('/manage/vendors');
+  }
+  autoGrowTextZone(e) {
+    e.target.style.height = '0px';
+    e.target.style.height = e.target.scrollHeight + 0 + 'px';
   }
 }

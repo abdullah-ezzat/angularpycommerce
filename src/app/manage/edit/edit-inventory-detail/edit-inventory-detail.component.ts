@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AddDataService } from 'src/app/api/add/add-data.service';
 import { GetAllService } from 'src/app/api/all/get-all.service';
 import { GetDataService } from 'src/app/api/get/get-data.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-edit-inventory-detail',
@@ -21,13 +22,13 @@ export class EditInventoryDetailComponent implements OnInit {
   Details: any;
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
+    private toastr: ToastrService,
     private all: GetAllService,
     private get: GetDataService,
     private update: AddDataService
   ) {
-    let id = this.route.snapshot.paramMap.get('id');
+    let id = this.route.snapshot.paramMap.get('Id');
     if (id)
       this.get
         .getData('inventoryDetails', id)
@@ -57,16 +58,35 @@ export class EditInventoryDetailComponent implements OnInit {
   }
 
   updateDetail(post: InventoryDetails) {
-    this.update
-      .updateData('inventoryDetails', post.id, post)
+    post.id = this.detail.id;
+    this.get
+      .checkProductExist(post.StoreId_id, post.ProductId_id)
       .pipe()
-      .subscribe(
-        () => {},
-        (error) => {
-          alert('An unexpected error occured.');
-          console.log(error);
+      .subscribe((response) => {
+        if (response == true) {
+          this.update
+            .updateData('inventoryDetails', post.id, post)
+            .pipe()
+            .subscribe(
+              () => {},
+              (error) => {
+                alert('An unexpected error occured.');
+                console.log(error);
+              }
+            );
+          location.assign('/manage/inventories');
+        } else {
+          this.toastr
+            .error(
+              "This product doesn't exist in price list",
+              'Click here to add it'
+            )
+            .onTap.subscribe(() => location.assign('/manage/prices'));
         }
-      );
-    this.router.navigate(['/manage/inventories']);
+      });
+  }
+  autoGrowTextZone(e) {
+    e.target.style.height = '0px';
+    e.target.style.height = e.target.scrollHeight + 0 + 'px';
   }
 }

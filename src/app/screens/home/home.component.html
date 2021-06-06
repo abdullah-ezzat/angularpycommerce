@@ -52,7 +52,11 @@
         </mat-card>
       </div>
     </div>
+
     <div class="col-md-9">
+      <div class="align mb-2">
+        <img class="img-fluid" src="assets/images/banner-5.jpg" alt="banner" />
+      </div>
       <form class="search-form">
         <mat-form-field class="form-field" appearance="outline">
           <mat-label>Search</mat-label>
@@ -103,7 +107,7 @@
             <div class="row">
               <div class="col-3 align">
                 <img
-                  [routerLink]="['/product/', Homedetail.id]"
+                  (click)="assign('/product/' + Homedetail.id)"
                   [src]="Homedetail.Image"
                   class="product-image"
                   [alt]="Homedetail.ProductName"
@@ -112,7 +116,7 @@
               <div class="col-6 align">
                 <div class="card-body">
                   <h5
-                    [routerLink]="['/product/', Homedetail.id]"
+                    (click)="assign('/product/' + Homedetail.id)"
                     class="card-title"
                   >
                     {{ Homedetail.ProductName }}
@@ -156,7 +160,7 @@
                   </p>
                   <button
                     style="margin-top: -3px"
-                    [routerLink]="['/product/', Homedetail.id]"
+                    (click)="assign('/product/' + Homedetail.id)"
                     class="btn-infos"
                   >
                     <small class="font">VIEW DETAILS</small>

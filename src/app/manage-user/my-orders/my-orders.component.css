@@ -23,10 +23,6 @@ img:hover {
   background-color: #3adb76;
 }
 
-.mat-step-header .mat-step-icon-selected {
-  background-color: #ec5840;
-}
-
 @media screen and (max-width: 767px) {
   .master-list {
     flex-direction: column !important;

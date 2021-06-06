@@ -1,8 +1,8 @@
 export class StoresDetail {
   id: Number;
-  CountryId: Number;
-  VendorId: Number;
-  ShippingAgentId: number;
+  CountryId_id: Number;
+  VendorId_id: Number;
+  ShippingAgentId_id: number;
   NameA: string;
   NameL: string;
   Email: string;

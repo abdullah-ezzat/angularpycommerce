@@ -1,4 +1,4 @@
-<mat-form-field>
+<mat-form-field appearance="outline">
   <mat-label>Filter</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Search" />
 </mat-form-field>
@@ -37,6 +37,8 @@
 </div>
 
 <br />
-<button (click)="productForm()" class="btn btn-primary btn-lg btn-block">
-  Add Product
-</button>
+<div class="d-grid gap-2">
+  <button (click)="productForm()" mat-raised-button color="primary">
+    Add Product
+  </button>
+</div>

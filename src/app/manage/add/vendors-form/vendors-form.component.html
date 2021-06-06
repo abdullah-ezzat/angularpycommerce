@@ -40,6 +40,43 @@
     ></textarea>
   </mat-form-field>
 
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Adress</mat-label>
+    <textarea
+      matInput
+      id="Address1"
+      name="Address1"
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Adress"
+      required
+    ></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Adress 2 (optional)</mat-label>
+    <textarea
+      matInput
+      id="Address2"
+      name="Address2"
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Adress"
+    ></textarea>
+  </mat-form-field>
+
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Phone Number</mat-label>
+    <textarea
+      matInput
+      id="Phone"
+      name="Phone"
+      #phone
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Phone"
+      maxlength="11"
+      required
+    ></textarea>
+  </mat-form-field>
+
   <div class="d-grid gap-2">
     <button type="submit" mat-raised-button color="primary">Save</button>
   </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AddDataService } from 'src/app/api/add/add-data.service';
 import { GetAllService } from 'src/app/api/all/get-all.service';
 import { GetDataApiService } from '../../../get-data-api.service';
@@ -26,7 +27,8 @@ export class StoresFormComponent implements OnInit {
   constructor(
     private route: Router,
     private service: GetAllService,
-    private add: AddDataService
+    private add: AddDataService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -62,6 +64,30 @@ export class StoresFormComponent implements OnInit {
   }
 
   saveStore(post: StoresDetail) {
+    var options = {
+      enableHighAccuracy: true,
+      timeout: 5000,
+      maximumAge: 0,
+    };
+    function error(err) {
+      console.warn(`ERROR(${err.code}): ${err.message}`);
+    }
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(setPosition, error, options);
+    } else {
+      this.toastr.error('You must allow location to get coordinates');
+    }
+
+    function setPosition(position) {
+      post.Latitude = position.coords.latitude;
+      post.Longitude = position.coords.longitude;
+    }
+    if (post.Latitude || post.Longitude == null) {
+      this.toastr.error('You must allow location to get coordinates');
+    } else {
+      location.assign('/manage/stores');
+    }
     this.add
       .addData('stores', post)
       .pipe()

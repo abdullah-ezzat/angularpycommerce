@@ -1,15 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-
+import { Component } from '@angular/core';
 @Component({
   selector: 'app-manage-store',
   templateUrl: './manage-store.component.html',
-  styleUrls: ['./manage-store.component.css']
+  styleUrls: ['./manage-store.component.css'],
 })
-export class ManageStoreComponent implements OnInit {
-
-  constructor(private route: Router) { }
-
-  ngOnInit(): void {
+export class ManageStoreComponent {
+  assign(url) {
+    location.assign(url);
   }
 }

@@ -16,11 +16,7 @@ export class LoginComponent {
   UserName: any;
   hide = true;
 
-  constructor(
-    private service: GetDataApiService,
-    private add: AddDataService,
-    private toastr: ToastrService
-  ) {}
+  constructor(private add: AddDataService, private toastr: ToastrService) {}
 
   Login(post: LoginDetails) {
     this.add
@@ -30,7 +26,7 @@ export class LoginComponent {
         (response) => {
           if (response != false) {
             var userData = this.mapResponse(response);
-            var LoginDateStamp = this.service.updateLastActiveTime();
+            var LoginDateStamp = this.add.updateTimestamp();
             localStorage.setItem(
               'LastActiveTime',
               JSON.stringify(LoginDateStamp)
@@ -59,5 +55,8 @@ export class LoginComponent {
   mapResponse(response) {
     var userData: UserData = response;
     return userData;
+  }
+  assign(url) {
+    location.assign(url);
   }
 }

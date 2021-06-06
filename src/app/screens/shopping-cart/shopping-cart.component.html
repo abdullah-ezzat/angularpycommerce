@@ -12,10 +12,9 @@
         <div class="row g-0">
           <div class="col-3 align">
             <img
-              [routerLink]="[
-                '/product/',
-                shoppingCartDetail.InventoryBalanceId
-              ]"
+              (click)="
+                assign('/product/' + shoppingCartDetail.InventoryBalanceId)
+              "
               [src]="shoppingCartDetail.Image"
               class="product-image"
               alt="Responsive Image"
@@ -25,10 +24,9 @@
             <div class="card-body">
               <h5
                 style="cursor: pointer"
-                [routerLink]="[
-                  '/product/',
-                  shoppingCartDetail.InventoryBalanceId
-                ]"
+                (click)="
+                  assign('/product/' + shoppingCartDetail.InventoryBalanceId)
+                "
                 class="card-title"
               >
                 {{ shoppingCartDetail.ProductName }}
@@ -117,7 +115,7 @@
 <div *ngIf="ProductCount == 0 || Cart == null">
   <div class="d-flex justify-content-center align-items-center flex-column">
     <p class="card-text">There is no items in the cart.</p>
-    <button type="button" routerLink="/Home" class="btn btn-info">
+    <button type="button" (click)="assign('/Home')" class="btn btn-info">
       Go Home
     </button>
   </div>

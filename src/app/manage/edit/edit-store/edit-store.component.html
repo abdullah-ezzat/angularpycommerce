@@ -1,120 +1,81 @@
-<form #form="ngForm" (ngSubmit)="updateStore(form.value)" class="was-validated">
-  <div class="form-group col-md-3">
-    <input
-      type="hidden"
-      class="form-control"
-      [(ngModel)]="store.id"
-      name="id"
-      id="id"
-      placeholder="Id"
-    />
-    <div class="invalid-feedback"></div>
-  </div>
-
-  <div class="form-group col-md-3">
-    <label for="NameL">English Name</label>
-    <input
-      type="text"
-      class="form-control"
-      [(ngModel)]="store.NameL"
-      name="NameL"
+<form
+  #form="ngForm"
+  (ngSubmit)="updateStore(form.value)"
+  class="p-3"
+  ngNativeValidate
+>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Store Name</mat-label>
+    <textarea
+      matInput
       id="NameL"
+      name="NameL"
+      [(ngModel)]="store.NameL"
+      (keyup)="autoGrowTextZone($event)"
       placeholder="Name"
       required
-    />
-    <div class="invalid-feedback"></div>
-  </div>
+    ></textarea>
+  </mat-form-field>
 
-  <div class="form-group col-md-3">
-    <label for="VendorId">Vendors</label>
-    <select
-      class="custom-select"
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Vendor</mat-label>
+    <mat-select
       [(ngModel)]="store.VendorId"
-      name="VendorId"
-      id="VendorId"
+      name="VendorId_id"
+      id="VendorId_id"
     >
-      <option
+      <mat-option
         *ngFor="let vendor of Vendors; let i = index"
         [value]="Vendors[i].id"
+        >{{ Vendors[i].NameL }}</mat-option
       >
-        {{ Vendors[i].NameL }}
-      </option>
-    </select>
-  </div>
+    </mat-select>
+  </mat-form-field>
 
-  <div class="form-group col-md-3">
-    <label for="CountryId">Countries</label>
-    <select
-      class="custom-select"
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Country</mat-label>
+    <mat-select
       [(ngModel)]="store.CountryId"
-      name="CountryId"
-      id="CountryId"
+      name="CountryId_id"
+      id="CountryId_id"
     >
-      <option
+      <mat-option
         *ngFor="let Country of Countries; let i = index"
         [value]="Countries[i].id"
+        >{{ Countries[i].NameL }}</mat-option
       >
-        {{ Countries[i].NameL }}
-      </option>
-    </select>
-  </div>
+    </mat-select>
+  </mat-form-field>
 
-  <div class="form-group col-md-3">
-    <label for="Email">Email</label>
-    <input
-      type="text"
-      class="form-control"
-      [(ngModel)]="store.Email"
-      name="Email"
-      id="Email"
-      placeholder="Email"
-    />
-    <div class="invalid-feedback"></div>
-  </div>
-
-  <div class="form-group col-md-3">
-    <label for="inputShippingAgentId">Shipping Agent</label>
-    <select
-      class="custom-select"
-      [(ngModel)]="store.ShippingAgentId"
-      name="ShippingAgentId"
-      id="ShippingAgentId"
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Shipping Agent</mat-label>
+    <mat-select
+      [(ngModel)]="store.shippingAgentId"
+      name="shippingAgentId_id"
+      id="shippingAgentId_id"
     >
-      <option
-        *ngFor="let ShippingAgent of ShippingAgents; let i = index"
+      <mat-option
+        *ngFor="let shippingAgent of ShippingAgents; let i = index"
         [value]="ShippingAgents[i].id"
+        >{{ ShippingAgents[i].NameL }}</mat-option
       >
-        {{ ShippingAgents[i].NameL }}
-      </option>
-    </select>
-  </div>
+    </mat-select>
+  </mat-form-field>
 
-  <div class="form-group col-md-3">
-    <label for="Longitude">Longitude</label>
-    <input
-      type="text"
-      class="form-control"
-      [(ngModel)]="store.Longitude"
-      name="Longitude"
-      id="Longitude"
-      placeholder="Longitude"
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Email</mat-label>
+    <textarea
+      matInput
+      id="Email"
+      name="Email"
+      [(ngModel)]="store.Email"
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Email"
       required
-    />
-    <div class="invalid-feedback"></div>
+    ></textarea>
+  </mat-form-field>
+
+  <div class="d-grid gap-2">
+    <button type="submit" mat-raised-button color="primary">Save</button>
   </div>
-  <div class="form-group col-md-3">
-    <label for="Latitude">Latitude</label>
-    <input
-      type="text"
-      class="form-control"
-      [(ngModel)]="store.Latitude"
-      name="Latitude"
-      id="Latitude"
-      placeholder="Latitude"
-      required
-    />
-    <div class="invalid-feedback"></div>
-  </div>
-  <br />
-  <button class="btn btn-success" type="submit">Update</button>
 </form>

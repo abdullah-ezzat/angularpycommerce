@@ -4,7 +4,7 @@ export class VendorDetails {
   NameL: string;
   Email: string;
   Password: string;
-  Adress1: string;
-  Adress2: string;
+  Address1: string;
+  Address2: string;
   PostCode: string;
 }

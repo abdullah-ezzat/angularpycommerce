@@ -86,4 +86,7 @@ export class CheckoutComponent implements OnInit {
         console.log(error);
       };
   }
+  assign(url) {
+    location.assign(url);
+  }
 }

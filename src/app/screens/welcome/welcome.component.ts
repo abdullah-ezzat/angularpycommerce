@@ -24,4 +24,7 @@ export class WelcomeComponent implements OnInit {
       }
     );
   }
+  assign(url) {
+    location.assign(url);
+  }
 }

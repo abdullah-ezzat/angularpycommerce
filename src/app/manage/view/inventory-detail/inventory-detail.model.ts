@@ -1,7 +1,7 @@
 export class InventoryDetails {
   id: Number;
-  ProductId: Number;
-  StoreId: Number;
+  ProductId_id: Number;
+  StoreId_id: Number;
   Quantity: Number;
   UnitCost: Number;
   TotalCost: Number;

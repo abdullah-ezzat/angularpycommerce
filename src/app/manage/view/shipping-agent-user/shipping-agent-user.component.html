@@ -1,4 +1,4 @@
-<mat-form-field>
+<mat-form-field appearance="outline">
   <mat-label>Filter</mat-label>
   <input matInput (keyup)="applyFilter($event)" placeholder="Search" />
 </mat-form-field>
@@ -39,6 +39,8 @@
 </div>
 
 <br />
-<button (click)="shippingAgentUser()" class="btn btn-primary btn-lg btn-block">
-  Add User Agent
-</button>
+<div class="d-grid gap-2">
+  <button (click)="shippingAgentUser()" mat-raised-button color="primary">
+    Add User Agent
+  </button>
+</div>

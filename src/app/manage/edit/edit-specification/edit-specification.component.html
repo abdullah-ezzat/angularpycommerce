@@ -1,82 +1,66 @@
 <form
   #form="ngForm"
   (ngSubmit)="updateProductSpecification(form.value)"
-  class="was-validated"
+  class="p-3"
+  ngNativeValidate
 >
-  <div class="form-group col-md-3">
-    <input
-      type="hidden"
-      class="form-control"
-      [(ngModel)]="specification.id"
-      name="id"
-      id="id"
-      placeholder="Id"
-    />
-    <div class="invalid-feedback"></div>
-  </div>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Specification Name</mat-label>
+    <textarea
+      matInput
+      id="SpecificationName"
+      name="SpecificationName"
+      [(ngModel)]="specification.SpecificationName"
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Specification"
+      required
+    ></textarea>
+  </mat-form-field>
 
-  <div class="form-group col-md-3">
-    <label for="inputProductId">Product Id</label>
-    <select
-      class="custom-select"
-      [(ngModel)]="specification.ProductId"
-      name="ProductId"
-      id="ProductId"
-    >
-      <option
-        *ngFor="let product of Products; let i = index"
-        [value]="Products[i].id"
-      >
-        {{ Products[i].id }}
-      </option>
-    </select>
-  </div>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Specification Value</mat-label>
+    <textarea
+      matInput
+      id="SpecificationValue"
+      name="SpecificationValue"
+      [(ngModel)]="specification.SpecificationValue"
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Specification"
+      required
+    ></textarea>
+  </mat-form-field>
 
-  <div class="form-group col-md-3">
-    <label for="inputCategoryId">CategoryId</label>
-    <select
-      class="custom-select"
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Category</mat-label>
+    <mat-select
       [(ngModel)]="specification.CategoryId"
-      name="CategoryId"
-      id="CategoryId"
+      name="CategoryId_id"
+      id="CategoryId_id"
     >
-      <option
+      <mat-option
         *ngFor="let category of Categories; let i = index"
         [value]="Categories[i].id"
+        >{{ Categories[i].NameL }}</mat-option
       >
-        {{ Categories[i].id }}
-      </option>
-    </select>
-  </div>
+    </mat-select>
+  </mat-form-field>
 
-  <div class="form-group col-md-3">
-    <label for="inputSpecificationName">Specification Name</label>
-    <input
-      type="text"
-      class="form-control"
-      [(ngModel)]="specification.SpecificationName"
-      name="SpecificationName"
-      id="SpecificationName"
-      placeholder="Name"
-      required
-    />
-    <div class="invalid-feedback"></div>
-  </div>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Product</mat-label>
+    <mat-select
+      [(ngModel)]="specification.ProductId"
+      name="ProductId_id"
+      id="ProductId_id"
+    >
+      <mat-option
+        *ngFor="let product of Products; let i = index"
+        [value]="Products[i].id"
+        >{{ Products[i].NameL }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
 
-  <div class="form-group col-md-3">
-    <label for="inputSpecificationValue">Specification Value</label>
-    <input
-      type="text"
-      class="form-control"
-      [(ngModel)]="specification.SpecificationValue"
-      name="SpecificationValue"
-      id="SpecificationValue"
-      placeholder="Value"
-      required
-    />
-    <div class="invalid-feedback"></div>
+  <div class="d-grid gap-2">
+    <button type="submit" mat-raised-button color="primary">Update</button>
   </div>
-
-  <br />
-  <button class="btn btn-success" type="submit">Update</button>
 </form>

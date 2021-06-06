@@ -41,7 +41,7 @@ export class EditBrandComponent implements OnInit {
           console.log(error);
         }
       );
-    this.router.navigate(['/manage/brands']);
+    location.assign('/manage/brands');
   }
   autoGrowTextZone(e) {
     e.target.style.height = '0px';
