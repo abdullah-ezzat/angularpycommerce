@@ -1,60 +1,81 @@
-<form  #form="ngForm" (ngSubmit) = updateStore(form.value) class="was-validated ">
+<form
+  #form="ngForm"
+  (ngSubmit)="updateStore(form.value)"
+  class="p-3"
+  ngNativeValidate
+>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Store Name</mat-label>
+    <textarea
+      matInput
+      id="NameL"
+      name="NameL"
+      [(ngModel)]="store.NameL"
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Name"
+      required
+    ></textarea>
+  </mat-form-field>
 
-    <div class="form-group col-md-3">
-      <input type="hidden" class="form-control" [(ngModel)]="store.Id" name="Id" id="Id"  placeholder="Id">
-      <div class="invalid-feedback">
-        </div>
-  
-    </div>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Vendor</mat-label>
+    <mat-select
+      [(ngModel)]="store.VendorId"
+      name="VendorId_id"
+      id="VendorId_id"
+    >
+      <mat-option
+        *ngFor="let vendor of Vendors; let i = index"
+        [value]="Vendors[i].id"
+        >{{ Vendors[i].NameL }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
 
-        <div class="form-group col-md-3">
-          <label for="inputTitle">English Name</label>
-          <input type="text" class="form-control" [(ngModel)]="store.NameL" name="NameL" id="NameL" placeholder="Name" required>
-          <div class="invalid-feedback">
-            </div>
-        </div> 
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Country</mat-label>
+    <mat-select
+      [(ngModel)]="store.CountryId"
+      name="CountryId_id"
+      id="CountryId_id"
+    >
+      <mat-option
+        *ngFor="let Country of Countries; let i = index"
+        [value]="Countries[i].id"
+        >{{ Countries[i].NameL }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
 
-        <div class="form-group col-md-3">
-            <label for="inputVendors">Vendors</label>
-               <select class="custom-select"  [(ngModel)]="store.VendorId" name="VendorId"  id="VendorId">
-                <option *ngFor="let vendor of Vendors; let i = index" [value]="Vendors[i].Id">
-                  {{Vendors[i].NameL}}
-                </option>
-              </select>
-        </div>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Shipping Agent</mat-label>
+    <mat-select
+      [(ngModel)]="store.shippingAgentId"
+      name="shippingAgentId_id"
+      id="shippingAgentId_id"
+    >
+      <mat-option
+        *ngFor="let shippingAgent of ShippingAgents; let i = index"
+        [value]="ShippingAgents[i].id"
+        >{{ ShippingAgents[i].NameL }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
 
-        <div class="form-group col-md-3">
-          <label for="inputCountries">Countries</label>
-             <select class="custom-select"  [(ngModel)]="store.CountryId" name="CountryId"  id="CountryId">
-              <option *ngFor="let Country of Countries; let i = index" [value]="Countries[i].Id">
-                {{Countries[i].NameL}}
-              </option>
-            </select>
-      </div>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Email</mat-label>
+    <textarea
+      matInput
+      id="Email"
+      name="Email"
+      [(ngModel)]="store.Email"
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Email"
+      required
+    ></textarea>
+  </mat-form-field>
 
-        <div class="form-group col-md-3">
-            <label for="inputemail">Email</label>
-            <input type="text" class="form-control" [(ngModel)]="store.email" name="email" id="email" placeholder="Email">
-            <div class="invalid-feedback">
-              </div>
-          </div>
-
-          <div class="form-group col-md-3">
-            <label for="inputShippingAgentId">Shipping Agent</label>
-               <select class="custom-select"  [(ngModel)]="store.ShippingAgentId" name="ShippingAgentId"  id="ShippingAgentId">
-                <option *ngFor="let ShippingAgent of ShippingAgents; let i = index" [value]="ShippingAgents[i].Id">
-                  {{ShippingAgents[i].NameL}}
-                </option>
-              </select>
-        </div>
-          
-          <div class="form-group col-md-3">
-            <label for="inputemail">Map Location</label>
-            <input type="text" class="form-control" [(ngModel)]="store.MapLocation" name="MapLocation" id="MapLocation" placeholder="Map Location" required>
-            <div class="invalid-feedback">
-              </div>
-          </div> 
-    <br>   
-    <button class="btn btn-primary" type="submit">Save</button>
-
-    </form> 
+  <div class="d-grid gap-2">
+    <button type="submit" mat-raised-button color="primary">Save</button>
+  </div>
+</form>

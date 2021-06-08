@@ -1,49 +1,70 @@
+<form
+  #form="ngForm"
+  (ngSubmit)="updatePrice(form.value)"
+  class="p-3"
+  ngNativeValidate
+>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Vendor</mat-label>
+    <mat-select
+      [(ngModel)]="price.VendorId"
+      name="VendorId_id"
+      id="VendorId_id"
+      required
+    >
+      <mat-option
+        *ngFor="let vendor of Vendors; let i = index"
+        [value]="Vendors[i].id"
+        >{{ Vendors[i].NameL }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
 
-<form  #form="ngForm" (ngSubmit) = updatePrice(form.value) class="was-validated ">
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Product</mat-label>
+    <mat-select
+      [(ngModel)]="price.ProductId"
+      name="ProductId_id"
+      id="ProductId_id"
+      required
+    >
+      <mat-option
+        *ngFor="let product of Products; let i = index"
+        [value]="Products[i].id"
+        >{{ Products[i].NameL }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
 
-    <div class="form-group col-md-3">
-        <input type="hidden" class="form-control" [(ngModel)]="price.Id" name="Id" id="Id"  placeholder="Id">
-        <div class="invalid-feedback">
-          </div> 
-      </div>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Country</mat-label>
+    <mat-select
+      [(ngModel)]="price.CountryId"
+      name="CountryId_id"
+      id="CountryId_id"
+      required
+    >
+      <mat-option
+        *ngFor="let country of Countries; let i = index"
+        [value]="Countries[i].id"
+        >{{ Countries[i].NameL }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
 
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Price</mat-label>
+    <input
+      matInput
+      [(ngModel)]="price.Price"
+      name="Price"
+      id="Price"
+      placeholder="Name"
+      required
+    />
+  </mat-form-field>
 
-    <div class="form-group col-md-3">
-        <label for="inputVendorId">VendorId</label>
-            <select class="custom-select"  [(ngModel)]="price.VendorId" name="VendorId"  id="VendorId" >
-            <option *ngFor="let vendor of Vendors; let i = index" [value]="Vendors[i].Id">
-                {{Vendors[i].NameL}}
-            </option>
-            </select>
-        <div class="invalid-feedback"></div>
-        </div>
-   
-        <div class="form-group col-md-3">
-            <label for="inputProductId">ProductId</label>
-                <select class="custom-select"  [(ngModel)]="price.ProductId" name="ProductId"  id="ProductId" >
-                <option *ngFor="let product of Products; let i = index" [value]="Products[i].Id">
-                    {{Products[i].NameL}}
-                </option>
-                </select>
-            <div class="invalid-feedback"></div>
-            </div>
-
-            <div class="form-group col-md-3">
-                <label for="inputCountryId">CountryId</label>
-                    <select class="custom-select"  [(ngModel)]="price.CountryId" name="CountryId"  id="CountryId" >
-                    <option *ngFor="let country of Countries; let i = index" [value]="Countries[i].Id">
-                        {{Countries[i].NameL}}
-                    </option>
-                    </select>
-                <div class="invalid-feedback"></div>
-                </div>
-
-    <div class="form-group col-md-3">
-        <label for="inputPrice">Price</label>
-        <input type="text" class="form-control" [(ngModel)]="price.Price" name="Price" id="Price"  placeholder="Price" required>
-        <div class="invalid-feedback">
-            </div>     
-        </div>
-
-    <button class="btn btn-primary" type="submit">Save</button>
-</form>    
+  <div class="d-grid gap-2">
+    <button type="submit" mat-raised-button color="primary">Update</button>
+  </div>
+</form>

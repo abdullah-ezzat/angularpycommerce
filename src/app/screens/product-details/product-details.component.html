@@ -1,451 +1,265 @@
-<div class="col">
-  <form
-    #form="ngForm"
-    (ngSubmit)="addNewCart(form.value)"
-    class="was-validated"
-  >
-    <div class="row">
-      <div class="col-md-6">
-        <div class="form-group col-md-6">
-          <label for="inputTitle"
-            ><strong> Arabic Name :</strong> {{ CartDetail.NameA }}</label
-          >
-          <input
-            type="hidden"
-            class="form-control"
-            [(ngModel)]="CartDetail.NameA"
-            name="NameA"
-            id="NameA"
-          />
-          <div class="invalid-feedback"></div>
+<div class="align">
+  <div class="row width-container">
+    <div class="col-lg-5 col-xl-6 d-flex justify-content-center">
+      <div
+        class="
+          d-flex
+          flex-column
+          justify-content-start
+          align-items-center
+          content-width
+          mb-3
+        "
+      >
+        <h5>{{ CartDetail.Description }}</h5>
+        <div class="star-ratings-sprite align-self-start mb-3">
+          <span
+            [style.width]="averageRating + '%'"
+            class="star-ratings-sprite-rating"
+          ></span>
         </div>
-
-        <div class="form-group col-md-6">
-          <label for="inputTitle"
-            ><strong>Product Name :</strong> {{ CartDetail.NameL }}</label
-          >
-          <input
-            type="hidden"
-            class="form-control"
-            #Title="ngModel"
-            [(ngModel)]="CartDetail.NameL"
-            name="NameL"
-            id="NameL"
+        
+          <img
+            src="{{ CartDetail.Image }}"
+            id="product_img"
+            class="product_img mb-4"
           />
-          <div class="invalid-feedback"></div>
-        </div>
-
-        <div class="form-group col-md-6">
-          <label for="inputDescription"
-            ><strong> Store Name : </strong> {{ CartDetail.StoreName }}</label
-          >
-          <input
-            type="hidden"
-            class="form-control"
-            #StoreId="ngModel"
-            [(ngModel)]="CartDetail.StoreId"
-            name="StoreId"
-            id="StoreId"
+          
+   
+        <div class="list-group flex-row gap-2 justify-content-center">
+          <img
+            src="{{ CartDetail.Image }}"
+            class="list-group-item list_img list-width"
+            id="img1"
+            (click)="changeImage('img1')"
           />
-          <div class="invalid-feedback"></div>
-        </div>
-
-        <div class="form-group col-md-6">
-          <label for="inputDescription"
-            ><strong> Description :</strong> <br />
-            {{ CartDetail.Description }}</label
-          >
-          <input
-            type="hidden"
-            class="form-control"
-            #Description="ngModel"
-            [(ngModel)]="CartDetail.Description"
-            name="Description"
-            id="Description"
+          <img
+            src="{{ CartDetail.Image2 }}"
+            class="list-group-item list_img list-width"
+            id="img2"
+            (click)="changeImage('img2')"
           />
-          <div class="invalid-feedback"></div>
-        </div>
-        <!-- <button  class="add-to-cart" type="submit">Add To Cart</button><br><br> -->
-        <!-- routerLink="['/shopping-Cart',CartDetail.ProductId]" -->
-
-        <h5>PRODUCT SPECIFICATIONS</h5>
-        <br />
-        <div *ngFor="let specification of Specifications">
-          <div class="row">
-            <div class="col-md-6">
-              <strong> {{ specification.SpecificationName }} : </strong>
-            </div>
-            <div class="col-md-6">
-              {{ specification.SpecificationValue }}
-            </div>
-          </div>
-        </div>
-
-        <div class="form-group col-md-6">
-          <input
-            type="hidden"
-            class="form-control"
-            #ProductId="ngModel"
-            [(ngModel)]="CartDetail.ProductId"
-            name="ProductId"
-            id="ProductId"
+          <img
+            src="{{ CartDetail.Image3 }}"
+            class="list-group-item list_img list-width"
+            id="img3"
+            (click)="changeImage('img3')"
           />
-          <div class="invalid-feedback"></div>
-        </div>
-
-        <div class="form-group col-md-6">
-          <input
-            type="hidden"
-            class="form-control"
-            #ImageUrl="ngModel"
-            [(ngModel)]="CartDetail.ImageUrl"
-            name="ImageUrl"
-            id="ImageUrl"
+          <img
+            src="{{ CartDetail.Image4 }}"
+            class="list-group-item list_img list-group-item-action list-width"
+            id="img4"
+            (click)="changeImage('img4')"
           />
-          <input
-            type="hidden"
-            class="form-control"
-            #ImageUrl2="ngModel"
-            [(ngModel)]="CartDetail.ImageUrl2"
-            name="ImageUrl2"
-            id="ImageUrl2"
-          />
-          <input
-            type="hidden"
-            class="form-control"
-            #ImageUrl3="ngModel"
-            [(ngModel)]="CartDetail.ImageUrl3"
-            name="ImageUrl3"
-            id="ImageUrl3"
-          />
-          <input
-            type="hidden"
-            class="form-control"
-            #ImageUrl4="ngModel"
-            [(ngModel)]="CartDetail.ImageUrl4"
-            name="ImageUrl4"
-            id="ImageUrl4"
-          />
-          <input
-            type="hidden"
-            class="form-control"
-            #ImageUrl5="ngModel"
-            [(ngModel)]="CartDetail.ImageUrl5"
-            name="ImageUrl5"
-            id="ImageUrl5"
-          />
-          <input
-            type="hidden"
-            class="form-control"
-            #ImageUrl6="ngModel"
-            [(ngModel)]="CartDetail.ImageUrl6"
-            name="ImageUrl6"
-            id="ImageUrl6"
-          />
-          <input
-            type="hidden"
-            class="form-control"
-            #ImageUrl7="ngModel"
-            [(ngModel)]="CartDetail.ImageUrl7"
-            name="ImageUrl7"
-            id="ImageUrl7"
-          />
-          <div class="invalid-feedback"></div>
-        </div>
-        <br />
-
-        <div>
-          <h3>Customer Reviews</h3>
-          <br />
-
-          <div class="Reviews-Customers">
-            <mat-card id="mat-card-main-contain-customer">
-              <div class="row align-items-center">
-                <div class="col"></div>
-
-                <div class="row">
-                  <div class="class-Stars">
-                    <div
-                      style="margin-left: -3rem; min-width: 27rem"
-                      class="col-md-6"
-                    >
-                      <div style="padding-left: 21rem; padding-top: 2px">
-                        5 Stars
-                      </div>
-                      <div style="padding-left: 21rem; margin-top: 12px">
-                        4 Stars
-                      </div>
-                      <div style="padding-left: 21rem; margin-top: 12px">
-                        3 Stars
-                      </div>
-                      <div style="padding-left: 21rem; margin-top: 14px">
-                        2 Stars
-                      </div>
-                      <div style="padding-left: 21rem; margin-top: 14px">
-                        1 Stars
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="Stars-Count">
-                    <div style="margin-left: 10rem" class="col-md-4">
-                      <div style="padding-bottom: 1rem">
-                        ({{ TotalFiveStars }})
-                      </div>
-                      <div style="padding-bottom: 12px">
-                        ({{ TotalFourStars }})
-                      </div>
-                      <div style="padding-bottom: 14px">
-                        ({{ TotalThreeStars }})
-                      </div>
-                      <div style="padding-bottom: 13px">
-                        ({{ TotalTwoStars }})
-                      </div>
-                      <div>({{ TotalOneStars }})</div>
-                    </div>
-                  </div>
-
-                  <div class="Progress-progress-bar">
-                    <div class="col">
-                      <div
-                        style="margin-left: 22rem; margin-top: -11rem"
-                        class="col-md-6"
-                      >
-                        <div
-                          class="progress"
-                          style="height: 28px; margin-bottom: 7px"
-                        >
-                          <div
-                            class="progress-bar"
-                            role="progressbar"
-                            [style.width]="FiveStarPercent + '%'"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                          ></div>
-                        </div>
-
-                        <div
-                          class="progress"
-                          style="height: 28px; margin-bottom: 7px"
-                        >
-                          <div
-                            class="progress-bar"
-                            role="progressbar"
-                            [style.width]="FourStarPercent + '%'"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                          ></div>
-                        </div>
-
-                        <div
-                          class="progress"
-                          style="height: 28px; margin-bottom: 7px"
-                        >
-                          <div
-                            class="progress-bar"
-                            role="progressbar"
-                            [style.width]="ThreeStarPercent + '%'"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                          ></div>
-                        </div>
-
-                        <div
-                          class="progress"
-                          style="height: 28px; margin-bottom: 7px"
-                        >
-                          <div
-                            class="progress-bar"
-                            role="progressbar"
-                            [style.width]="TwoStarPercent + '%'"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                          ></div>
-                        </div>
-
-                        <div
-                          class="progress"
-                          style="height: 28px; margin-bottom: 7px"
-                        >
-                          <div
-                            class="progress-bar"
-                            role="progressbar"
-                            [style.width]="OneStarPercent + '%'"
-                            aria-valuemin="0"
-                            aria-valuemax="100"
-                          ></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <div class="rating-star-count-average">
-                  <div
-                    style="margin-top: -12rem; margin-left: 5rem"
-                    class="row"
-                  >
-                    <div class="circle">
-                      <div
-                        style="
-                          margin-top: 28px;
-                          margin-left: 24px;
-                          font-size: larger;
-                        "
-                      >
-                        <strong
-                          ><strong>{{ OutOfFive }}</strong></strong
-                        >
-                      </div>
-                    </div>
-                    <div
-                      style="margin-top: 6rem; margin-left: -94px"
-                      class="row"
-                    >
-                      <div class="star-ratings-sprite">
-                        <span
-                          [style.width]="averageRating + '%'"
-                          class="star-ratings-sprite-rating"
-                        ></span>
-                      </div>
-                      <br />
-                    </div>
-                    <div
-                      style="margin-top: 8rem; margin-left: -78px"
-                      class="row align-items-end"
-                    >
-                      <div
-                        style="margin-left: -23px; min-width: 10rem"
-                        class="col-md-4"
-                      >
-                        <strong
-                          ><strong>{{ OutOfFive }} out of 5</strong></strong
-                        >
-                      </div>
-
-                      <div
-                        *ngIf="allReviewsCount == 1"
-                        style="margin-left: -120px; margin-bottom: -22px"
-                        class="span"
-                      >
-                        {{ allReviewsCount }} rating
-                      </div>
-                      <div
-                        *ngIf="allReviewsCount > 1 || allReviewsCount == 0"
-                        style="margin-left: -120px; margin-bottom: -22px"
-                        class="span"
-                      >
-                        {{ allReviewsCount }} ratings
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <div class="rating-product-comment">
-                <div
-                  style="padding: 0rem 0px 0px 54rem; margin-top: -11rem"
-                  class="col-md-3"
-                >
-                  <h3 style="margin-left: -17rem">Rate This Product:</h3>
-                  <ngb-rating
-                    style="margin-left: -17rem"
-                    [(rate)]="currentRate"
-                    (rateChange)="
-                      changeRateProduct(currentRate, CartDetail.productReview)
-                    "
-                    [readonly]="false"
-                    [max]="5"
-                  >
-                    <ng-template let-fill="fill">
-                      <span
-                        class="fa fa-star-o"
-                        [class.filled]="fill === 100"
-                      ></span>
-                    </ng-template>
-                  </ngb-rating>
-                  <div>
-                    <pre
-                      style="margin-top: 5px; margin-left: -17.2rem"
-                    > Rate: <b>{{ currentRate }} / 5</b></pre>
-                  </div>
-                  <form *ngIf="currentRate > 0" class="form">
-                    <mat-form-field class="full-width">
-                      <mat-label>Leave a comment</mat-label>
-                      <textarea
-                        [(ngModel)]="CartDetail.productReview"
-                        name="productReview"
-                        id="productReview"
-                        style="
-                          margin-top: 2px;
-                          margin-bottom: -2px;
-                          height: 30px;
-                        "
-                        matInput
-                        placeholder="Comment..."
-                      ></textarea>
-                    </mat-form-field>
-                    <button
-                      (click)="
-                        changeRateProduct(currentRate, CartDetail.productReview)
-                      "
-                      (click)="Reload()"
-                      class="btn btn-outline-secondary"
-                    >
-                      Comment
-                    </button>
-                  </form>
-                  <br /><br />
-                </div>
-              </div>
-
-              <div *ngFor="let review of Reviews">
-                <br />
-                <mat-card>
-                  <div class="star-ratings-sprite">
-                    <span
-                      [style.width]="review.ProductRate + '%'"
-                      class="star-ratings-sprite-rating"
-                    ></span>
-                  </div>
-                  <h5>{{ review.UserName }}<br /><br /></h5>
-                  {{ review.ProductReview }}
-                </mat-card>
-              </div>
-            </mat-card>
-          </div>
-        </div>
-      </div>
-
-      <div style="margin-left: 2px; margin-top: 2rem" class="row">
-        <div class="row row-col-2">
-          <div class="col-md-9">
-            <div class="col-md-3">
-              <div class="item">
-                <i
-                  style="margin-left: 15rem; font-size: 24px; cursor: pointer"
-                  (click)="openDialog()"
-                  class="fa fa-search-plus"
-                ></i>
-                <lib-ngx-image-zoom
-                  (click)="openDialog()"
-                  thumbImage="{{ CartDetail.ImageUrl7 }}"
-                  fullImage="{{ CartDetail.ImageUrl7 }}"
-                  magnification="1.2"
-                  enableScrollZoom="true"
-                ></lib-ngx-image-zoom>
-                <h2 style="color: #17a2b8 !important; font-size: 18px">
-                  {{ Title.value }}
-                </h2>
-                <p style="color: #17a2b8 !important">
-                  {{ Description.value }}
-                </p>
-                <button class="add-to-cart" type="submit">Add to cart</button>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
     </div>
-  </form>
+
+    <div class="col-lg-4 col-xl-3 mb-3">
+      <div class="mb-1">
+        <strong style="color: #006fcc; font-size: large"
+          >{{ CartDetail.Price | number }}
+        </strong>
+        <strong style="color: #006fcc">{{ CartDetail.Currency }}</strong>
+      </div>
+
+      <div *ngFor="let specification of Specifications">
+        <ul>
+          <li>
+            {{ specification.SpecificationName }}: &nbsp;
+            {{ specification.SpecificationValue }}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-xl-2">
+      <div class="d-grid gap-2">
+        <button
+          (click)="addNewCart()"
+          class="add-to-cart btn btn-success btn-lg text-uppercase"
+        >
+          <strong>Add To Cart</strong>
+        </button>
+        <br />
+      </div>
+      <div><strong>Condiction: </strong>&nbsp; New</div>
+      <div>
+        <strong>Sold By: &nbsp; </strong>
+        <strong style="color: #006fcc">{{ CartDetail.StoreName }}</strong>
+      </div>
+    </div>
+  </div>
+
+  <br />
+  <mat-card>
+    <h5 class="text-uppercase text-center mb-3">rating</h5>
+    <div class="row">
+      <div class="col-md-4 col-12">
+        <div class="row align-items-center mb-3 text-nowrap text-center">
+          <div class="col-3 col-md-4 col-xxl-3 flex-column">
+            <div>5 Stars</div>
+          </div>
+          <div class="col-6">
+            <div class="progress border-radius" style="height: 20px">
+              <div
+                class="progress-bar progress-bg"
+                role="progressbar"
+                [style.width]="FiveStarsPercent + '%'"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+          </div>
+          <div class="col-3 col-md-2 col-xxl-3 text-center">
+            <div>({{ TotalFiveStars }})</div>
+          </div>
+        </div>
+        <div class="row align-items-center mb-3 text-nowrap">
+          <div class="col-3 col-md-4 col-xxl-3 flex-column text-center">
+            <div>4 Stars</div>
+          </div>
+          <div class="col-6">
+            <div class="progress border-radius" style="height: 20px">
+              <div
+                class="progress-bar progress-bg"
+                role="progressbar"
+                [style.width]="FourStarsPercent + '%'"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+          </div>
+          <div class="col-3 col-md-2 col-xxl-3 text-center">
+            <div>({{ TotalFourStars }})</div>
+          </div>
+        </div>
+        <div class="row align-items-center mb-3 text-nowrap">
+          <div class="col-3 col-md-4 col-xxl-3 flex-column text-center">
+            <div>3 Stars</div>
+          </div>
+          <div class="col-6">
+            <div class="progress border-radius" style="height: 20px">
+              <div
+                class="progress-bar progress-bg"
+                role="progressbar"
+                [style.width]="ThreeStarsPercent + '%'"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+          </div>
+          <div class="col-3 col-md-2 col-xxl-3 text-center">
+            <div>({{ TotalThreeStars }})</div>
+          </div>
+        </div>
+        <div class="row align-items-center mb-3 text-nowrap">
+          <div class="col-3 col-md-4 col-xxl-3 flex-column text-center">
+            <div>2 Stars</div>
+          </div>
+          <div class="col-6">
+            <div class="progress border-radius" style="height: 20px">
+              <div
+                class="progress-bar progress-bg"
+                role="progressbar"
+                [style.width]="TwoStarsPercent + '%'"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+          </div>
+          <div class="col-3 col-md-2 col-xxl-3 text-center">
+            <div>({{ TotalTwoStars }})</div>
+          </div>
+        </div>
+        <div class="row align-items-center mb-3 text-nowrap">
+          <div class="col-3 col-md-4 col-xxl-3 flex-column text-center">
+            <div>1 Star</div>
+          </div>
+          <div class="col-6">
+            <div class="progress border-radius" style="height: 20px">
+              <div
+                class="progress-bar progress-bg"
+                role="progressbar"
+                [style.width]="OneStarPercent + '%'"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+          </div>
+          <div class="col-3 col-md-2 col-xxl-3 text-center">
+            <div>({{ TotalOneStar }})</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 col-12 align align-items-center mb-3">
+        <div class="circle align align-items-center mb-2">
+          <strong>{{ OutOfFive }}</strong>
+        </div>
+        <div class="star-ratings-sprite mb-1">
+          <span
+            [style.width]="averageRating + '%'"
+            class="star-ratings-sprite-rating"
+          ></span>
+        </div>
+        <strong>{{ OutOfFive }} out of 5</strong>
+        <span *ngIf="allReviewsCount > 1" class="font-color"
+          >{{ allReviewsCount }} ratings</span
+        >
+        <span *ngIf="allReviewsCount == 1" class="font-color">1 rating</span>
+      </div>
+      <div class="col-md-4 col-12 align align-items-center">
+        <ngb-rating
+          style="font-size: x-large"
+          [(rate)]="currentRate"
+          (rateChange)="
+            changeRateProduct(currentRate, CartDetail.productReview)
+          "
+          [readonly]="false"
+          [max]="5"
+        >
+          <ng-template let-fill="fill">
+            <span class="fa fa-star-o" [class.filled]="fill === 100"></span>
+          </ng-template>
+        </ngb-rating>
+        <pre class="mb-3">Rate: <b>{{ currentRate }} / 5</b></pre>
+        <div class="align w-100" *ngIf="currentRate != 0">
+          <mat-form-field class="mb-2 w-100" appearance="outline">
+            <mat-label>Leave a comment</mat-label>
+            <textarea
+              [(ngModel)]="CartDetail.productReview"
+              name="productReview"
+              id="productReview"
+              matInput
+              placeholder="comment..."
+            ></textarea>
+          </mat-form-field>
+          <button
+            (click)="changeRateProduct(currentRate, CartDetail.productReview)"
+            (click)="Reload()"
+            class="btn btn-outline-secondary"
+          >
+            Comment
+          </button>
+        </div>
+      </div>
+    </div>
+  </mat-card>
+  <br />
+  <h5 class="text-uppercase text-center">reviews</h5>
+  <div *ngFor="let review of Reviews" class="align">
+    <mat-card
+      class="mb-3"
+      *ngIf="review.ProductReview != null && review.ProductReview != ''"
+    >
+      <div class="star-ratings-sprite mb-2">
+        <span
+          [style.width]="review.ProductRate + '%'"
+          class="star-ratings-sprite-rating"
+        ></span>
+      </div>
+      <h5 class="mb-3">{{ review.UserName }}</h5>
+      <p>{{ review.ProductReview }}</p>
+    </mat-card>
+  </div>
 </div>

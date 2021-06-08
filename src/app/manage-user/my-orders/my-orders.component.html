@@ -1,124 +1,83 @@
-<!-- <iframe *ngIf="MapUrl" class="map" src="https://maps.google.com/maps?q=30.063750,31.338130&hl=es;z=14&amp;output=embed"></iframe> -->
-<!-- <iframe *ngIf="MapLocation" class="map" [src]="MapUrl"></iframe> -->
-<div style="margin-left: 21rem" class="col-md-3">
-  <iframe
-    id="map-iframe-location"
-    *ngIf="MapLocation"
-    [src]="MapUrl"
-    width="600"
-    height="450"
-    frameborder="0"
-    style="border: 0"
-    allowfullscreen=""
-    aria-hidden="false"
-    tabindex="0"
-  ></iframe>
-</div>
-
-<div *ngFor="let master of Masters">
-  <div class="container">
-    <br />
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6">
-          <strong>
-            Order Number : {{ master.Id }} <br /><br />
-            Recipient: &nbsp; {{ master.UserName }}
-          </strong>
-        </div>
-        <div class="col-md-6">
-          <strong> Order Total : {{ master.OrderTotal | number }} </strong>
-        </div>
-      </div>
-    </div>
-    <br />
-  </div>
-  <mat-card>
-    <div class="col-md-6">
-      <br />
-
-      <mat-horizontal-stepper
-        id="mat-stepper-process"
-        *ngIf="master.OrderStatusId < 3"
-        labelPosition="bottom"
-        #stepper
-        [selectedIndex]="master.OrderStatusId"
+<div *ngFor="let master of Masters" class="mb-3">
+  <mat-card class="p-3 mb-3">
+    <div class="master-list d-flex justify-content-evenly mb-3">
+      <strong class="mb-2">Order: &nbsp;{{ master.id }}</strong>
+      <strong class="mb-2"
+        >Order Total: &nbsp;{{ master.OrderTotal | number }}
+        {{ Currency }}</strong
       >
-        <ng-template matStepperIcon="edit">
-          <mat-icon>done</mat-icon>
-        </ng-template>
+      <strong>Recipient: &nbsp;{{ master.Username }}</strong>
+    </div>
 
-        <mat-step label="Ready for Shipping" [editable]="false"></mat-step>
-
-        <mat-step label="Out for delivery" [editable]="false"></mat-step>
-
-        <mat-step label="Delivered" [editable]="false"></mat-step>
-      </mat-horizontal-stepper>
-
-      <mat-horizontal-stepper
-        id="mat-stepper-process"
+    <mat-stepper
+      [selectedIndex]="master.OrderStatusId"
+      [orientation]="(stepperOrientation | async)!"
+      labelPosition="bottom"
+      linear
+    >
+      <ng-template matStepperIcon="edit">
+        <mat-icon>done</mat-icon>
+      </ng-template>
+      <mat-step
         *ngIf="master.OrderStatusId == 3"
-        labelPosition="bottom"
-        #stepper
-        [selectedIndex]="master.OrderStatusId"
-      >
-        <ng-template matStepperIcon="edit">
-          <mat-icon>done</mat-icon>
-        </ng-template>
-
-        <mat-step label="Cancelled" [editable]="false"></mat-step>
-
-        <mat-step label="" [editable]="false"></mat-step>
-
-        <mat-step label="" [editable]="false"></mat-step>
-      </mat-horizontal-stepper>
-    </div>
-    <br />
+        label="Cancelled"
+        [editable]="false"
+      ></mat-step>
+      <mat-step
+        *ngIf="master.OrderStatusId < 3"
+        label="Ready For Shipping"
+        [editable]="false"
+      ></mat-step>
+      <mat-step
+        *ngIf="master.OrderStatusId < 3"
+        label="Out For Delivery"
+        [editable]="false"
+      ></mat-step>
+      <mat-step
+        *ngIf="master.OrderStatusId < 3"
+        label="Delivered"
+        [editable]="false"
+      ></mat-step>
+    </mat-stepper>
 
     <div *ngFor="let order of Orders">
-      <div *ngIf="order.MasterId == master.Id">
-        <div class="container">
-          <div class="row row-cols-3">
-            <div class="col-md-3">
-              <img [src]="order.ImageUrl7" class="Img" alt="Responsive image" />
-            </div>
-
-            <div id="shipping-id-col" class="col-md-6">
-              <div
-                style="cursor: pointer; display: inline-block; color: #1585cf"
-                id="product-link"
-                [routerLink]="['/product-Details', order.InventoryBalanceId]"
-              >
-                {{ order.ProductName }}
-              </div>
-              <br />
-              &nbsp;&nbsp;
-              <div id="shipping-store-name">Shipped by:</div>
-              <div id="store-name-class-id">{{ order.StoreName }}</div>
-            </div>
-
-            <div id="total-price-id" class="col-md-3">
-              <div id="total-number-currency">
-                {{ order.TotalPrice | number }} EGP
-              </div>
-              <div style="margin-top: 5px">Seller: {{ order.VendorName }}</div>
-              <div>
-                <button
-                  class="btn btn-outline-dark"
-                  id="map-url"
-                  (click)="getMapUrl(order.Id)"
-                >
-                  Map Location
-                </button>
-              </div>
-            </div>
+      <div *ngIf="order.MasterId == master.id">
+        <div class="row">
+          <div class="col-12 col-md-3 align align-items-center mb-3">
+            <img
+              [src]="order.Image"
+              class="product_img"
+              [routerLink]="['/product/', order.InventoryBalanceId]"
+              [alt]="order.ProductName"
+            />
           </div>
-          <br /><br />
+          <div class="col-12 col-md-6 align align-items-center mb-3">
+            <button
+              mat-button
+              [routerLink]="['/product/', order.InventoryBalanceId]"
+              color="primary"
+            >
+              <strong>
+                {{ order.ProductName }}
+              </strong>
+            </button>
+            <strong>Shipped By: &nbsp; {{ order.StoreName }}</strong>
+          </div>
+          <div class="col-12 col-md-3 align">
+            <strong class="mb-2" style="color: #1585cf"
+              >{{ order.UnitPrice | number }} {{ Currency }}</strong
+            >
+            <strong class="mb-2">Seller: &nbsp; {{ order.VendorName }}</strong>
+            <button
+              (click)="openDialog(order.Latitude, order.Longitude, order.id)"
+              mat-raised-button
+              color="primary"
+            >
+              Map Location
+            </button>
+          </div>
         </div>
       </div>
     </div>
   </mat-card>
-
-  <br />
-  <br />
 </div>

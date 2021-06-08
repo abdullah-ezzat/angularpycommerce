@@ -1,8 +1,5 @@
-
 export class BrandsDetail {
-
-    Id: Number;
-    NameA: string;
-    NameL: string;
-
+  id: Number;
+  NameA: string;
+  NameL: string;
 }

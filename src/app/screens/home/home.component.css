@@ -51,7 +51,7 @@
   width: 100%;
 }
 
-img:hover {
+.product-image:hover {
   filter: brightness(110%);
   -webkit-transform: scale(1.1);
   transform: scale(1.1);
@@ -161,7 +161,8 @@ img:hover {
     width: 100%;
   }
   .product-image {
-    width: 60%;
+    width: 110px;
+    height: 110px;
   }
   .search-form {
     width: 100%;

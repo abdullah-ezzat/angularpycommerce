@@ -1,51 +1,40 @@
 <form
   #form="ngForm"
   (ngSubmit)="updateShippingUser(form.value)"
-  class="was-validated"
+  class="p-3"
+  ngNativeValidate
 >
-  <div class="form-group col-md-3">
-    <input
-      type="hidden"
-      class="form-control"
-      [(ngModel)]="shippingUser.Id"
-      name="Id"
-      id="Id"
-      placeholder="Id"
-    />
-    <div class="invalid-feedback"></div>
-  </div>
-
-  <div class="form-group col-md-3">
-    <label for="inputUserId">User Name</label>
-    <select
-      class="custom-select"
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>User</mat-label>
+    <mat-select
       [(ngModel)]="shippingUser.UserId"
-      name="UserId"
-      id="UserId"
+      id="UserId_id"
+      name="UserId_id"
     >
-      <option *ngFor="let user of Users; let i = index" [value]="Users[i].Id">
-        {{ Users[i].NameL }}
-      </option>
-    </select>
-  </div>
-
-  <div class="form-group col-md-3">
-    <label for="inputShippingAgentId">Shipping Agents</label>
-    <select
-      class="custom-select"
-      [(ngModel)]="shippingUser.ShippingAgentId"
-      name="ShippingAgentId"
-      id="ShippingAgentId"
-    >
-      <option
-        *ngFor="let shippingUser of ShippingUsers; let i = index"
-        [value]="ShippingUsers[i].Id"
+      <mat-option
+        *ngFor="let user of Users; let i = index"
+        [value]="Users[i].id"
+        >{{ Users[i].NameL }}</mat-option
       >
-        {{ ShippingUsers[i].NameL }}
-      </option>
-    </select>
-  </div>
+    </mat-select>
+  </mat-form-field>
 
-  <br />
-  <button class="btn btn-primary" type="submit">Save</button>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Shipping Agent</mat-label>
+    <mat-select
+      [(ngModel)]="shippingUser.ShippingAgentId"
+      id="ShippingAgentId_id"
+      name="ShippingAgentId_id"
+    >
+      <mat-option
+        *ngFor="let shippingUser of ShippingUsers; let i = index"
+        [value]="ShippingUsers[i].id"
+        >{{ ShippingUsers[i].NameL }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+
+  <div class="d-grid gap-2">
+    <button type="submit" mat-raised-button color="primary">Update</button>
+  </div>
 </form>

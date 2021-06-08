@@ -21,6 +21,17 @@ body {
   margin: 8px;
 }
 
+textarea.mat-input-element {
+  height: 16px;
+}
+.filename {
+  display: inline !important;
+}
+
+.mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+
 .mat-step-header .mat-step-icon-selected,
 .mat-step-header .mat-step-icon-state-done,
 .mat-step-header .mat-step-icon-state-edit {
@@ -46,43 +57,20 @@ body {
   margin-top: -15px;
 }
 
-.mat-step-header.cdk-keyboard-focused,
-.mat-step-header.cdk-program-focused,
-.mat-step-header:hover {
-  background-color: rgba(0, 0, 0, 0);
+.list-group-item {
+  border-top-width: 1px !important;
 }
-
-.mat-step-header .mat-step-header-ripple {
-  display: contents;
-  position: absolute;
-  pointer-events: none;
-}
-.mat-form-field-appearance-legacy .mat-form-field-infix {
-  padding: 0em 0;
-}
-
-.ngxImageZoomThumbnail {
-  pointer-events: all;
-  width: 16rem;
-}
-
-.modal-open .modal {
-  width: 33rem;
-  height: 21rem;
-  margin-left: 48rem;
-  margin-top: 14rem;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-@media (max-width: 500px) {
-  .mat-step-header .mat-step-label.mat-step-label-active {
-    min-width: 10rem;
-    margin-left: 0px;
+@media screen and (max-width: 800px) {
+  .mat-step-text-label {
+    margin-top: 0px !important;
   }
 }
+
 #toast-container > div {
   opacity: 1;
+}
+.toast-container {
+  width: 100% !important;
 }
 .toast {
   font-size: initial !important;

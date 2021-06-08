@@ -30,13 +30,9 @@ export class HomeComponent implements OnInit {
   value = '';
   search = '';
   has_prev = false;
-  has_next = false;
+  has_next = true;
 
-  constructor(
-    public service: GetDataApiService,
-    public services: GetAllService,
-    public route: Router
-  ) {}
+  constructor(public service: GetAllService, public route: Router) {}
 
   ngOnInit(): void {
     localStorage.removeItem('selectedIds');
@@ -46,9 +42,8 @@ export class HomeComponent implements OnInit {
 
     this.getProducts(1, CartId, null);
 
-    this.searchTerm.valueChanges.subscribe((term) => {
-      this.service.getProductNames(term).subscribe((data) => {
-        console.log(data);
+    this.searchTerm.valueChanges.subscribe((search) => {
+      this.service.getProductNames(search).subscribe((data) => {
         this.ProductsString = data as any[];
       });
     });
@@ -69,8 +64,15 @@ export class HomeComponent implements OnInit {
 
   getProducts(page, CategoryId, searchTerms) {
     this.service.getAllSpecifications(this.CategoryId).subscribe(
-      (response) => {
+      (response: any) => {
         this.AllSpecifications = response;
+        const arrayUniqueByKey = [
+          ...new Map(
+            this.AllSpecifications.map((item) => [item['id'], item])
+          ).values(),
+        ];
+
+        this.AllSpecifications = arrayUniqueByKey;
       },
       (error) => {
         alert('An unexpected error occured.');
@@ -78,9 +80,15 @@ export class HomeComponent implements OnInit {
       }
     );
 
-    this.service.getAllProductSpecification().subscribe(
+    this.service.getAllData('specificationValueCount').subscribe(
       (response) => {
         this.AllProductSpecifications = response;
+        this.AllProductSpecifications = this.AllProductSpecifications.filter(
+          (v, i, a) =>
+            a.findIndex(
+              (t) => t.SpecificationValue === v.SpecificationValue
+            ) === i
+        );
       },
       (error) => {
         alert('An unexpected error occured.');
@@ -89,7 +97,7 @@ export class HomeComponent implements OnInit {
     );
 
     this.CategoryId = CategoryId;
-    this.services.getMaxPage(null, searchTerms, (CategoryId = 0)).subscribe(
+    this.service.getMaxPage(null, searchTerms, (CategoryId = 0)).subscribe(
       (response) => {
         this.MaxPageNumber = response;
       },
@@ -98,11 +106,12 @@ export class HomeComponent implements OnInit {
         console.log(error);
       }
     );
-    this.services
+    this.service
       .getHomeProducts(page, null, searchTerms, (CategoryId = 0))
       .subscribe(
         (response) => {
           this.HomeDetails = response;
+          document.getElementById('page 1').className = 'page-item active';
         },
         (error) => {
           alert('An unexpected error occured.');
@@ -110,7 +119,7 @@ export class HomeComponent implements OnInit {
         }
       );
   }
-  getHomeProducts(page, searchTerms) {
+  getHomeProducts(page, searchTerms, selectedIds, CategoryId = 0) {
     if (page == 'previous') {
       page = this.page - 1;
       this.page = page;
@@ -124,6 +133,20 @@ export class HomeComponent implements OnInit {
     } else {
       this.has_prev = false;
     }
+    var MaxPageNumber: [] = this.MaxPageNumber;
+    var last_page = MaxPageNumber[MaxPageNumber.length - 1];
+    if (page == 'last') {
+      page = last_page;
+      this.page = page;
+      if (page > 1) {
+        this.has_prev = true;
+      }
+    }
+    if (page == last_page) {
+      this.has_next = false;
+    } else {
+      this.has_next = true;
+    }
     for (var p of this.MaxPageNumber) {
       let pages = document.getElementById('page ' + p);
       pages.className = 'page-item';
@@ -131,9 +154,9 @@ export class HomeComponent implements OnInit {
 
     let pages = document.getElementById('page ' + page);
     pages.className = 'page-item active';
-
-    this.services
-      .getHomeProducts(page, null, searchTerms, (this.CategoryId = 0))
+    this.page = page;
+    this.service
+      .getHomeProducts(page, selectedIds, searchTerms, CategoryId)
       .subscribe(
         (response) => {
           this.HomeDetails = response;
@@ -145,22 +168,7 @@ export class HomeComponent implements OnInit {
       );
     this.scrollTop();
   }
-  // onChangeSelection(specificationId, isSelected) {
-  //   let selectedIds;
-  //   if (isSelected == true) {
-  //     selectedIds = localStorage.getItem('selectedIds');
-  //     if (selectedIds == null) {
-  //       selectedIds = '';
-  //     }
-  //     selectedIds = selectedIds + ',' + specificationId + ',';
-  //     localStorage.setItem('selectedIds', selectedIds);
-  //     document.body.scrollTop = document.documentElement.scrollTop = 0;
-  //   }
-  //   if (isSelected == false) {
-  //     selectedIds = localStorage.getItem('selectedIds');
-  //     selectedIds = selectedIds.replace(',' + specificationId + ',', '');
-  //     localStorage.setItem('selectedIds', selectedIds);
-  //   }
+
   onChangeSelection(specificationId, isSelected) {
     let selectedIds;
     if (isSelected == true) {
@@ -180,20 +188,21 @@ export class HomeComponent implements OnInit {
       }
       localStorage.setItem('selectedIds', selectedIds);
     }
-
-    this.services
-      .getHomeProducts(this.page, selectedIds, 'null', this.CategoryId)
-      .subscribe(
-        (response) => {
-          this.HomeDetails = response;
-        },
-        (error) => {
-          alert('An unexpected error occured.');
-          console.log(error);
-        }
-      );
+    this.service.getMaxPage(selectedIds, null, this.CategoryId).subscribe(
+      (response) => {
+        this.MaxPageNumber = response;
+      },
+      (error) => {
+        alert('An unexpected error occured.');
+        console.log(error);
+      }
+    );
+    this.getHomeProducts(this.page, null, selectedIds, this.CategoryId);
   }
   scrollTop() {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
+  }
+  assign(url) {
+    location.assign(url);
   }
 }

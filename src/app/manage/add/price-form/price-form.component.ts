@@ -2,68 +2,74 @@ import { Component, OnInit } from '@angular/core';
 import { PriceListDetails } from '../../view/price-list/price-list.model';
 import { GetDataApiService } from '../../../get-data-api.service';
 import { Router } from '@angular/router';
+import { GetAllService } from 'src/app/api/all/get-all.service';
+import { AddDataService } from 'src/app/api/add/add-data.service';
 
 @Component({
   selector: 'app-price-form',
   templateUrl: './price-form.component.html',
-  styleUrls: ['./price-form.component.css']
+  styleUrls: ['./price-form.component.css'],
 })
 export class PriceFormComponent implements OnInit {
-
-  price: any;
   Prices: any;
-
-  product: any;
   Products: any;
-
-  vendor: any;
   Vendors: any;
-
-  country: any;
   Countries: any;
 
-constructor(private route: Router, private service: GetDataApiService) { }
+  constructor(
+    private route: Router,
+    private all: GetAllService,
+    private add: AddDataService
+  ) {}
 
-ngOnInit(): void {
+  ngOnInit(): void {
+    this.all.getAllData('products').subscribe(
+      (response) => {
+        this.Products = response;
+      },
+      (error) => {
+        alert('An unexpected error occured.');
+        console.log(error);
+      }
+    );
 
-  this.service.GetAllProducts()
-  .subscribe(response => {
-    this.Products  = response;
+    this.all.getAllData('vendors').subscribe(
+      (response) => {
+        this.Vendors = response;
+      },
+      (error) => {
+        alert('An unexpected error occured.');
+        console.log(error);
+      }
+    );
 
-  },error => {
-    alert('An unexpected error occured.');
-    console.log(error);
-  });
+    this.all.getAllData('countries').subscribe(
+      (response) => {
+        this.Countries = response;
+      },
+      (error) => {
+        alert('An unexpected error occured.');
+        console.log(error);
+      }
+    );
+  }
 
-  this.service.getAllVendors()
-  .subscribe(response => {
-    this.Vendors = response;
+  savePrice(post: PriceListDetails) {
+    this.add
+      .addData('vendorPriceLists', post)
+      .pipe()
+      .subscribe(
+        () => {},
+        (error) => {
+          alert('An unexpected error occured.');
+          console.log(error);
+        }
+      );
 
-  },error => {
-    alert('An unexpected error occured.');
-    console.log(error);
-  });
-
-  this.service.getAllCountries()
-  .subscribe(response => {
-    this.Countries = response;
-
-  },error => {
-    alert('An unexpected error occured.');
-    console.log(error);
-  });
-}
-
-savePrice(post : PriceListDetails){
-
-  this.service.addNewPriceList(post)
-  .pipe().subscribe(response => {
-      
-  },error => {
-    alert('An unexpected error occured.');
-    console.log(error);
-  });
-
-  this.route.navigate(['PriceList'])
-}
+    this.route.navigate(['/manage/prices']);
+  }
+  autoGrowTextZone(e) {
+    e.target.style.height = '0px';
+    e.target.style.height = e.target.scrollHeight + 0 + 'px';
+  }
 }

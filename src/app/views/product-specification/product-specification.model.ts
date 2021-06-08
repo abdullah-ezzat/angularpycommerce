@@ -1,9 +1,7 @@
-
 export class ProductSpecificationDetails {
-
-    Id: Number;
-    ProductId: Number;
-    CategoryId: Number;
-    SpecificationName: any;
-    SpecificationValue: any;
+  id: Number;
+  ProductId: Number;
+  CategoryId: Number;
+  SpecificationName: any;
+  SpecificationValue: any;
 }

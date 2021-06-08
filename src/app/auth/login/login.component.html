@@ -4,10 +4,8 @@
   class="was-validated"
   class="login"
 >
-  <!-- <input type="text" style="cursor: text;" ngModel name="Email" id="Email" placeholder="Email" required>
-    <input type="password" style="cursor: text;" ngModel name="Password" id="Password" placeholder="Password" required> -->
   <div>
-    <mat-form-field style="width: 20rem" appearance="outline">
+    <mat-form-field class="mb-1" style="width: 20rem" appearance="outline">
       <mat-label>Email</mat-label>
       <input
         ngModel
@@ -19,7 +17,7 @@
       />
     </mat-form-field>
 
-    <mat-form-field style="width: 20rem" appearance="outline">
+    <mat-form-field class="mb-1" style="width: 20rem" appearance="outline">
       <mat-label>Password</mat-label>
       <input
         ngModel
@@ -44,8 +42,8 @@
         <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
       </p>
     </mat-form-field>
+    <button mat-raised-button color="primary" type="submit">Login</button>
   </div>
 
-  <button type="submit">Login</button>
-  <a routerLink="/Register">Sign Up</a>
+  <a href="/register">Sign Up</a>
 </form>

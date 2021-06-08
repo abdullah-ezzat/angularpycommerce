@@ -1,61 +1,83 @@
-<form  #form="ngForm" (ngSubmit) = createAgent(form.value) class="was-validated ">
+<form
+  #form="ngForm"
+  (ngSubmit)="createAgent(form.value)"
+  class="p-3"
+  ngNativeValidate
+>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Name</mat-label>
+    <textarea
+      matInput
+      id="NameL"
+      name="NameL"
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Name"
+      required
+    ></textarea>
+  </mat-form-field>
 
-    <div class="form-group col-md-3">
-      <input type="hidden" class="form-control" ngModel name="Id" id="Id"  placeholder="Id">
-      <div class="invalid-feedback">
-        </div>
-    </div>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Email</mat-label>
+    <textarea
+      matInput
+      name="Email"
+      id="Email"
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Email"
+      required
+    ></textarea>
+  </mat-form-field>
 
-    <div class="form-group col-md-3">
-        <label for="inputTitle">Arabic Name</label>
-        <input type="text" class="form-control" ngModel name="NameA" id="NameA" placeholder="Arabic Name" required>
-        <div class="invalid-feedback">
-          </div>
-      </div> 
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Password</mat-label>
+    <textarea
+      matInput
+      id="Password"
+      name="Password"
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Password"
+      required
+    ></textarea>
+  </mat-form-field>
 
-        <div class="form-group col-md-3">
-          <label for="inputTitle">English Name</label>
-          <input type="text" class="form-control" ngModel name="NameL" id="NameL" placeholder="English Name" required>
-          <div class="invalid-feedback">
-            </div>
-        </div> 
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Adress</mat-label>
+    <textarea
+      matInput
+      id="Address1"
+      name="Address1"
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Adress"
+      required
+    ></textarea>
+  </mat-form-field>
 
-        <div class="form-group col-md-3">
-            <label for="inputAdress1">Adress 1</label>
-            <input type="text" class="form-control" ngModel name="Adress1" id="Adress1" placeholder="Adress 1" required>
-            <div class="invalid-feedback">
-              </div>
-          </div>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Adress 2 (optional)</mat-label>
+    <textarea
+      matInput
+      id="Address2"
+      name="Address2"
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Adress"
+    ></textarea>
+  </mat-form-field>
 
-          <div class="form-group col-md-3">
-            <label for="inputAdress2">Adress 2</label>
-            <input type="text" class="form-control" ngModel name="Adress2" id="Adress2" placeholder="Adress 2" required>
-            <div class="invalid-feedback">
-              </div>
-          </div>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Phone Number</mat-label>
+    <textarea
+      matInput
+      id="Phone"
+      name="Phone"
+      #phone
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Phone"
+      maxlength="11"
+      required
+    ></textarea>
+  </mat-form-field>
 
-        <div class="form-group col-md-3">
-            <label for="inputEmail">Email</label>
-            <input type="text" class="form-control" ngModel name="Email" id="Email" placeholder="Email" required>
-            <div class="invalid-feedback">
-              </div>
-          </div>
-
-          <div class="form-group col-md-3">
-            <label for="inputPassword">Password</label>
-            <input type="text" class="form-control" ngModel name="Password" id="Password" placeholder="Password" required>
-            <div class="invalid-feedback">
-              </div>
-          </div>
-
-          <div class="form-group col-md-3">
-            <label for="inputPhone">Phone Number</label>
-            <input type="text" class="form-control" ngModel name="Phone" id="Phone" placeholder="Phone Number" required>
-            <div class="invalid-feedback">
-              </div>
-          </div>
-
-    <br>   
-    <button class="btn btn-primary" type="submit">Save</button>
-
-    </form> 
+  <div class="d-grid gap-2">
+    <button type="submit" mat-raised-button color="primary">Save</button>
+  </div>
+</form>

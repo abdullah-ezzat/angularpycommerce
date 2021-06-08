@@ -1,18 +1,14 @@
-
 export class ProductsDetail {
-    Id: Number;
-    BrandId: Number;
-    NameA: string;
-    NameL: string;
+  id: Number;
+  BrandId_id: Number;
+  NameA: string;
+  NameL: string;
 
-    ImageUrl: string;
-    ImageUrl2: string;
-    ImageUrl3: string;
-    ImageUrl4: string;
-    ImageUrl5: string;
-    ImageUrl6: string;
-    ImageUrl7: string;
-    
-    CategoryId: Number;    
-    Description: string;
+  Image: any;
+  Image2: any;
+  Image3: any;
+  Image4: any;
+
+  CategoryId_id: Number;
+  Description: string;
 }

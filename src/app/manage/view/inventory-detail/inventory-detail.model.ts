@@ -1,10 +1,8 @@
-
 export class InventoryDetails {
-
-    Id: Number;
-    ProductId: Number;
-    StoreId: Number;
-    Quantity: Number;
-    UnitCost: Number;
-    TotalCost: Number;
+  id: Number;
+  ProductId_id: Number;
+  StoreId_id: Number;
+  Quantity: Number;
+  UnitCost: Number;
+  TotalCost: Number;
 }

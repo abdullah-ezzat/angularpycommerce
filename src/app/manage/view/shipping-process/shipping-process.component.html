@@ -1,140 +1,88 @@
-<button
-  id="button-order-1"
-  (click)="getFilteredOrders(1)"
-  class="btn btn-outline-dark"
->
-  Pending
-</button>
-
-<button
-  id="button-order-2"
-  (click)="getFilteredOrders(0)"
-  class="btn btn-outline-dark"
->
-  All
-</button>
-
-<button
-  id="button-order-3"
-  (click)="getFilteredOrders(2)"
-  class="btn btn-outline-dark"
->
-  Delivered
-</button>
-
-<div *ngFor="let order of Orders">
-  <mat-card id="mat-container-card-order">
-    <div class="container">
-      <div class="row row-cols-3">
-        <div id="image-card-res" class="col-md-3">
-          <img [src]="order.ImageUrl" class="card-img" alt="Responsive image" />
-        </div>
-
-        <div id="image-deliver-detail" class="col-md-6">
-          <div class="btn-link-product-name">
-            <div
-              id="order-product-name-link"
-              style="cursor: pointer"
-              class="btn btn-link"
-              [routerLink]="['/product-Details', order.InventoryBalanceId]"
+<div class="align p-3">
+  <div class="d-flex justify-content-evenly mb-3">
+    <button mat-raised-button (click)="getFilteredOrders(1)">Pending</button>
+    <button mat-raised-button (click)="getFilteredOrders(0)">All</button>
+    <button mat-raised-button (click)="getFilteredOrders(2)">Delivered</button>
+  </div>
+  <div *ngFor="let master of Masters">
+    <div *ngFor="let order of Orders">
+      <div *ngIf="order.MasterId == master.id">
+        <mat-card class="mb-3 row">
+          <div class="col-12 col-md-3 mb-3 align align-items-center">
+            <img
+              class="product_img"
+              [routerLink]="['/product/', order.InventoryBalanceId]"
+              [src]="order.Image"
+              [alt]="order.ProductName"
+            />
+          </div>
+          <div class="col-12 col-md-6 mb-3 align text-center">
+            <button class="mb-2" mat-button color="primary">
+              <strong [routerLink]="['/product/', order.InventoryBalanceId]">{{
+                order.ProductName
+              }}</strong>
+            </button>
+            <strong class="mb-2"
+              >Shipped By: &nbsp;{{ order.StoreName }}</strong
             >
-              {{ order.ProductName }}
+            <strong class="mb-2">Order: &nbsp;{{ master.id }}</strong>
+            <div class="text-center">
+              <img
+                *ngIf="master.OrderStatusId == 2"
+                src="assets/images/delivered.jpg"
+                alt="Order Delivered Successfully"
+                width="70px"
+              />
+            </div>
+            <div>
+              <mat-card class="overflow-auto" style="height: 8.5rem">
+                <strong>Delivery Notes</strong>
+                <div *ngFor="let detail of Details">
+                  <ul *ngIf="detail.OrderId == order.id" class="d-flex">
+                    <li>{{ detail.DeliveryNotes }}</li>
+                  </ul>
+                </div>
+              </mat-card>
             </div>
           </div>
-          <br />
-          <div class="contain-shipped-order-number">
-            &nbsp;&nbsp;
-            <div id="shipping-by-id">Shipped by:</div>
-            <div id="order-store-by">{{ order.StoreName }}</div>
-            <br />
-            <strong
-              ><div id="order-number-master">
-                Order Number : {{ order.MasterId }}
-              </div>
-            </strong>
-          </div>
-          <img
-            id="img-is-Delivered"
-            src="assets/images/delivered.jpg"
-            class="Img"
-            *ngIf="order.isDelivered"
-          /><br />
-
-          <div class="contain-delivery-note-mat-card">
-            <strong id="delivery-notes-str">Delivery Notes :</strong>
-            <mat-card id="mat-delivery-note-card">
-              <div *ngFor="let detail of Details">
-                <div
-                  class="container"
-                  id="contain-delivery-notes"
-                  *ngIf="detail.OrderId == order.Id"
-                >
-                  <div id="detail-deliver-notes">
-                    &nbsp;<br />
-                    - {{ detail.DeliveryNotes }}
-                  </div>
-                </div>
-              </div>
-            </mat-card>
-          </div>
-        </div>
-
-        <div id="total-seller-note" class="col-md-3">
-          <div id="order-price-number">{{ order.TotalPrice | number }} EGP</div>
-          <div id="seller-order-vendor-name">
-            Seller: {{ order.VendorName }}
-          </div>
-          <form id="form-map-delivery">
-            <mat-form-field id="mat-form-map-card" class="full-width">
-              <mat-label>Add Map Location...</mat-label>
-              <textarea
-                [(ngModel)]="order.MapLocation"
-                name="MapLocation"
-                id="MapLocation"
-                style="margin-top: -2px; margin-bottom: 10px; height: 32px"
-                matInput
-                placeholder="Map Url..."
-              ></textarea>
-            </mat-form-field>
-
-            <mat-form-field id="map-form-delivery-card" class="full-width">
-              <mat-label>Add delivery note...</mat-label>
-              <textarea
-                [(ngModel)]="order.DeliveryNote"
-                name="DeliveryNote"
-                id="DeliveryNote"
-                style="margin-top: -2px; margin-bottom: -2px; height: 32px"
-                matInput
-                placeholder="Comment..."
-              ></textarea>
-            </mat-form-field>
-
-            <button
-              id="btn-add-delivery-note"
-              (click)="
-                addDeliveryNotes(
-                  order.DeliveryNote,
-                  order.Id,
-                  order.MapLocation,
-                  order.Latitude,
-                  order.Longitude
-                )
-              "
-              class="btn btn-outline-secondary"
+          <div class="col-12 col-md-3 mb-3 align">
+            <strong class="mb-3"
+              >{{ order.UnitPrice | number }} {{ Currency }}</strong
             >
-              Add a note
-            </button>
-            <button
-              id="btn-add-delivered-note"
-              (click)="DeliverOrder(order.Id)"
-              class="btn btn-outline-secondary"
+            <strong class="mb-2">Seller: &nbsp;{{ order.VendorName }}</strong>
+            <form
+              #form="ngForm"
+              (ngSubmit)="addDeliveryNotes(form.value, order.id)"
             >
-              Delivered
-            </button>
-          </form>
-        </div>
+              <mat-form-field class="w-100 mb-3" appearance="outline">
+                <mat-label>Leave Notes</mat-label>
+                <textarea
+                  (keyup)="autoGrowTextZone($event)"
+                  matInput
+                  id="Notes"
+                  name="Notes"
+                  [(ngModel)]="order.DeliveryNote"
+                  placeholder="Add Notes"
+                ></textarea>
+              </mat-form-field>
+              <div class="d-grid gap-2">
+                <button class="mb-2" mat-raised-button color="primary">
+                  Add Note
+                </button>
+              </div>
+            </form>
+            <div class="d-grid gap-2">
+              <button
+                (click)="DeliverOrder(order.id)"
+                mat-raised-button
+                color="primary"
+              >
+                Deliver
+              </button>
+            </div>
+          </div>
+        </mat-card>
       </div>
-      <br /><br />
     </div>
-  </mat-card>
+  </div>
 </div>

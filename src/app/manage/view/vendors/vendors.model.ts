@@ -1,12 +1,10 @@
-
 export class VendorDetails {
-
-    Id: Number;
-    NameA: string;
-    NameL: string;
-    Email: string;
-    Password: string;
-    Adress1: string;
-    Adress2: string;
-    PostCode: string
+  id: Number;
+  NameA: string;
+  NameL: string;
+  Email: string;
+  Password: string;
+  Address1: string;
+  Address2: string;
+  PostCode: string;
 }

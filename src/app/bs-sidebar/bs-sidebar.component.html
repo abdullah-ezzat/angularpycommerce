@@ -7,11 +7,12 @@
 
     <!-- Bootstrap CSS CDN -->
     <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-      integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+      integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x"
       crossorigin="anonymous"
     />
+
     <!-- Our Custom CSS -->
 
     <!-- Font Awesome JS -->
@@ -39,7 +40,7 @@
         <ul class="list-unstyled components">
           <li *ngFor="let category of Categories" class="">
             <a
-              href="#{{ 'categoryRef' + category.Id }}"
+              href="#{{ 'categoryRef' + category.id }}"
               data-toggle="collapse"
               aria-expanded="false"
               class="dropdown-toggle"
@@ -47,12 +48,12 @@
             >
             <ul
               class="collapse list-unstyled"
-              id="{{ 'categoryRef' + category.Id }}"
+              id="{{ 'categoryRef' + category.id }}"
             >
               <li *ngFor="let subCategory of subCategories">
                 <a
-                  *ngIf="subCategory.MainCategoryId === category.Id"
-                  (click)="AssignCategoryId(subCategory.Id)"
+                  *ngIf="subCategory.MainCategoryId === category.id"
+                  (click)="AssignCategoryId(subCategory.id)"
                   >{{ subCategory.NameL }}</a
                 >
               </li>
@@ -89,17 +90,38 @@
 
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
               <ul class="nav navbar-nav ml-auto" id="nav-navbar-nav-ml-auto">
-                <li class="nav-item">
-                  <a class="nav-link" style="cursor: pointer" (click)="Home()"
+                <button (click)="assign('/Home')" mat-button>Home</button>
+                <button (click)="assign('/manage')" mat-button>Manage</button>
+                <button *ngIf="userName" mat-button [matMenuTriggerFor]="menu">
+                  {{ userName }}
+                </button>
+                <mat-menu #menu="matMenu" xPosition="before">
+                  <button (click)="assign('/account')" mat-menu-item>
+                    My Account
+                  </button>
+                  <button (click)="assign('/orders')" mat-menu-item>
+                    My Orders
+                  </button>
+                  <mat-divider></mat-divider>
+                  <button (click)="Logout()" mat-menu-item>Logout</button>
+                </mat-menu>
+                <button *ngIf="!userName" (click)="assign('/login')" mat-button>
+                  Login
+                </button>
+                <!-- <li class="nav-item">
+                  <a
+                    class="nav-link"
+                    style="cursor: pointer"
+                    (click)="assign('/Home')"
                     >Home</a
                   >
                 </li>
-
                 <li class="nav-item">
                   <a
                     style="max-width: 10rem"
                     class="nav-link"
-                    routerLink="/ManageStore"
+                    style="cursor: pointer"
+                    (click)="assign('/manage')"
                     >Manage Store</a
                   >
                 </li>
@@ -118,10 +140,10 @@
                     <a
                       style="margin-bottom: 1px"
                       class="dropdown-item"
-                      routerLink="/myAccount"
+                      (click)="assign('/account')"
                       >My Account</a
                     >
-                    <a class="dropdown-item" routerLink="/myOrders"
+                    <a class="dropdown-item" (click)="assign('/orders')"
                       >My Orders</a
                     >
                     <div class="dropdown-divider"></div>
@@ -129,56 +151,19 @@
                   </div>
                 </li>
                 <li class="nav-item">
-                  <a *ngIf="!userName" class="nav-link" routerLink="/Login"
+                  <a
+                    *ngIf="!userName"
+                    style="cursor: pointer"
+                    class="nav-link"
+                    (click)="assign('/login')"
                     >Login</a
                   >
-                </li>
-                <!-- <li
-                  style="margin-top: -13px; margin-top: -13px; margin-left: 8px"
-                >
-                  <span
-                    style="cursor: pointer"
-                    routerLink="/shopping-Cart"
-                    class="badge badge-warning"
-                    >{{ CartItemsCount }}</span
-                  ><br />
-                  <i
-                    style="
-                      font-size: 25px;
-                      margin-top: -4px;
-                      margin-left: -4px;
-                      cursor: pointer;
-                    "
-                    routerLink="/shopping-Cart"
-                    class="shopping-cart"
-                  ></i>
-              
                 </li> -->
               </ul>
             </div>
-            <div
-              style="
-                margin-top: -13px;
-                margin-left: 8px;
-                float: right;
-                cursor: pointer;
-              "
-              routerLink="/shopping-Cart"
-            >
-              <span
-                style="cursor: pointer; margin-left: 13px"
-                class="badge badge-warning"
-                >{{ CartItemsCount }}</span
-              ><br />
-              <i
-                style="
-                  font-size: 25px;
-                  margin-top: -6px;
-                  margin-left: 10px;
-                  cursor: pointer;
-                "
-                class="shopping-cart"
-              ></i>
+            <div class="cart" (click)="assign('/cart')">
+              <span class="badge badge-bg">{{ CartItemsCount }}</span>
+              <i class="shopping-cart"></i>
             </div>
           </div>
         </nav>

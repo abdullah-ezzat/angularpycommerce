@@ -1,32 +1,43 @@
+<form
+  #form="ngForm"
+  (ngSubmit)="saveDetail(form.value)"
+  class="p-3"
+  ngNativeValidate
+>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Store</mat-label>
+    <mat-select name="StoreId_id" id="StoreId_id">
+      <mat-option
+        *ngFor="let store of Stores; let i = index"
+        [value]="Stores[i].id"
+        >{{ Stores[i].NameL }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
 
-<form  #form="ngForm" (ngSubmit) = saveDetail(form.value) class="was-validated ">
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Select</mat-label>
+    <mat-select name="ProductId_id" id="ProductId_id">
+      <mat-option
+        *ngFor="let product of Products; let i = index"
+        [value]="Products[i].id"
+        >{{ Products[i].NameL }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
 
-    <div class="form-group col-md-3">
-        <label for="inputStoreId">StoreId</label>
-            <select class="custom-select"  ngModel name="StoreId"  id="StoreId" >
-            <option *ngFor="let store of Stores; let i = index" [value]="Stores[i].Id">
-                {{Stores[i].NameL}}
-            </option>
-            </select>
-        <div class="invalid-feedback"></div>
-        </div>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Quantity</mat-label>
+    <input
+      matInput
+      name="Quantity"
+      id="Quantity"
+      placeholder="Quantity"
+      required
+    />
+  </mat-form-field>
 
-        <div class="form-group col-md-3">
-            <label for="inputProductId">ProductId</label>
-                <select class="custom-select"  ngModel name="ProductId"  id="ProductId" >
-                <option *ngFor="let product of Products; let i = index" [value]="Products[i].Id">
-                    {{Products[i].NameL}}
-                </option>
-                </select>
-            <div class="invalid-feedback"></div>
-            </div>
-    
-    <div class="form-group col-md-3">
-        <label for="inputQuantity">Quantity</label>
-        <input type="text" class="form-control" ngModel name="Quantity" id="Quantity"  placeholder="Quantity" required>
-        <div class="invalid-feedback">
-            </div>     
-        </div>
-
-    <button class="btn btn-primary" type="submit">Save</button>
-</form>    
+  <div class="d-grid gap-2">
+    <button type="submit" mat-raised-button color="primary">Save</button>
+  </div>
+</form>

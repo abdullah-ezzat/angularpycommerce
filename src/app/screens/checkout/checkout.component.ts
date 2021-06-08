@@ -3,81 +3,90 @@ import { GetDataApiService } from '../../get-data-api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BsSidebarComponent } from '../../bs-sidebar/bs-sidebar.component';
-
+import { AddDataService } from 'src/app/api/add/add-data.service';
+import { GetAllService } from 'src/app/api/all/get-all.service';
+import { GetDataService } from 'src/app/api/get/get-data.service';
+import { ShoppingCartComponent } from '../shopping-cart/shopping-cart.component';
 
 @Component({
   selector: 'app-checkout',
   templateUrl: './checkout.component.html',
-  styleUrls: ['./checkout.component.css']
+  styleUrls: ['./checkout.component.css'],
 })
 export class CheckoutComponent implements OnInit {
-
   ShoppingCartDetails: any;
   Checkout: any;
-  TotalCart: any
+  TotalCart: any;
+  Currency: any;
   User: any;
   UserId: any;
   cartId: any;
-
   orderIsPlaced: any = 0;
 
-
-  constructor(private service: GetDataApiService, private route: Router, private router: ActivatedRoute, private toastr: ToastrService, private BsSidebar: BsSidebarComponent) {
-  }
+  constructor(
+    private count: ShoppingCartComponent,
+    private all: GetAllService,
+    private add: AddDataService,
+    private get: GetDataService,
+    private route: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     let cartId = localStorage.getItem('cartId');
-  
-    this.service.getAllCarts(cartId)
-    .subscribe(response => {
-      this.Checkout = response;
-    },error => {
-      alert('An unexpected error occured.');
-      console.log(error);
-    });
+    this.all.getAllCart(cartId).subscribe(
+      (response) => {
+        this.Checkout = response;
+        const prices = this.Checkout.map((item) => item.TotalPrice);
+        const total = prices.reduce(this.total);
+        this.TotalCart = total;
 
-    this.service.getCartTotal(cartId).then(response => {
-      ;
-        this.TotalCart = response;
-    } );
-
-    let UserId = localStorage.getItem('UserId')
-
-    this.service.getUser(UserId).subscribe(response => {
-      this.User = response;
-
-    })
-    ,error => {
-      alert('An unexpected error occured.');
-      console.log(error);
-    }
-  }
-
-  createOrder(){
-
-    let cartId = localStorage.getItem('cartId');
+        const currency = this.Checkout.map((item) => item.Currency);
+        this.Currency = currency[0];
+      },
+      (error) => {
+        alert('An unexpected error occured.');
+        console.log(error);
+      }
+    );
 
     let UserId = localStorage.getItem('UserId');
- 
-    this.service.addNewOrder(cartId,UserId).subscribe(response => {
-      ;
-        if (response > 0){
+    this.get.getUser(UserId).subscribe((response) => {
+      this.User = response;
+    }),
+      (error) => {
+        alert('An unexpected error occured.');
+        console.log(error);
+      };
+    this.Checkout = { ProductName: '' };
+  }
+  total(total, num) {
+    return total + num;
+  }
+  createOrder() {
+    let cartId = localStorage.getItem('cartId');
+    let UserId = localStorage.getItem('UserId');
 
-          this.toastr.success('Your order has been placed to the identified adress and your order number is '+ response , '', {
-            timeOut: 3000,
-            positionClass: 'toast-top-center'
-          });
-          this.orderIsPlaced = 1;
-          localStorage.removeItem('cartId');
-          this.route.navigate(['/myOrders']);
-          this.BsSidebar.CartItemCounter(0);
-        }
-
-    })
-    ,error => {
-      alert('An unexpected error occured.');
-      console.log(error);
-    }
-
+    this.add.addOrder(cartId, UserId).subscribe((response) => {
+      if (response > 0) {
+        this.toastr.success(
+          'order has been placed to the identified address',
+          'Your order number is ' + response,
+          { timeOut: 3500 }
+        );
+        this.orderIsPlaced = 1;
+        this.count.count(0);
+        localStorage.removeItem('cartId');
+        localStorage.removeItem('cart_count');
+        this.route.navigate(['/orders']);
+      }
+    }),
+      (error) => {
+        alert('An unexpected error occured.');
+        console.log(error);
+      };
+  }
+  assign(url) {
+    location.assign(url);
   }
 }

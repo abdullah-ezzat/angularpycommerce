@@ -1,61 +1,88 @@
+<form
+  #form="ngForm"
+  (ngSubmit)="updateShippingAgents(form.value)"
+  class="p-3"
+  ngNativeValidate
+>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Name</mat-label>
+    <textarea
+      matInput
+      id="NameL"
+      name="NameL"
+      [(ngModel)]="ShippingAgent.NameL"
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Name"
+      required
+    ></textarea>
+  </mat-form-field>
 
-<form  #form="ngForm" (ngSubmit) = updateShippingAgents(form.value) class="was-validated ">
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Email</mat-label>
+    <textarea
+      matInput
+      name="Email"
+      id="Email"
+      [(ngModel)]="ShippingAgent.Email"
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Email"
+      required
+    ></textarea>
+  </mat-form-field>
 
-    <div class="form-group col-md-3">
-        <input type="hidden" class="form-control" [(ngModel)]="ShippingAgent.Id" name="Id" id="Id"  placeholder="Id">
-        <div class="invalid-feedback">
-          </div> 
-      </div>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Password</mat-label>
+    <textarea
+      matInput
+      id="Password"
+      name="Password"
+      [(ngModel)]="ShippingAgent.Password"
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Password"
+      required
+    ></textarea>
+  </mat-form-field>
 
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Address</mat-label>
+    <textarea
+      matInput
+      id="Address1"
+      name="Address1"
+      [(ngModel)]="ShippingAgent.Address1"
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Adress"
+      required
+    ></textarea>
+  </mat-form-field>
 
-     <div class="form-group col-md-3">
-        <label for="ArabicName">Arabic Name</label>
-        <input type="text" class="form-control" [(ngModel)]="ShippingAgent.NameA" name="NameA" id="NameA"  placeholder="Arabic Name">
-        <div class="invalid-feedback">
-            </div>     
-        </div>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Address 2 (optional)</mat-label>
+    <textarea
+      matInput
+      id="Address2"
+      name="Address2"
+      [(ngModel)]="ShippingAgent.Address2"
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Address"
+    ></textarea>
+  </mat-form-field>
 
-        <div class="form-group col-md-3">
-            <label for="EnglishName">English Name</label>
-            <input type="text" class="form-control" [(ngModel)]="ShippingAgent.NameL" name="NameL" id="NameL"  placeholder="English Name">
-            <div class="invalid-feedback">
-                </div>     
-            </div>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Phone Number</mat-label>
+    <textarea
+      matInput
+      id="Phone"
+      name="Phone"
+      [(ngModel)]="ShippingAgent.Phone"
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Phone"
+      maxlength="11"
+      required
+    ></textarea>
+  </mat-form-field>
 
-        <div class="form-group col-md-3">
-            <label for="Adress1">Adress 1</label>
-            <input type="text" class="form-control" [(ngModel)]="ShippingAgent.Adress1" name="Adress1" id="Adress1"  placeholder="Adress 1">
-            <div class="invalid-feedback">
-                </div>     
-            </div>
-
-        <div class="form-group col-md-3">
-            <label for="Adress2">Adress 2</label>
-            <input type="text" class="form-control" [(ngModel)]="ShippingAgent.Adress2" name="Adress2" id="Adress2"  placeholder="Adress2">
-            <div class="invalid-feedback">
-                </div>     
-            </div>
-
-        <div class="form-group col-md-3">
-            <label for="Email">Email</label>
-            <input type="text" class="form-control" [(ngModel)]="ShippingAgent.Email" name="Email" id="Email"  placeholder="Email">
-            <div class="invalid-feedback">
-                </div>     
-            </div>
-            
-        <div class="form-group col-md-3">
-            <label for="Password">Password</label>
-            <input type="text" class="form-control" [(ngModel)]="ShippingAgent.Password" name="Password" id="Password"  placeholder="Password">
-            <div class="invalid-feedback">
-                </div>     
-            </div>
-
-        <div class="form-group col-md-3">
-            <label for="Phone">Phone Number</label>
-            <input type="text" class="form-control" [(ngModel)]="ShippingAgent.Phone" name="Phone" id="Phone"  placeholder="Phone">
-            <div class="invalid-feedback">
-                </div>     
-            </div>
-
-    <button class="btn btn-primary" type="submit">Save</button>
-</form>    
+  <div class="d-grid gap-2">
+    <button type="submit" mat-raised-button color="primary">Save</button>
+  </div>
+</form>

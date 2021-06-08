@@ -1,45 +1,53 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from "@angular/router";
+import { Router } from '@angular/router';
+import { AddDataService } from 'src/app/api/add/add-data.service';
+import { GetAllService } from 'src/app/api/all/get-all.service';
 import { GetDataApiService } from '../../../get-data-api.service';
 import { CategoryDetail } from './category.model';
-
 
 @Component({
   selector: 'app-category-form',
   templateUrl: './category-form.component.html',
-  styleUrls: ['./category-form.component.css']
+  styleUrls: ['./category-form.component.css'],
 })
 export class CategoryFormComponent implements OnInit {
   category: any;
   Categories: any;
-  cat: any;
-  constructor(private route: Router, private service: GetDataApiService) { }
-  
+
+  constructor(
+    private route: Router,
+    private all: GetAllService,
+    public add: AddDataService
+  ) {}
 
   ngOnInit(): void {
-    this.service.getAllCategory()
-    .subscribe(response => {
-      this.Categories = response;
-
-    },error => {
-      alert('An unexpected error occured.');
-      console.log(error);
-
-    });
+    this.all.getAllData('categories').subscribe(
+      (response) => {
+        this.Categories = response;
+      },
+      (error) => {
+        alert('An unexpected error occured.');
+        console.log(error);
+      }
+    );
   }
 
-  saveCategory(post : CategoryDetail){
-  
-    ;
+  saveCategory(post: CategoryDetail) {
+    this.add
+      .addData('categories', post)
+      .pipe()
+      .subscribe(
+        () => {},
+        (error) => {
+          alert('An unexpected error occured.');
+          console.log(error);
+        }
+      );
+    this.route.navigate(['/manage/categories']);
+  }
 
-    this.service.addNewCategory(post)
-    .pipe().subscribe(response => {
-     
-      
-    },error => {
-      alert('An unexpected error occured.');
-      console.log(error);
-    });
-      this.route.navigate(['/category-table'])
+  autoGrowTextZone(e) {
+    e.target.style.height = '0px';
+    e.target.style.height = e.target.scrollHeight + 0 + 'px';
   }
 }

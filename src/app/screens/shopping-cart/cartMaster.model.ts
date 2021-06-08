@@ -1,6 +1,5 @@
-
 export class CartTransactionMaster {
-    Id: Number;
-    CartId: string;
-    DateCreated: Number;
+  id: Number;
+  CartId: string;
+  DateCreated: Number;
 }

@@ -1,6 +1,4 @@
-
-export class LoginDetails{
-
-    Email: any;
-    Password: any;
+export class LoginDetails {
+  Email: any;
+  Password: any;
 }

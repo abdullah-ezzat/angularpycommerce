@@ -1,15 +1,13 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GetDataApiService } from '../../get-data-api.service';
 import { CartDetails } from '../shopping-cart/cart.model';
 import { ToastrService } from 'ngx-toastr';
-import {
-  MatDialog,
-  MAT_DIALOG_DATA,
-  MatDialogRef,
-} from '@angular/material/dialog';
-import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
+import { MatDialog } from '@angular/material/dialog';
 import { ImageDialogComponent } from '../../views/image-dialog/image-dialog.component';
+import { GetAllService } from 'src/app/api/all/get-all.service';
+import { GetDataService } from 'src/app/api/get/get-data.service';
+import { AddDataService } from 'src/app/api/add/add-data.service';
 
 declare var $: any;
 @Component({
@@ -19,10 +17,6 @@ declare var $: any;
 })
 export class ProductDetailsComponent implements OnInit {
   CartDetail: any;
-  HomeDetails: any;
-
-  category: any;
-  Categories: any;
 
   currentRate: number = 0;
   Reviews: any;
@@ -32,25 +26,21 @@ export class ProductDetailsComponent implements OnInit {
   averageRating: any;
 
   StarPercentage: any;
-
-  FiveStarPercent: any;
-  FourStarPercent: any;
-  ThreeStarPercent: any;
-  TwoStarPercent: any;
+  FiveStarsPercent: any;
+  FourStarsPercent: any;
+  ThreeStarsPercent: any;
+  TwoStarsPercent: any;
   OneStarPercent: any;
 
   TotalFiveStars: any = 0;
   TotalFourStars: any = 0;
   TotalThreeStars: any = 0;
   TotalTwoStars: any = 0;
-  TotalOneStars: any = 0;
+  TotalOneStar: any = 0;
 
-  brand: any;
-  Brands: any;
-
-  productId: any;
   Products: any;
   CartId: any;
+  Rating: any;
 
   ProductId: any;
   StoreId: any;
@@ -60,6 +50,9 @@ export class ProductDetailsComponent implements OnInit {
 
   constructor(
     private service: GetDataApiService,
+    private all: GetAllService,
+    private get: GetDataService,
+    private add: AddDataService,
     private route: Router,
     private router: ActivatedRoute,
     private toastr: ToastrService,
@@ -68,65 +61,58 @@ export class ProductDetailsComponent implements OnInit {
     let id = this.router.snapshot.paramMap.get('Id');
     this.ProductId = id;
     if (id)
-      this.service
-        .getCartItemDetail(id)
+      this.get
+        .getCartItem(id)
         .subscribe((response) => (this.CartDetail = response));
   }
-
   ngOnInit(): void {
-    this.service
-      .getAllproductSpecificationsFromBalance(this.ProductId)
-      .subscribe(
-        (response) => {
-          this.Specifications = response;
-
-
-        },
-        (error) => {
-          alert('An unexpected error occured.');
-          console.log(error);
-        }
-      );
-
-    this.service
+    this.all.getProSpecInv(this.ProductId).subscribe(
+      (response) => {
+        this.Specifications = response;
+      },
+      (error) => {
+        alert('An unexpected error occured.');
+        console.log(error);
+      }
+    );
+    this.all
       .getAllReviews(this.ProductId)
       .pipe()
       .subscribe(
         (response) => {
           this.Reviews = response;
-
         },
         (error) => {
           alert('An unexpected error occured.');
           console.log(error);
         }
       );
-
-    this.service.getStarsPercent(this.ProductId).subscribe((response) => {
+    this.CartDetail = CartDetails;
+    this.get.getProductRating(this.ProductId).subscribe((response) => {
       this.StarPercentage = response;
 
-      this.FiveStarPercent = this.StarPercentage.FiveStarsPercent;
-      this.FourStarPercent = this.StarPercentage.FourStarsPercent;
-      this.ThreeStarPercent = this.StarPercentage.ThreeStarsPercent;
-      this.TwoStarPercent = this.StarPercentage.TwoStarsPercent;
-      this.OneStarPercent = this.StarPercentage.OneStarsPercent;
+      this.FiveStarsPercent = this.StarPercentage.FiveStarsPercent;
+      this.FourStarsPercent = this.StarPercentage.FourStarsPercent;
+      this.ThreeStarsPercent = this.StarPercentage.ThreeStarsPercent;
+      this.TwoStarsPercent = this.StarPercentage.TwoStarsPercent;
+      this.OneStarPercent = this.StarPercentage.OneStarPercent;
 
       this.TotalFiveStars = this.StarPercentage.FiveStarsCount;
       this.TotalFourStars = this.StarPercentage.FourStarsCount;
       this.TotalThreeStars = this.StarPercentage.ThreeStarsCount;
       this.TotalTwoStars = this.StarPercentage.TwoStarsCount;
-      this.TotalOneStars = this.StarPercentage.OneStarsCount;
+      this.TotalOneStar = this.StarPercentage.OneStarCount;
 
-      this.allTotalRating = this.StarPercentage.allTotalRating;
       this.OutOfFive = this.StarPercentage.OutOfFive;
       this.averageRating = this.StarPercentage.averageRating;
       this.allReviewsCount = this.StarPercentage.allReviewsCount;
-
     });
+
+    document.getElementById('img1').classList.add('list-active');
 
     $('.add-to-cart').on('click', function () {
       var cart = $('.shopping-cart');
-      var imgtodrag = $(this).parent('.item').find('img').eq(0);
+      var imgtodrag = $('.product_img');
       if (imgtodrag) {
         var imgclone = imgtodrag
           .clone()
@@ -176,23 +162,21 @@ export class ProductDetailsComponent implements OnInit {
     });
   }
 
-  addNewCart(post: CartDetails) {
-    ;
+  addNewCart() {
+    var post = {
+      ProductId: this.CartDetail.ProductId,
+      StoreId: this.CartDetail.StoreId,
+      Quantity: 1,
+      MasterId: null,
+    };
 
     let cartId = localStorage.getItem('cartId');
-
     if (!cartId) {
-      this.service.addNewShoppingCartMaster().then(
+      this.add.addShoppingCartMaster().then(
         (response) => {
-
           this.CartId = Number(response);
           localStorage.setItem('cartId', this.CartId);
           post.MasterId = this.CartId;
-          var LoginDateStamp = this.service.updateLastActiveTime();
-          localStorage.setItem(
-            'LastActiveTime',
-            JSON.stringify(LoginDateStamp)
-          );
           this.createNewShoppingCartItem(post);
         },
         (error) => {
@@ -204,21 +188,21 @@ export class ProductDetailsComponent implements OnInit {
     } else {
       this.CartId = cartId;
       post.MasterId = this.CartId;
-      var LoginDateStamp = this.service.updateLastActiveTime();
+      var LoginDateStamp = this.add.updateTimestamp();
       localStorage.setItem('LastActiveTime', JSON.stringify(LoginDateStamp));
+      console.log(post);
       this.createNewShoppingCartItem(post);
       document.body.scrollTop = document.documentElement.scrollTop = 0;
     }
   }
 
   createNewShoppingCartItem(Post) {
-    this.service
-      .addNewShoppingCartItem(Post)
+    this.add
+      .addCartItem(Post)
       .pipe()
       .subscribe(
-        (response) => {
-
-          this.route.navigate(['shopping-Cart']);
+        () => {
+          this.route.navigate(['cart']);
         },
         (error) => {
           alert('An unexpected error occured.');
@@ -228,25 +212,24 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   changeRateProduct(currentRate, productReview) {
+    console.log(productReview);
     if (currentRate > 0) {
-
       let userId = localStorage.getItem('UserId');
-
+      this.Rating = {
+        ProductId: this.CartDetail.ProductId,
+        StoreId: this.CartDetail.StoreId,
+        UserId: userId,
+        Rating: currentRate,
+        Review: productReview,
+      };
       if (userId) {
-        this.service
-          .rateTheProduct(
-            this.CartDetail.ProductId,
-            this.CartDetail.StoreId,
-            userId,
-            currentRate,
-            this.CartDetail.productReview
-          )
+        this.add
+          .rateProduct(this.Rating)
           .pipe()
           .subscribe(
-            (response) => {
+            () => {
               productReview = this.CartDetail.productReview;
-              this.ImageUrl = this.CartDetail.ImageUrl7;
-
+              this.ImageUrl = this.CartDetail.Image;
             },
             (error) => {
               alert('An unexpected error occured.');
@@ -254,7 +237,7 @@ export class ProductDetailsComponent implements OnInit {
             }
           );
       } else {
-        this.route.navigate(['/Login']);
+        this.route.navigate(['/login']);
         this.toastr.error('You must login first.', '', {
           timeOut: 2000,
           positionClass: 'toast-top-center',
@@ -267,13 +250,27 @@ export class ProductDetailsComponent implements OnInit {
     location.reload();
   }
 
+  changeImage(img) {
+    document.getElementById('img1').classList.remove('list-active');
+    document.getElementById('img2').classList.remove('list-active');
+    document.getElementById('img3').classList.remove('list-active');
+    document.getElementById('img4').classList.remove('list-active');
+
+    document.getElementById(img).classList.add('list-active');
+    var value = document.getElementById(img).getAttribute('src');
+    document.getElementById('product_img').setAttribute('src', value);
+  }
+
   openDialog() {
     this.dialog.open(ImageDialogComponent, {
       data: {
-        ImageUrl: this.CartDetail.ImageUrl7,
-        ImageUrl2: this.CartDetail.ImageUrl2,
-        ImageUrl3: this.CartDetail.ImageUrl3,
+        Image: this.CartDetail.Image,
+        Image2: this.CartDetail.Image2,
+        Image3: this.CartDetail.Image3,
       },
     });
+  }
+  assign(url) {
+    location.assign(url);
   }
 }

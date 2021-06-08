@@ -1,8 +1,6 @@
-
 export class CategoryDetail {
-    Id: Number;
-    NameA: string;
-    NameL: string;
-    MainCategoryId: Number;
-    
+  id: Number;
+  NameA: string;
+  NameL: string;
+  MainCategoryId_id: Number;
 }

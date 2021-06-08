@@ -4,7 +4,9 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class GetAllService {
-  private all = 'https://pycommerceapp.herokuapp.com/api/all/';
+  // Public Url: 'https://pycommerceapp.herokuapp.com/api/all/' \\
+
+  private all = 'http://pycommerceapp.herokuapp.com/api/all/';
 
   constructor(private http: HttpClient) {}
 
@@ -27,6 +29,10 @@ export class GetAllService {
     return this.http.get(this.all + 'getProductsPage/' + page + '/' + search);
   }
 
+  getProductNames(search) {
+    return this.http.get(this.all + 'productNames/' + search);
+  }
+
   getMaxPage(selectedValues, search, categoryId) {
     return this.http.get(
       this.all +
@@ -38,5 +44,37 @@ export class GetAllService {
         '/category=' +
         categoryId
     );
+  }
+
+  getAllData(fn) {
+    return this.http.get(this.all + fn);
+  }
+
+  getAllCategories() {
+    return this.http.get(this.all + 'mainCategories');
+  }
+
+  getAllSpecifications(CategoryId) {
+    return this.http.get(this.all + 'spec/' + CategoryId);
+  }
+
+  getProSpecInv(ProductId) {
+    return this.http.get(this.all + 'proSpecInv/' + ProductId);
+  }
+
+  getAllReviews(ProductId) {
+    return this.http.get(this.all + 'reviews/' + ProductId);
+  }
+
+  getAllCart(CartId) {
+    return this.http.get(this.all + 'cart/' + CartId);
+  }
+
+  getSubCategories() {
+    return this.http.get(this.all + 'subCategories');
+  }
+
+  getOrdersFilterd(UserId, Status) {
+    return this.http.get(this.all + 'ordersFiltered/' + UserId + '/' + Status);
   }
 }
