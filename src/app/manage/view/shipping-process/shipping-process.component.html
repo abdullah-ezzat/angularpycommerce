@@ -1,8 +1,14 @@
 <div class="align p-3">
   <div class="d-flex justify-content-evenly mb-3">
-    <button mat-raised-button (click)="getFilteredOrders(1)">Pending</button>
-    <button mat-raised-button (click)="getFilteredOrders(0)">All</button>
-    <button mat-raised-button (click)="getFilteredOrders(2)">Delivered</button>
+    <button mat-raised-button color="accent" (click)="getFilteredOrders(1)">
+      Pending
+    </button>
+    <button mat-raised-button color="accent" (click)="getFilteredOrders(0)">
+      All
+    </button>
+    <button mat-raised-button color="accent" (click)="getFilteredOrders(2)">
+      Delivered
+    </button>
   </div>
   <div *ngFor="let master of Masters">
     <div *ngFor="let order of Orders">
