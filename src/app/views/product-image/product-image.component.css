@@ -19,3 +19,17 @@
   position: relative !important;
   opacity: 1;
 }
+
+@media screen and (max-width: 800px) {
+  .product_img {
+    width: 400px;
+    height: 400px;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .product_img {
+    width: 180px;
+    height: 180px;
+  }
+}
