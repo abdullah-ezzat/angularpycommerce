@@ -1,4 +1,4 @@
-<div class="align p-3">
+<div *ngIf="User" class="align p-3">
   <div class="d-flex justify-content-evenly mb-3">
     <button mat-raised-button color="accent" (click)="getFilteredOrders(1)">
       Pending
@@ -91,4 +91,11 @@
       </div>
     </div>
   </div>
+</div>
+<div
+  class="d-flex justify-content-center align-items-center flex-column"
+  *ngIf="!User"
+>
+  <p>You must login first</p>
+  <button class="btn btn-info" routerLink="/login">Login</button>
 </div>

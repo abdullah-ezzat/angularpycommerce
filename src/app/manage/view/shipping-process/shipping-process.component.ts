@@ -14,6 +14,7 @@ export class ShippingProcessComponent implements OnInit {
   Details: any;
   Masters: any;
   Currency: any;
+  User: any;
 
   constructor(
     private add: AddDataService,
@@ -24,7 +25,7 @@ export class ShippingProcessComponent implements OnInit {
 
   ngOnInit(): void {
     let UserId = localStorage.getItem('UserId');
-
+    this.User = UserId;
     this.get.getOrdersShipping(UserId).subscribe((response) => {
       this.Orders = response;
       const currency = this.Orders.map((item) => item.Currency);

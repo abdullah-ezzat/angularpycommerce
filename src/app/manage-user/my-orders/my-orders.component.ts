@@ -23,6 +23,8 @@ export class MyOrdersComponent implements OnInit {
   MapUrl: SafeResourceUrl;
   MapLocation: any;
   stepperOrientation: Observable<StepperOrientation>;
+  User: any;
+
   constructor(
     private get: GetDataService,
     public sanitizer: DomSanitizer,
@@ -36,6 +38,7 @@ export class MyOrdersComponent implements OnInit {
 
   ngOnInit(): void {
     let UserId = localStorage.getItem('UserId');
+    this.User = UserId;
     this.get.getOrders(UserId).subscribe((response) => {
       this.Orders = response;
       const currency = this.Orders.map((item) => item.Currency);

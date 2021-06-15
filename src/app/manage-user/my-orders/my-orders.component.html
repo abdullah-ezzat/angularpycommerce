@@ -1,83 +1,94 @@
-<div *ngFor="let master of Masters" class="mb-3">
-  <mat-card class="p-3 mb-3">
-    <div class="master-list d-flex justify-content-evenly mb-3">
-      <strong class="mb-2">Order: &nbsp;{{ master.id }}</strong>
-      <strong class="mb-2"
-        >Order Total: &nbsp;{{ master.OrderTotal | number }}
-        {{ Currency }}</strong
+<div *ngIf="User">
+  <div *ngFor="let master of Masters" class="mb-3">
+    <mat-card class="p-3 mb-3">
+      <div class="master-list d-flex justify-content-evenly mb-3">
+        <strong class="mb-2">Order: &nbsp;{{ master.id }}</strong>
+        <strong class="mb-2"
+          >Order Total: &nbsp;{{ master.OrderTotal | number }}
+          {{ Currency }}</strong
+        >
+        <strong>Recipient: &nbsp;{{ master.Username }}</strong>
+      </div>
+
+      <mat-stepper
+        [selectedIndex]="master.OrderStatusId"
+        [orientation]="(stepperOrientation | async)!"
+        labelPosition="bottom"
+        linear
       >
-      <strong>Recipient: &nbsp;{{ master.Username }}</strong>
-    </div>
+        <ng-template matStepperIcon="edit">
+          <mat-icon>done</mat-icon>
+        </ng-template>
+        <mat-step
+          *ngIf="master.OrderStatusId == 3"
+          label="Cancelled"
+          [editable]="false"
+        ></mat-step>
+        <mat-step
+          *ngIf="master.OrderStatusId < 3"
+          label="Ready For Shipping"
+          [editable]="false"
+        ></mat-step>
+        <mat-step
+          *ngIf="master.OrderStatusId < 3"
+          label="Out For Delivery"
+          [editable]="false"
+        ></mat-step>
+        <mat-step
+          *ngIf="master.OrderStatusId < 3"
+          label="Delivered"
+          [editable]="false"
+        ></mat-step>
+      </mat-stepper>
 
-    <mat-stepper
-      [selectedIndex]="master.OrderStatusId"
-      [orientation]="(stepperOrientation | async)!"
-      labelPosition="bottom"
-      linear
-    >
-      <ng-template matStepperIcon="edit">
-        <mat-icon>done</mat-icon>
-      </ng-template>
-      <mat-step
-        *ngIf="master.OrderStatusId == 3"
-        label="Cancelled"
-        [editable]="false"
-      ></mat-step>
-      <mat-step
-        *ngIf="master.OrderStatusId < 3"
-        label="Ready For Shipping"
-        [editable]="false"
-      ></mat-step>
-      <mat-step
-        *ngIf="master.OrderStatusId < 3"
-        label="Out For Delivery"
-        [editable]="false"
-      ></mat-step>
-      <mat-step
-        *ngIf="master.OrderStatusId < 3"
-        label="Delivered"
-        [editable]="false"
-      ></mat-step>
-    </mat-stepper>
-
-    <div *ngFor="let order of Orders">
-      <div *ngIf="order.MasterId == master.id">
-        <div class="row mb-3">
-          <div class="col-12 col-md-3 align align-items-center mb-3">
-            <img
-              [src]="order.Image"
-              class="product_img"
-              [routerLink]="['/product/', order.InventoryBalanceId]"
-              [alt]="order.ProductName"
-            />
-          </div>
-          <div class="col-12 col-md-6 align align-items-center mb-3">
-            <button
-              mat-button
-              [routerLink]="['/product/', order.InventoryBalanceId]"
-              color="primary"
-            >
-              <strong>
-                {{ order.ProductName }}
-              </strong>
-            </button>
-            <strong>Shipped By: &nbsp; {{ order.StoreName }}</strong>
-          </div>
-          <div class="col-12 col-md-3 align">
-            <strong class="mb-2" style="color: #1585cf"
-              >{{ order.UnitPrice | number }} {{ Currency }}</strong
-            >
-            <strong class="mb-2">Seller: &nbsp; {{ order.VendorName }}</strong>
-            <button
-              (click)="openDialog(order.Latitude, order.Longitude, master.id)"
-              mat-raised-button
-              color="primary"
-            >
-              Map Location
-            </button>
+      <div *ngFor="let order of Orders">
+        <div *ngIf="order.MasterId == master.id">
+          <div class="row mb-3">
+            <div class="col-12 col-md-3 align align-items-center mb-3">
+              <img
+                [src]="order.Image"
+                class="product_img"
+                [routerLink]="['/product/', order.InventoryBalanceId]"
+                [alt]="order.ProductName"
+              />
+            </div>
+            <div class="col-12 col-md-6 align align-items-center mb-3">
+              <button
+                mat-button
+                [routerLink]="['/product/', order.InventoryBalanceId]"
+                color="primary"
+              >
+                <strong>
+                  {{ order.ProductName }}
+                </strong>
+              </button>
+              <strong>Shipped By: &nbsp; {{ order.StoreName }}</strong>
+            </div>
+            <div class="col-12 col-md-3 align">
+              <strong class="mb-2" style="color: #1585cf"
+                >{{ order.UnitPrice | number }} {{ Currency }}</strong
+              >
+              <strong class="mb-2"
+                >Seller: &nbsp; {{ order.VendorName }}</strong
+              >
+              <button
+                (click)="openDialog(order.Latitude, order.Longitude, master.id)"
+                mat-raised-button
+                color="primary"
+              >
+                Map Location
+              </button>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </mat-card>
+    </mat-card>
+  </div>
+</div>
+<div
+  class="d-flex justify-content-center align-items-center flex-column"
+  *ngIf="!User"
+>
+  <p>You must login first</p>
+  <button class="btn btn-info" routerLink="/login">Login</button>
 </div>

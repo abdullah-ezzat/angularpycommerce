@@ -3,6 +3,7 @@
   (ngSubmit)="updateUser(form.value)"
   class="p-3"
   ngNativeValidate
+  *ngIf="UserId"
 >
   <mat-card>
     <div *ngIf="User">
@@ -132,3 +133,10 @@
     </div>
   </mat-card>
 </form>
+<div
+  class="d-flex justify-content-center align-items-center flex-column"
+  *ngIf="!UserId"
+>
+  <p>You must login first</p>
+  <button class="btn btn-info" routerLink="/login">Login</button>
+</div>

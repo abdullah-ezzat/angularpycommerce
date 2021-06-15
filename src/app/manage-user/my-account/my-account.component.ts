@@ -11,6 +11,8 @@ import { AddDataService } from 'src/app/api/add/add-data.service';
 })
 export class MyAccountComponent implements OnInit {
   User: any;
+  UserId: any;
+
   constructor(
     private get: GetDataService,
     private add: AddDataService,
@@ -18,6 +20,7 @@ export class MyAccountComponent implements OnInit {
   ) {}
   ngOnInit(): void {
     let UserId = localStorage.getItem('UserId');
+    this.UserId = UserId;
     this.get.getUser(UserId).subscribe((response) => {
       this.User = response;
     }),
