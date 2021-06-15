@@ -25,9 +25,7 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": [
- 
-            ],
+
             "vendorChunk": true,
             "extractLicenses": false,
             "buildOptimizer": false,
