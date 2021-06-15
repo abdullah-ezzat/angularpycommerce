@@ -1,6 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 
 import { FormsModule } from '@angular/forms';
@@ -32,7 +31,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BsSidebarComponent } from './bs-sidebar/bs-sidebar.component';
 import { CategoryFormComponent } from './manage/add/category-form/category-form.component';
-import { GetDataApiService } from './get-data-api.service';
+
 import { CategoryTableComponent } from './manage/view/category-table/category-table.component';
 import { EditComponent } from './manage/edit/edit-category/edit-category.component';
 import { ProductsComponent } from './manage/view/products/products.component';
@@ -69,14 +68,13 @@ import { ShippingAgentUserComponent } from './manage/view/shipping-agent-user/sh
 import { ShippingUserFormComponent } from './manage/add/shipping-user-form/shipping-user-form.component';
 import { ShippingUserEditComponent } from './manage/edit/shipping-user-edit/shipping-user-edit.component';
 import { EditSpecificationComponent } from './manage/edit/edit-specification/edit-specification.component';
-import { ZoomComponent } from './screens/product-details/zoom.component';
 import { ShippingProcessComponent } from './manage/view/shipping-process/shipping-process.component';
 import { WelcomeComponent } from './screens/welcome/welcome.component';
-import { ImageDialogComponent } from './views/image-dialog/image-dialog.component';
 import { ShippingAgentsEditComponent } from './manage/edit/shipping-agents-edit/shipping-agents-edit.component';
 import { MyAccountComponent } from './manage-user/my-account/my-account.component';
 import { FooterComponent } from './views/footer/footer.component';
 import { GetAllService } from './api/all/get-all.service';
+import { ProductImageComponent } from './views/product-image/product-image.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +82,6 @@ import { GetAllService } from './api/all/get-all.service';
     BsSidebarComponent,
     CategoryFormComponent,
     CategoryTableComponent,
-    ZoomComponent,
     EditComponent,
     ProductsComponent,
     ProductsFormComponent,
@@ -122,10 +119,10 @@ import { GetAllService } from './api/all/get-all.service';
     EditSpecificationComponent,
     ShippingProcessComponent,
     WelcomeComponent,
-    ImageDialogComponent,
     ShippingAgentsEditComponent,
     MyAccountComponent,
     FooterComponent,
+    ProductImageComponent,
   ],
 
   imports: [
@@ -161,7 +158,6 @@ import { GetAllService } from './api/all/get-all.service';
     MaterialFileInputModule,
   ],
   providers: [
-    GetDataApiService,
     GetAllService,
     HomeComponent,
     SpecificationFormComponent,

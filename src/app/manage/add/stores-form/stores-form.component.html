@@ -7,6 +7,7 @@
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Store Name</mat-label>
     <textarea
+      ngModel
       matInput
       id="NameL"
       name="NameL"
@@ -18,7 +19,7 @@
 
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Vendor</mat-label>
-    <mat-select name="VendorId_id" id="VendorId_id">
+    <mat-select ngModel name="VendorId_id" id="VendorId_id">
       <mat-option
         *ngFor="let vendor of Vendors; let i = index"
         [value]="Vendors[i].id"
@@ -29,7 +30,7 @@
 
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Country</mat-label>
-    <mat-select name="CountryId_id" id="CountryId_id">
+    <mat-select ngModel name="CountryId_id" id="CountryId_id">
       <mat-option
         *ngFor="let Country of Countries; let i = index"
         [value]="Countries[i].id"
@@ -40,7 +41,7 @@
 
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Shipping Agent</mat-label>
-    <mat-select name="shippingAgentId_id" id="shippingAgentId_id">
+    <mat-select ngModel name="shippingAgentId_id" id="shippingAgentId_id">
       <mat-option
         *ngFor="let shippingAgent of ShippingAgents; let i = index"
         [value]="ShippingAgents[i].id"
@@ -52,6 +53,7 @@
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Email</mat-label>
     <textarea
+      ngModel
       matInput
       id="Email"
       name="Email"

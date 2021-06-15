@@ -1,10 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { GetDataApiService } from '../../get-data-api.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BsSidebarComponent } from '../../bs-sidebar/bs-sidebar.component';
 import { GetAllService } from 'src/app/api/all/get-all.service';
-import { GetDataService } from 'src/app/api/get/get-data.service';
 import { AddDataService } from 'src/app/api/add/add-data.service';
 
 @Component({
@@ -21,10 +19,8 @@ export class ShoppingCartComponent implements OnInit {
 
   constructor(
     private services: GetAllService,
-    private service: GetDataApiService,
     private add: AddDataService,
     private route: Router,
-    private router: ActivatedRoute,
     private toastr: ToastrService,
     private BsSidebar: BsSidebarComponent
   ) {}

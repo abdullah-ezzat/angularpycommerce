@@ -50,6 +50,6 @@ export class PriceListComponent implements OnInit {
 
   PriceListForm() {
     this.Prices = new StoresDetail();
-    this.router.navigate(['priceForm', this.Prices]);
+    this.router.navigate(['/manage/add/price/', this.Prices]);
   }
 }

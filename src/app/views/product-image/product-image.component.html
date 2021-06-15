@@ -1,0 +1,25 @@
+<mat-dialog-actions align="end">
+  <mat-icon mat-dialog-close>close</mat-icon>
+</mat-dialog-actions>
+<div mat-dialog-content-centered>
+  <ngb-carousel
+    style="outline: none"
+    [interval]="5000"
+    [pauseOnHover]
+    [showNavigationArrows]
+    [showNavigationIndicators]
+  >
+    <ng-template ngbSlide>
+      <img class="product_img" src="{{ data.img }}" />
+    </ng-template>
+    <ng-template ngbSlide *ngIf="data.img2">
+      <img class="product_img" src="{{ data.img2 }}" />
+    </ng-template>
+    <ng-template ngbSlide *ngIf="data.img3">
+      <img class="product_img" src="{{ data.img3 }}" />
+    </ng-template>
+    <ng-template ngbSlide *ngIf="data.img4">
+      <img class="product_img" src="{{ data.img4 }}" />
+    </ng-template>
+  </ngb-carousel>
+</div>

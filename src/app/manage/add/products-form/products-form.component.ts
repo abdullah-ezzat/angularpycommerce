@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GetDataApiService } from '../../../get-data-api.service';
+
 import { Router } from '@angular/router';
 import { ProductsDetail } from '../../view/products/Products.model';
 import { GetAllService } from 'src/app/api/all/get-all.service';
@@ -17,13 +17,12 @@ export class ProductsFormComponent implements OnInit {
 
   constructor(
     private route: Router,
-    private services: GetDataApiService,
     private all: GetAllService,
     private add: AddDataService
   ) {}
 
   ngOnInit(): void {
-    this.services.getSubCategory().subscribe(
+    this.all.getSubCategories().subscribe(
       (response) => {
         this.Categories = response;
       },

@@ -6,7 +6,7 @@
 >
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Store</mat-label>
-    <mat-select name="StoreId_id" id="StoreId_id">
+    <mat-select ngModel name="StoreId_id" id="StoreId_id">
       <mat-option
         *ngFor="let store of Stores; let i = index"
         [value]="Stores[i].id"
@@ -17,7 +17,7 @@
 
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Select</mat-label>
-    <mat-select name="ProductId_id" id="ProductId_id">
+    <mat-select ngModel name="ProductId_id" id="ProductId_id">
       <mat-option
         *ngFor="let product of Products; let i = index"
         [value]="Products[i].id"
@@ -29,6 +29,7 @@
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Quantity</mat-label>
     <input
+      ngModel
       matInput
       name="Quantity"
       id="Quantity"

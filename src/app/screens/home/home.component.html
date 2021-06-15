@@ -25,27 +25,32 @@
                   'TheSpecification' + productSpecification.SpecificationId
                 }}"
               >
-                <mat-checkbox
-                  color="primary"
-                  name="{{
-                    'TheSpecification' + productSpecification.SpecificationId
-                  }}"
-                  [checked]="productSpecification.IsSelected"
-                  [(ngModel)]="productSpecification.IsSelected"
-                  id="{{
-                    'TheSpecification' + productSpecification.SpecificationValue
-                  }}"
-                  (change)="
-                    onChangeSelection(
-                      productSpecification.SpecificationValue,
-                      productSpecification.IsSelected
-                    )
-                  "
-                >
-                </mat-checkbox>
-                {{ productSpecification.SpecificationValue }} ({{
-                  productSpecification.SpecificationCount
-                }}) &nbsp;
+                <section>
+                  <mat-checkbox
+                    color="primary"
+                    name="{{
+                      'TheSpecification' + productSpecification.SpecificationId
+                    }}"
+                    [checked]="productSpecification.IsSelected"
+                    [(ngModel)]="productSpecification.IsSelected"
+                    id="{{
+                      'TheSpecification' +
+                        productSpecification.SpecificationValue
+                    }}"
+                    (change)="
+                      onChangeSelection(
+                        productSpecification.SpecificationValue,
+                        productSpecification.IsSelected
+                      )
+                    "
+                  >
+                    <div style="margin-bottom: -2px">
+                      {{ productSpecification.SpecificationValue }} ({{
+                        productSpecification.SpecificationCount
+                      }})
+                    </div>
+                  </mat-checkbox>
+                </section>
               </div>
             </div>
           </div>
@@ -54,7 +59,7 @@
     </div>
 
     <div class="col-md-9">
-      <div class="align mb-2">
+      <div *ngIf="!CategoryId" class="align mb-2">
         <img class="img-fluid" src="assets/images/banner-5.jpg" alt="banner" />
       </div>
       <form class="search-form">
@@ -105,7 +110,7 @@
         <div class="d-flex">
           <div class="card contain">
             <div class="row">
-              <div class="col-3 align">
+              <div class="col-12 col-sm-3 align">
                 <img
                   (click)="assign('/product/' + Homedetail.id)"
                   [src]="Homedetail.Image"
@@ -113,7 +118,7 @@
                   [alt]="Homedetail.ProductName"
                 />
               </div>
-              <div class="col-6 align">
+              <div class="col-12 col-sm-6 align">
                 <div class="card-body">
                   <h5
                     (click)="assign('/product/' + Homedetail.id)"
@@ -145,25 +150,30 @@
                   </p>
                 </div>
               </div>
-              <div class="col-3 align">
+              <div
+                class="
+                  col-12 col-sm-3
+                  d-flex
+                  flex-column
+                  justify-content-center
+                "
+              >
                 <div class="details">
-                  <p class="card-text">
+                  <div class="">
                     <strong style="color: #006fcc"
                       >{{ Homedetail.Price | number }}
                     </strong>
                     <strong class="currency">{{ Homedetail.Currency }}</strong>
-                  </p>
-                  <p class="card-text" style="margin-left: 3px">
-                    <small class="text-muted font"
-                      >Sold By <br />{{ Homedetail.StoreName }}</small
-                    >
-                  </p>
+                  </div>
+
+                  <small class="text-muted">
+                    Sold By <br />{{ Homedetail.StoreName }}
+                  </small>
                   <button
-                    style="margin-top: -3px"
                     (click)="assign('/product/' + Homedetail.id)"
-                    class="btn-infos"
+                    class="btn-infos mt-2"
                   >
-                    <small class="font">VIEW DETAILS</small>
+                    <small>VIEW DETAILS</small>
                   </button>
                 </div>
               </div>

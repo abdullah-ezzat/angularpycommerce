@@ -39,6 +39,7 @@ export class EditComponent implements OnInit {
         console.log(error);
       }
     );
+    this.category = CategoryDetail;
   }
 
   updateCategory(post: CategoryDetail) {

@@ -1,19 +1,20 @@
 <div class="align bg">
   <img
-    class="welcome"
+    class="img-fluid"
     data-aos-duration="1500"
     data-aos="fade-down"
     src="assets/images/Ecommerce2.jpeg"
-    alt=""
+    alt="Welcome To Angular PyCommerce"
   />
 </div>
-<div class="items">
+<div class="items p-3">
   <div *ngFor="let category of Categories">
     <div class="card item" data-aos="zoom-in" data-aos-duration="2500">
       <img
         [src]="category.ImageUrl"
         [alt]="category.NameL"
         class="card-img-top image"
+        (click)="assignCategory(category.id)"
       />
       <div class="card-body">
         <p class="card-title">{{ category.NameL }}</p>

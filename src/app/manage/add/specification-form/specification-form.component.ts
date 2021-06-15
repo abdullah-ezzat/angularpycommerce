@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddDataService } from 'src/app/api/add/add-data.service';
 import { GetAllService } from 'src/app/api/all/get-all.service';
-import { GetDataApiService } from 'src/app/get-data-api.service';
 import { ProductSpecificationDetails } from '../../../views/product-specification/product-specification.model';
 
 @Component({
@@ -20,7 +19,6 @@ export class SpecificationFormComponent implements OnInit {
 
   constructor(
     private route: Router,
-    private service: GetDataApiService,
     private add: AddDataService,
     private all: GetAllService
   ) {}
@@ -76,7 +74,7 @@ export class SpecificationFormComponent implements OnInit {
           console.log(error);
         }
       );
-    this.route.navigate(['/edit/product/' + this.ProductId]);
+    this.route.navigate(['/manage/edit/product/' + this.ProductId]);
   }
   autoGrowTextZone(e) {
     e.target.style.height = '0px';

@@ -18,10 +18,18 @@
             class="star-ratings-sprite-rating"
           ></span>
         </div>
+        <mat-icon
+          style="cursor: pointer"
+          class="d-flex align-self-end"
+          (click)="openDialog()"
+          >search</mat-icon
+        >
         <img
           src="{{ CartDetail.Image }}"
           id="product_img"
           class="product_img mb-4"
+          style="cursor: pointer"
+          (click)="openDialog()"
         />
         <div class="list-group flex-row gap-2 justify-content-center">
           <img
@@ -74,7 +82,7 @@
       <div class="d-grid gap-2">
         <button
           (click)="addNewCart()"
-          class="btn btn-success btn-lg text-uppercase"
+          class="add-to-cart btn btn-success btn-lg text-uppercase"
         >
           <strong>Add To Cart</strong>
         </button>

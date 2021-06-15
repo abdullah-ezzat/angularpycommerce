@@ -43,6 +43,6 @@ export class VendorsComponent implements OnInit {
 
   VendorsForm() {
     this.Vendors = new VendorDetails();
-    this.router.navigate(['/manage/add/vendors', this.Vendors]);
+    this.router.navigate(['/manage/add/vendor', this.Vendors]);
   }
 }

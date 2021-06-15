@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GetDataApiService } from '../../get-data-api.service';
+
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BsSidebarComponent } from '../../bs-sidebar/bs-sidebar.component';

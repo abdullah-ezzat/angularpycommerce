@@ -1,134 +1,133 @@
-<form #form="ngForm" (ngSubmit)="updateUser(form.value)" class="was-validated">
-  <div class="form-group col-md-6">
-    <input
-      type="hidden"
-      class="form-control"
-      [(ngModel)]="User.id"
-      name="id"
-      id="id"
-      placeholder="Id"
-    />
-    <div class="invalid-feedback"></div>
-  </div>
-
+<form
+  #form="ngForm"
+  (ngSubmit)="updateUser(form.value)"
+  class="p-3"
+  ngNativeValidate
+>
   <mat-card>
     <div *ngIf="User">
-      <div class="row" style="margin-top: 5rem">
-        <div class="col-sm-4">
-          <strong>Username: &nbsp; {{ User.NameL }}</strong
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <strong class="text-wrap">Username: &nbsp; {{ User.NameL }}</strong
           ><br /><br />
-          <strong>Phone: &nbsp; {{ User.Phone }}</strong
-          ><br /><br />
-
-          <strong>Email: &nbsp; {{ User.Email }}</strong
-          ><br /><br />
-          <strong>Password: &nbsp; {{ User.Password }}</strong
+          <strong class="text-wrap">Phone: &nbsp; {{ User.Phone }}</strong
           ><br /><br />
 
-          <strong>Adress 1: &nbsp; {{ User.Address1 }}</strong
+          <strong class="text-wrap">Email: &nbsp; {{ User.Email }}</strong
           ><br /><br />
-          <strong>Adress 2: &nbsp; {{ User.Address2 }}</strong
+          <strong class="text-wrap">Password: &nbsp; {{ User.Password }}</strong
           ><br /><br />
 
-          <strong>City: &nbsp; {{ User.City }}</strong
+          <strong class="text-wrap">Adress 1: &nbsp; {{ User.Address1 }}</strong
+          ><br /><br />
+          <strong class="text-wrap">Adress 2: &nbsp; {{ User.Address2 }}</strong
+          ><br /><br />
+
+          <strong class="text-wrap">City: &nbsp; {{ User.City }}</strong
           ><br /><br />
         </div>
-        <div class="col-sm-4">
-          <div>
-            <mat-form-field appearance="outline">
-              <mat-label>User Name</mat-label>
-              <input
-                matInput
-                [(ngModel)]="User.NameL"
-                name="NameL"
-                id="NameL"
-                placeholder="User Name"
-                required
-              />
-            </mat-form-field>
+        <div
+          class="
+            col-md-6
+            d-flex
+            flex-wrap
+            justify-content-center
+            align-items-center
+          "
+        >
+          <mat-form-field class="mb-3 mr-2" appearance="outline">
+            <mat-label>User Name</mat-label>
+            <input
+              matInput
+              [(ngModel)]="User.NameL"
+              name="NameL"
+              id="NameL"
+              placeholder="User Name"
+              required
+            />
+          </mat-form-field>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Phone Number</mat-label>
-              <input
-                matInput
-                [(ngModel)]="User.Phone"
-                name="Phone"
-                id="Phone"
-                #phoneMessage
-                maxlength="11"
-                placeholder="Phone"
-              />
-              <mat-hint align="end"
-                >{{ phoneMessage.value.length }} / 11</mat-hint
-              >
-            </mat-form-field>
+          <mat-form-field class="mb-3 mr-2" appearance="outline">
+            <mat-label>Phone Number</mat-label>
+            <input
+              matInput
+              [(ngModel)]="User.Phone"
+              name="Phone"
+              id="Phone"
+              #phoneMessage
+              maxlength="11"
+              placeholder="Phone"
+            />
+            <mat-hint align="end"
+              >{{ phoneMessage.value.length }} / 11</mat-hint
+            >
+          </mat-form-field>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Email</mat-label>
-              <input
-                matInput
-                [(ngModel)]="User.Email"
-                name="Email"
-                id="Email"
-                placeholder="Email"
-                required
-              />
-            </mat-form-field>
+          <mat-form-field class="mb-3 mr-2" appearance="outline">
+            <mat-label>Email</mat-label>
+            <input
+              matInput
+              [(ngModel)]="User.Email"
+              name="Email"
+              id="Email"
+              placeholder="Email"
+              required
+            />
+          </mat-form-field>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Password</mat-label>
-              <input
-                matInput
-                [(ngModel)]="User.Password"
-                name="Password"
-                id="Password"
-                #passwordMessage
-                maxlength="16"
-                placeholder="Password"
-                required
-              />
-              <mat-hint align="end"
-                >{{ passwordMessage.value.length }} / 16</mat-hint
-              >
-            </mat-form-field>
+          <mat-form-field class="mb-3 mr-2" appearance="outline">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              [(ngModel)]="User.Password"
+              name="Password"
+              id="Password"
+              #passwordMessage
+              maxlength="16"
+              placeholder="Password"
+              required
+            />
+            <mat-hint align="end"
+              >{{ passwordMessage.value.length }} / 16</mat-hint
+            >
+          </mat-form-field>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Adress 1</mat-label>
-              <input
-                matInput
-                [(ngModel)]="User.Address1"
-                name="Address1"
-                id="Address1"
-                placeholder="Address"
-              />
-            </mat-form-field>
+          <mat-form-field class="mb-3 mr-2" appearance="outline">
+            <mat-label>Adress 1</mat-label>
+            <input
+              matInput
+              [(ngModel)]="User.Address1"
+              name="Address1"
+              id="Address1"
+              placeholder="Address"
+            />
+          </mat-form-field>
 
-            <mat-form-field appearance="outline">
-              <mat-label>Adress 2 (Optional)</mat-label>
-              <input
-                matInput
-                [(ngModel)]="User.Address2"
-                name="Address2"
-                id="Address2"
-                placeholder="Address"
-              />
-            </mat-form-field>
+          <mat-form-field class="mb-3 mr-2" appearance="outline">
+            <mat-label>Adress 2 (Optional)</mat-label>
+            <input
+              matInput
+              [(ngModel)]="User.Address2"
+              name="Address2"
+              id="Address2"
+              placeholder="Address"
+            />
+          </mat-form-field>
 
-            <mat-form-field appearance="outline">
-              <mat-label>City</mat-label>
-              <input
-                matInput
-                [(ngModel)]="User.City"
-                name="City"
-                id="City"
-                placeholder="City"
-              />
-            </mat-form-field>
-          </div>
+          <mat-form-field class="mb-3 mr-2" appearance="outline">
+            <mat-label>City</mat-label>
+            <input
+              matInput
+              [(ngModel)]="User.City"
+              name="City"
+              id="City"
+              placeholder="City"
+            />
+          </mat-form-field>
         </div>
       </div>
     </div>
-    <div *ngIf="User">
+    <div *ngIf="User" class="d-grid gap-2">
       <button mat-raised-button color="primary" type="submit">Save</button>
     </div>
   </mat-card>

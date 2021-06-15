@@ -48,6 +48,7 @@ export class ShippingUserEditComponent implements OnInit {
         console.log(error);
       }
     );
+    this.shippingUser = ShippingUserModel;
   }
 
   updateShippingUser(post: ShippingUserModel) {

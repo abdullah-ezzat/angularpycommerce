@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { GetDataApiService } from '../../get-data-api.service';
 import { Router } from '@angular/router';
-import Swiper from 'swiper/bundle';
+import { GetAllService } from 'src/app/api/all/get-all.service';
+import { GetDataService } from 'src/app/api/get/get-data.service';
 
 @Component({
   selector: 'app-welcome',
@@ -10,11 +10,16 @@ import Swiper from 'swiper/bundle';
 })
 export class WelcomeComponent implements OnInit {
   Categories: any;
+  CategoryId: any;
 
-  constructor(public service: GetDataApiService, public route: Router) {}
+  constructor(
+    public all: GetAllService,
+    public get: GetDataService,
+    public route: Router
+  ) {}
 
   ngOnInit(): void {
-    this.service.getAllCategory().subscribe(
+    this.all.getAllCategories().subscribe(
       (response) => {
         this.Categories = response;
       },
@@ -26,5 +31,18 @@ export class WelcomeComponent implements OnInit {
   }
   assign(url) {
     location.assign(url);
+  }
+  assignCategory(CategoryId) {
+    this.get.assignCategory(CategoryId).subscribe(
+      (response) => {
+        this.CategoryId = response;
+        localStorage.setItem('CategoryId', this.CategoryId.id);
+        this.assign('/Home');
+      },
+      (error) => {
+        alert('An unexpected error occured.');
+        console.log(error);
+      }
+    );
   }
 }

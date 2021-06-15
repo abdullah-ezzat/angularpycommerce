@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { GetDataApiService } from '../../get-data-api.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { GetAllService } from 'src/app/api/all/get-all.service';
 import { ProductSpecificationDetails } from './product-specification.model';
 
 @Component({
@@ -26,10 +25,10 @@ export class ProductSpecificationComponent implements OnInit {
   specification: any;
   ProductId: any;
 
-  constructor(private service: GetDataApiService, private router: Router) {}
+  constructor(private all: GetAllService) {}
 
   ngOnInit(): void {
-    this.service.getAllproductSpecifications(this.ProductId).subscribe(
+    this.all.getProSpec(this.ProductId).subscribe(
       (response) => {
         this.specification = response;
 

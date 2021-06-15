@@ -50,6 +50,7 @@ export class EditSpecificationComponent implements OnInit {
         console.log(error);
       }
     );
+    this.specification = ProductSpecificationDetails;
   }
 
   updateProductSpecification(post: ProductSpecificationDetails) {
@@ -64,7 +65,7 @@ export class EditSpecificationComponent implements OnInit {
           console.log(error);
         }
       );
-    location.assign('/manage/edit/product/' + this.ProductId);
+    location.assign('/manage/edit/product/' + this.specification.ProductId);
   }
   autoGrowTextZone(e) {
     e.target.style.height = '0px';

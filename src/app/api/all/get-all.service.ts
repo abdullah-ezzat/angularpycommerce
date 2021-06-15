@@ -6,7 +6,7 @@ import { HttpClient } from '@angular/common/http';
 export class GetAllService {
   // Public Url: 'https://pycommerceapp.herokuapp.com/api/all/' \\
 
-  private all = 'http://pycommerceapp.herokuapp.com/api/all/';
+  private all = 'http://127.0.0.1:8000/api/all/';
 
   constructor(private http: HttpClient) {}
 
@@ -60,6 +60,10 @@ export class GetAllService {
 
   getProSpecInv(ProductId) {
     return this.http.get(this.all + 'proSpecInv/' + ProductId);
+  }
+
+  getProSpec(ProductId) {
+    return this.http.get(this.all + 'productSpec/' + ProductId);
   }
 
   getAllReviews(ProductId) {

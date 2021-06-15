@@ -4,12 +4,19 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root',
 })
 export class GetDataService {
-  private get = 'http://pycommerceapp.herokuapp.com/api/get/';
+  // 'http://pycommerceapp.herokuapp.com/api/get/';
+  private get = 'http://127.0.0.1:8000/api/get/';
 
   constructor(private http: HttpClient) {}
 
+  assignCategory(CategoryId) {
+    return this.http.get(this.get + 'assignCategory/' + CategoryId);
+  }
+
   checkProductExist(StoreId, ProductId) {
-    return this.http.get(this.get + StoreId + '/' + ProductId);
+    return this.http.get(
+      this.get + 'checkProduct/' + StoreId + '/' + ProductId
+    );
   }
 
   getData(fn, id) {
@@ -49,5 +56,9 @@ export class GetDataService {
 
   getShippingDetails(UserId) {
     return this.http.get(this.get + 'shippingDetails/' + UserId);
+  }
+
+  loginAsGuest() {
+    return this.http.get(this.get + 'loginAsGuest');
   }
 }

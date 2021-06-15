@@ -28,7 +28,7 @@
             <strong class="mb-2">Order: &nbsp;{{ master.id }}</strong>
             <div class="text-center">
               <img
-                *ngIf="master.OrderStatusId == 2"
+                *ngIf="order.isDelivered == true"
                 src="assets/images/delivered.jpg"
                 alt="Order Delivered Successfully"
                 width="70px"

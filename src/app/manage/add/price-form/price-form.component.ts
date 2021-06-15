@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PriceListDetails } from '../../view/price-list/price-list.model';
-import { GetDataApiService } from '../../../get-data-api.service';
+
 import { Router } from '@angular/router';
 import { GetAllService } from 'src/app/api/all/get-all.service';
 import { AddDataService } from 'src/app/api/add/add-data.service';

@@ -4,7 +4,7 @@ export class UserData {
   NameL: string;
   Address1: string;
   Address2: string;
-  PhoneNumber: number;
+  Phone: number;
   City: string;
   Email: string;
   Password: string;

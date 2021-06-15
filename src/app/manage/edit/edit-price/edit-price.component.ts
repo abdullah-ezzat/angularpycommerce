@@ -59,6 +59,7 @@ export class EditPriceComponent implements OnInit {
         console.log(error);
       }
     );
+    this.price = PriceListDetails;
   }
 
   updatePrice(post: PriceListDetails) {

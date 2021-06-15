@@ -1,8 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ProductsDetail } from '../../view/products/Products.model';
-import { Router, ActivatedRoute } from '@angular/router';
-import { GetDataApiService } from '../../../get-data-api.service';
-import { SpecificationFormComponent } from '../../add/specification-form/specification-form.component';
+import { ActivatedRoute } from '@angular/router';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -21,7 +19,7 @@ export class EditProductComponent implements OnInit {
   ProductId: any;
   Products: any;
   Brands: any;
-  specification: any;
+  specifications: any;
   product: any;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -38,7 +36,7 @@ export class EditProductComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private services: GetDataApiService,
+    private add: AddDataService,
     private all: GetAllService,
     private get: GetDataService,
     private update: AddDataService
@@ -62,9 +60,32 @@ export class EditProductComponent implements OnInit {
       }
     );
 
+    this.all.getAllData('products').subscribe(
+      (response) => {
+        this.Products = response;
+      },
+      (error) => {
+        alert('An unexpected error occured.');
+        console.log(error);
+      }
+    );
+
     this.all.getAllData('brands').subscribe(
       (response) => {
         this.Brands = response;
+      },
+      (error) => {
+        alert('An unexpected error occured.');
+        console.log(error);
+      }
+    );
+
+    this.all.getProSpec(this.ProductId).subscribe(
+      (response) => {
+        this.specifications = response;
+        this.dataSource = new MatTableDataSource(this.specifications);
+        this.dataSource.sort = this.sort;
+        this.dataSource.paginator = this.paginator;
       },
       (error) => {
         alert('An unexpected error occured.');
@@ -103,21 +124,19 @@ export class EditProductComponent implements OnInit {
   addProductSpecification(productId, CategoryId) {
     localStorage.setItem('CategoryId', CategoryId);
     localStorage.setItem('SpecificationProductId', productId);
-    location.assign('/manage/specifications');
+    location.assign('/manage/add/specification/');
   }
 
-  copyFromProductSpecification(fromProductId, productId, CategoryId) {
-    this.services
-      .copyFromProductSepcification(fromProductId, productId, CategoryId)
-      .subscribe(
-        () => {
-          location.assign('/manage/edit/product/' + productId);
-        },
-        (error) => {
-          alert('An unexpected error occured.');
-          console.log(error);
-        }
-      );
+  copyProductSpecification(fromProductId, productId, CategoryId) {
+    this.add.copyProductSpec(fromProductId, productId, CategoryId).subscribe(
+      () => {
+        location.assign('/manage/edit/product/' + productId);
+      },
+      (error) => {
+        alert('An unexpected error occured.');
+        console.log(error);
+      }
+    );
   }
 
   applyFilter(event: Event) {
@@ -128,25 +147,25 @@ export class EditProductComponent implements OnInit {
   updateProduct(post: ProductsDetail) {
     post.id = this.product.id;
 
-    if (post.Image) {
+    if (post.Image != null) {
       post.Image = post.Image._fileNames;
     } else {
       post.Image = this.product.Image;
     }
 
-    if (post.Image2) {
+    if (post.Image2 != null) {
       post.Image2 = post.Image2._fileNames;
     } else {
       post.Image2 = this.product.Image2;
     }
 
-    if (post.Image3) {
+    if (post.Image3 != null) {
       post.Image3 = post.Image3._fileNames;
     } else {
       post.Image3 = this.product.Image3;
     }
 
-    if (post.Image4) {
+    if (post.Image4 != null) {
       post.Image4 = post.Image4._fileNames;
     } else {
       post.Image4 = this.product.Image4;

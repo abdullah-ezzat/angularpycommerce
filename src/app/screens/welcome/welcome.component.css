@@ -20,13 +20,8 @@
   width: 17rem;
   height: 15rem;
   margin-bottom: 3rem;
+  cursor: pointer;
 }
-.welcome {
-  width: 60%;
-}
-
-@media screen and (max-width: 770px) {
-  .welcome {
-    width: 100%;
-  }
+img[alt="Home, Kitchen and Tools "] {
+  object-fit: cover;
 }

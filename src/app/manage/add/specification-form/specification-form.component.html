@@ -6,20 +6,20 @@
 >
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Specification Name</mat-label>
-    <textarea
-      matInput
-      id="SpecificationName"
-      name="SpecificationName"
-      (keyup)="autoGrowTextZone($event)"
-      placeholder="Specification"
-      required
-    ></textarea>
+    <mat-select ngModel name="SpecificationId_id" id="SpecificationId_id">
+      <mat-option
+        *ngFor="let specification of Specifications; let i = index"
+        [value]="Specifications[i].id"
+        >{{ Specifications[i].NameL }}</mat-option
+      >
+    </mat-select>
   </mat-form-field>
 
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Specification Value</mat-label>
     <textarea
       matInput
+      ngModel
       id="SpecificationValue"
       name="SpecificationValue"
       (keyup)="autoGrowTextZone($event)"
@@ -30,7 +30,7 @@
 
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Category</mat-label>
-    <mat-select name="CategoryId_id" id="CategoryId_id">
+    <mat-select ngModel name="CategoryId_id" id="CategoryId_id">
       <mat-option
         *ngFor="let category of Categories; let i = index"
         [value]="Categories[i].id"
@@ -41,7 +41,7 @@
 
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Product</mat-label>
-    <mat-select name="ProductId_id" id="ProductId_id">
+    <mat-select ngModel name="ProductId_id" id="ProductId_id">
       <mat-option
         *ngFor="let product of Products; let i = index"
         [value]="Products[i].id"

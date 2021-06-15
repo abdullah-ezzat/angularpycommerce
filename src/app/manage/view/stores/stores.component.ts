@@ -51,6 +51,6 @@ export class StoresComponent implements OnInit {
 
   StoresForm() {
     this.Stores = new StoresDetail();
-    this.router.navigate(['/manage/add/stores', this.Stores]);
+    this.router.navigate(['/manage/add/store', this.Stores]);
   }
 }

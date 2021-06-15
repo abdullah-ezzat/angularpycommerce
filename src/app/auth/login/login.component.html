@@ -4,7 +4,7 @@
   class="was-validated"
   class="login"
 >
-  <div>
+  <div class="p-3">
     <mat-form-field class="mb-1" style="width: 20rem" appearance="outline">
       <mat-label>Email</mat-label>
       <input
@@ -43,7 +43,20 @@
       </p>
     </mat-form-field>
     <button mat-raised-button color="primary" type="submit">Login</button>
+
+    <button
+      class="ml-3"
+      color="primary"
+      type="button"
+      (click)="LoginAsGuest()"
+      mat-raised-button
+    >
+      Login As Guest
+    </button>
   </div>
+  <p style="color: red" class="p-2" *ngIf="User != 'Guest'">
+    Login as guest to display managerial data
+  </p>
 
   <a href="/register">Sign Up</a>
 </form>

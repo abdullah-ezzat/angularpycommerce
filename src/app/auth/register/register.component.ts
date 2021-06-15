@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GetDataApiService } from '../../get-data-api.service';
+
 import { UserData } from '../login/userData.Model';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';

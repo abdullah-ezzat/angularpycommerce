@@ -8,6 +8,7 @@
     <mat-label>Name</mat-label>
     <textarea
       matInput
+      ngModel
       id="NameL"
       name="NameL"
       (keyup)="autoGrowTextZone($event)"
@@ -20,6 +21,7 @@
     <mat-label>Email</mat-label>
     <textarea
       matInput
+      ngModel
       name="Email"
       id="Email"
       (keyup)="autoGrowTextZone($event)"
@@ -32,6 +34,7 @@
     <mat-label>Password</mat-label>
     <textarea
       matInput
+      ngModel
       id="Password"
       name="Password"
       (keyup)="autoGrowTextZone($event)"
@@ -43,6 +46,7 @@
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Adress</mat-label>
     <textarea
+      ngModel
       matInput
       id="Address1"
       name="Address1"
@@ -56,6 +60,7 @@
     <mat-label>Adress 2 (optional)</mat-label>
     <textarea
       matInput
+      ngModel
       id="Address2"
       name="Address2"
       (keyup)="autoGrowTextZone($event)"
@@ -67,6 +72,7 @@
     <mat-label>Phone Number</mat-label>
     <textarea
       matInput
+      ngModel
       id="Phone"
       name="Phone"
       #phone

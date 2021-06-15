@@ -6,7 +6,7 @@
 >
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>User</mat-label>
-    <mat-select id="UserId_id" name="UserId_id">
+    <mat-select ngModel id="UserId_id" name="UserId_id">
       <mat-option
         *ngFor="let user of Users; let i = index"
         [value]="Users[i].id"
@@ -17,11 +17,11 @@
 
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Shipping Agent</mat-label>
-    <mat-select id="ShippingAgentId_id" name="ShippingAgentId_id">
+    <mat-select ngModel id="ShippingAgentId_id" name="ShippingAgentId_id">
       <mat-option
         *ngFor="let shippingUser of ShippingUsers; let i = index"
         [value]="ShippingUsers[i].id"
-        >{{ ShippingUsers[i].NameL }}</mat-option
+        >{{ ShippingUsers[i].ShippingAgentName }}</mat-option
       >
     </mat-select>
   </mat-form-field>

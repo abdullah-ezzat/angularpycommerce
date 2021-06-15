@@ -6,7 +6,7 @@
 >
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Vendor</mat-label>
-    <mat-select name="VendorId_id" id="VendorId_id" required>
+    <mat-select ngModel name="VendorId_id" id="VendorId_id" required>
       <mat-option
         *ngFor="let vendor of Vendors; let i = index"
         [value]="Vendors[i].id"
@@ -17,7 +17,7 @@
 
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Product</mat-label>
-    <mat-select name="ProductId_id" id="ProductId_id" required>
+    <mat-select ngModel name="ProductId_id" id="ProductId_id" required>
       <mat-option
         *ngFor="let product of Products; let i = index"
         [value]="Products[i].id"
@@ -28,7 +28,7 @@
 
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Country</mat-label>
-    <mat-select name="CountryId_id" id="CountryId_id" required>
+    <mat-select ngModel name="CountryId_id" id="CountryId_id" required>
       <mat-option
         *ngFor="let country of Countries; let i = index"
         [value]="Countries[i].id"
@@ -39,7 +39,14 @@
 
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Price</mat-label>
-    <input matInput name="Price" id="Price" placeholder="Name" required />
+    <input
+      ngModel
+      matInput
+      name="Price"
+      id="Price"
+      placeholder="Name"
+      required
+    />
   </mat-form-field>
 
   <div class="d-grid gap-2">

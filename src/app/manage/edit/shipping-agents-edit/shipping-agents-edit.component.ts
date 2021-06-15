@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ShippingAgentDetails } from '../../view/shipping-agent/shipping-agent.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GetDataService } from 'src/app/api/get/get-data.service';
@@ -9,7 +9,7 @@ import { AddDataService } from 'src/app/api/add/add-data.service';
   templateUrl: './shipping-agents-edit.component.html',
   styleUrls: ['./shipping-agents-edit.component.css'],
 })
-export class ShippingAgentsEditComponent {
+export class ShippingAgentsEditComponent implements OnInit {
   ShippingAgent: any;
 
   constructor(
@@ -23,7 +23,9 @@ export class ShippingAgentsEditComponent {
         .getData('shippingAgents', id)
         .subscribe((response) => (this.ShippingAgent = response));
   }
-
+  ngOnInit() {
+    this.ShippingAgent = ShippingAgentDetails;
+  }
   updateShippingAgents(post: ShippingAgentDetails) {
     post.id = this.ShippingAgent.id;
     this.update

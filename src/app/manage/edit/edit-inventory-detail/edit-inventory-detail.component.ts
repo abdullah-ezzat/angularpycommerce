@@ -55,6 +55,7 @@ export class EditInventoryDetailComponent implements OnInit {
         console.log(error);
       }
     );
+    this.detail = InventoryDetails;
   }
 
   updateDetail(post: InventoryDetails) {

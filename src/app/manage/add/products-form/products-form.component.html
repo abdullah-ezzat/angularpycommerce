@@ -7,6 +7,7 @@
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Product Name</mat-label>
     <textarea
+      ngModel
       matInput
       id="NameL"
       name="NameL"
@@ -18,7 +19,7 @@
 
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Category</mat-label>
-    <mat-select name="CategoryId_id" id="CategoryId_id" required>
+    <mat-select ngModel name="CategoryId_id" id="CategoryId_id" required>
       <mat-option
         *ngFor="let Category of Categories; let i = index"
         [value]="Categories[i].id"
@@ -29,7 +30,7 @@
 
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Brand</mat-label>
-    <mat-select name="BrandId_id" id="BrandId_id" required>
+    <mat-select ngModel name="BrandId_id" id="BrandId_id" required>
       <mat-option
         *ngFor="let Brand of Brands; let i = index"
         [value]="Brands[i].id"
@@ -42,6 +43,7 @@
     <mat-label>Description</mat-label>
     <textarea
       matInput
+      ngModel
       id="Description"
       name="Description"
       (keyup)="autoGrowTextZone($event)"
@@ -53,6 +55,7 @@
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Select Image</mat-label>
     <ngx-mat-file-input
+      ngModel
       id="Image"
       name="Image"
       style="display: inline !important"
@@ -65,6 +68,7 @@
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Select Image 2</mat-label>
     <ngx-mat-file-input
+      ngModel
       id="Image2"
       name="Image2"
       style="display: inline !important"
@@ -77,6 +81,7 @@
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Select Image 3</mat-label>
     <ngx-mat-file-input
+      ngModel
       id="Image3"
       name="Image3"
       style="display: inline !important"
@@ -88,6 +93,7 @@
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Select Image 4</mat-label>
     <ngx-mat-file-input
+      ngModel
       id="Image4"
       name="Image4"
       style="display: inline !important"

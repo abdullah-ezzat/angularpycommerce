@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { GetDataApiService } from '../../get-data-api.service';
 import { CartDetails } from '../shopping-cart/cart.model';
 import { ToastrService } from 'ngx-toastr';
-import { MatDialog } from '@angular/material/dialog';
-import { ImageDialogComponent } from '../../views/image-dialog/image-dialog.component';
 import { GetAllService } from 'src/app/api/all/get-all.service';
 import { GetDataService } from 'src/app/api/get/get-data.service';
 import { AddDataService } from 'src/app/api/add/add-data.service';
+import { MatDialog } from '@angular/material/dialog';
+import { ProductImageComponent } from 'src/app/views/product-image/product-image.component';
 
 declare var $: any;
 @Component({
@@ -49,7 +48,6 @@ export class ProductDetailsComponent implements OnInit {
   ImageUrl: any;
 
   constructor(
-    private service: GetDataApiService,
     private all: GetAllService,
     private get: GetDataService,
     private add: AddDataService,
@@ -109,10 +107,9 @@ export class ProductDetailsComponent implements OnInit {
     });
 
     document.getElementById('img1').classList.add('list-active');
-
     $('.add-to-cart').on('click', function () {
       var cart = $('.shopping-cart');
-      var imgtodrag = $(this).parent('.item').find('img').eq(0);
+      var imgtodrag = $('.product_img');
       if (imgtodrag) {
         var imgclone = imgtodrag
           .clone()
@@ -212,7 +209,6 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   changeRateProduct(currentRate, productReview) {
-    console.log(productReview);
     if (currentRate > 0) {
       let userId = localStorage.getItem('UserId');
       this.Rating = {
@@ -261,16 +257,24 @@ export class ProductDetailsComponent implements OnInit {
     document.getElementById('product_img').setAttribute('src', value);
   }
 
-  openDialog() {
-    this.dialog.open(ImageDialogComponent, {
-      data: {
-        Image: this.CartDetail.Image,
-        Image2: this.CartDetail.Image2,
-        Image3: this.CartDetail.Image3,
-      },
-    });
-  }
   assign(url) {
     location.assign(url);
+  }
+  openDialog() {
+    var img = this.CartDetail.Image;
+    var img2 = this.CartDetail.Image2;
+    var img3 = this.CartDetail.Image3;
+    var img4 = this.CartDetail.Image4;
+    this.dialog.open(ProductImageComponent, {
+      width: '100%',
+      height: '90%',
+      panelClass: 'img-class',
+      data: {
+        img: img,
+        img2: img2,
+        img3: img3,
+        img4: img4,
+      },
+    });
   }
 }

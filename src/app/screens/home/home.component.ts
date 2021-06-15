@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GetDataApiService } from '../../get-data-api.service';
+
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -40,7 +40,7 @@ export class HomeComponent implements OnInit {
     localStorage.removeItem('CategoryId');
     this.CategoryId = Number(CartId);
 
-    this.getProducts(1, CartId, null);
+    this.getProducts(1, this.CategoryId, null);
 
     this.searchTerm.valueChanges.subscribe((search) => {
       this.service.getProductNames(search).subscribe((data) => {
@@ -62,7 +62,7 @@ export class HomeComponent implements OnInit {
     this.getProducts(1, null, null);
   }
 
-  getProducts(page, CategoryId, searchTerms) {
+  getProducts(page, CategoryId = 0, searchTerms) {
     this.service.getAllSpecifications(this.CategoryId).subscribe(
       (response: any) => {
         this.AllSpecifications = response;
@@ -97,7 +97,7 @@ export class HomeComponent implements OnInit {
     );
 
     this.CategoryId = CategoryId;
-    this.service.getMaxPage(null, searchTerms, (CategoryId = 0)).subscribe(
+    this.service.getMaxPage(null, searchTerms, CategoryId).subscribe(
       (response) => {
         this.MaxPageNumber = response;
       },
@@ -106,18 +106,16 @@ export class HomeComponent implements OnInit {
         console.log(error);
       }
     );
-    this.service
-      .getHomeProducts(page, null, searchTerms, (CategoryId = 0))
-      .subscribe(
-        (response) => {
-          this.HomeDetails = response;
-          document.getElementById('page 1').className = 'page-item active';
-        },
-        (error) => {
-          alert('An unexpected error occured.');
-          console.log(error);
-        }
-      );
+    this.service.getHomeProducts(page, null, searchTerms, CategoryId).subscribe(
+      (response) => {
+        this.HomeDetails = response;
+        document.getElementById('page 1').className = 'page-item active';
+      },
+      (error) => {
+        alert('An unexpected error occured.');
+        console.log(error);
+      }
+    );
   }
   getHomeProducts(page, searchTerms, selectedIds, CategoryId = 0) {
     if (page == 'previous') {

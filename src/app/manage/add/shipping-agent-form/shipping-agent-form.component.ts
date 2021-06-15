@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ShippingAgentDetails } from '../../view/shipping-agent/shipping-agent.model';
-import { GetDataApiService } from '../../../get-data-api.service';
+
 import { Router } from '@angular/router';
 import { AddDataService } from 'src/app/api/add/add-data.service';
 

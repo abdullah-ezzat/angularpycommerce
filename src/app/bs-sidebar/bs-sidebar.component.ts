@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { GetDataApiService } from '../get-data-api.service';
+
 import { HomeComponent } from '../screens/home/home.component';
 import { ToastrService } from 'ngx-toastr';
 import { GetAllService } from '../api/all/get-all.service';

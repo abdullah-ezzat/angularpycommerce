@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddDataService } from 'src/app/api/add/add-data.service';
 import { GetAllService } from 'src/app/api/all/get-all.service';
-import { GetDataApiService } from '../../../get-data-api.service';
+
 import { CategoryDetail } from './category.model';
 
 @Component({

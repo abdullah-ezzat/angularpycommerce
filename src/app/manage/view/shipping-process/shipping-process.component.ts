@@ -43,32 +43,27 @@ export class ShippingProcessComponent implements OnInit {
   addDeliveryNotes(post: Notes, OrderId) {
     var options = {
       enableHighAccuracy: true,
-      timeout: 5000,
       maximumAge: 0,
     };
+
+    function success(pos) {
+      var crd = pos.coords;
+      post.Latitude = crd.latitude;
+      post.Longitude = crd.longitude;
+    }
+
     function error(err) {
       console.warn(`ERROR(${err.code}): ${err.message}`);
     }
+    navigator.geolocation.watchPosition(success, error, options);
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(setPosition, error, options);
-    } else {
-      this.toastr.error('You must allow location to get coordinates');
-    }
-
-    function setPosition(position) {
-      post.Latitude = position.coords.latitude;
-      post.Longitude = position.coords.longitude;
-    }
-
-    if (post.Latitude || post.Longitude == null) {
+    if ((post.Latitude || post.Longitude) == null) {
       this.toastr.error('You must allow location to get coordinates');
     } else {
+      let UserId = localStorage.getItem('UserId');
+      this.add.addNotes(post, OrderId, UserId).subscribe(() => {});
       location.reload();
     }
-
-    let UserId = localStorage.getItem('UserId');
-    this.add.addNotes(post, OrderId, UserId).subscribe(() => {});
   }
 
   DeliverOrder(OrderId) {

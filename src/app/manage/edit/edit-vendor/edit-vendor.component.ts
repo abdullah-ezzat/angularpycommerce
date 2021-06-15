@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { VendorDetails } from '../../view/vendors/vendors.model';
 import { Router, ActivatedRoute } from '@angular/router';
 import { GetDataService } from 'src/app/api/get/get-data.service';
@@ -9,9 +9,8 @@ import { AddDataService } from 'src/app/api/add/add-data.service';
   templateUrl: './edit-vendor.component.html',
   styleUrls: ['./edit-vendor.component.css'],
 })
-export class EditVendorComponent {
+export class EditVendorComponent implements OnInit {
   vendor: any;
-
   constructor(
     private route: ActivatedRoute,
     private get: GetDataService,
@@ -23,7 +22,9 @@ export class EditVendorComponent {
         .getData('vendors', id)
         .subscribe((response) => (this.vendor = response));
   }
-
+  ngOnInit() {
+    this.vendor = VendorDetails;
+  }
   updateVendor(post: VendorDetails) {
     post.id = this.vendor.id;
     this.update
