@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
     if (this.search == '') {
       this.search = 'null';
     }
-    this.getProducts(1, null, this.search);
+    this.getProducts(1, this.CategoryId, this.search);
   }
 
   clearSearch() {
@@ -117,7 +117,12 @@ export class HomeComponent implements OnInit {
       }
     );
   }
-  getHomeProducts(page, searchTerms, selectedIds, CategoryId = 0) {
+  getHomeProducts(
+    page,
+    searchTerms,
+    selectedIds,
+    CategoryId = this.CategoryId
+  ) {
     if (page == 'previous') {
       page = this.page - 1;
       this.page = page;
