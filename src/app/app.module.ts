@@ -75,6 +75,7 @@ import { MyAccountComponent } from './manage-user/my-account/my-account.componen
 import { FooterComponent } from './views/footer/footer.component';
 import { GetAllService } from './api/all/get-all.service';
 import { ProductImageComponent } from './views/product-image/product-image.component';
+import { MapDialogComponent } from './views/map-dialog/map-dialog.component';
 
 @NgModule({
   declarations: [
@@ -123,6 +124,7 @@ import { ProductImageComponent } from './views/product-image/product-image.compo
     MyAccountComponent,
     FooterComponent,
     ProductImageComponent,
+    MapDialogComponent,
   ],
 
   imports: [

@@ -58,7 +58,7 @@ export class BsSidebarComponent implements OnInit {
         this.userName = localStorage.getItem('UserName');
         localStorage.setItem('LastActiveTime', JSON.stringify(CheckTimeStamp));
       } else {
-        this.toastr.error('You have logged out due to inactivity');
+        this.toastr.error('Due to inactivity', 'You have logged out');
         localStorage.removeItem('UserId');
         localStorage.removeItem('UserName');
         localStorage.removeItem('LastActiveTime');

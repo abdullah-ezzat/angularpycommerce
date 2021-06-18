@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SafeResourceUrl } from '@angular/platform-browser';
 import { DomSanitizer } from '@angular/platform-browser';
 import { GetDataService } from 'src/app/api/get/get-data.service';
@@ -6,11 +6,9 @@ import { Observable } from 'rxjs';
 import { StepperOrientation } from '@angular/cdk/stepper';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
-import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
-export interface DialogData {
-  MapUrl: '';
-  order: '';
-}
+import { MatDialog } from '@angular/material/dialog';
+import { MapDialogComponent } from 'src/app/views/map-dialog/map-dialog.component';
+
 @Component({
   selector: 'app-my-orders',
   templateUrl: './my-orders.component.html',
@@ -54,7 +52,7 @@ export class MyOrdersComponent implements OnInit {
     this.MapLocation =
       'https://maps.google.com/maps?q=' +
       location +
-      '&hl=ar&z=16&amp&output=embed';
+      '&hl=en&z=16&amp&output=embed';
     this.MapUrl = this.sanitizer.bypassSecurityTrustResourceUrl(
       this.MapLocation
     );
@@ -66,7 +64,7 @@ export class MyOrdersComponent implements OnInit {
 
   openDialog(Latitude, Longitude, Order) {
     this.getMapUrl(Latitude, Longitude);
-    this.dialog.open(MapDialog, {
+    this.dialog.open(MapDialogComponent, {
       width: '100%',
       height: '90%',
       data: {
@@ -75,12 +73,4 @@ export class MyOrdersComponent implements OnInit {
       },
     });
   }
-}
-
-@Component({
-  selector: 'map-dialog',
-  templateUrl: 'map-dialog.component.html',
-})
-export class MapDialog {
-  constructor(@Inject(MAT_DIALOG_DATA) public data: DialogData) {}
 }

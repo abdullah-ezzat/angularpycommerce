@@ -1,4 +1,9 @@
-<strong mat-dialog-title>Order: &nbsp; {{ data.order }}</strong>
+<mat-dialog-actions align="end">
+  <mat-icon mat-dialog-close>close</mat-icon>
+</mat-dialog-actions>
+<div mat-dialog-title>
+  <strong style="font-size: medium">Order: &nbsp; {{ data.order }}</strong>
+</div>
 <div mat-dialog-content style="margin: 0px; padding: 0px; overflow: hidden">
   <iframe
     [src]="data.MapUrl"
