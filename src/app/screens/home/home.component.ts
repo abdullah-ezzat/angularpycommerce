@@ -117,6 +117,7 @@ export class HomeComponent implements OnInit {
       }
     );
   }
+
   getHomeProducts(page, searchTerms, selectedIds) {
     if (page == 'previous') {
       page = this.page - 1;
