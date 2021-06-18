@@ -210,7 +210,7 @@ export class ProductDetailsComponent implements OnInit {
 
   changeRateProduct(currentRate, productReview) {
     if (currentRate > 0) {
-      let userId = localStorage.getItem('UserId');
+      let userId = Number(localStorage.getItem('UserId'));
       this.Rating = {
         ProductId: this.CartDetail.ProductId,
         StoreId: this.CartDetail.StoreId,

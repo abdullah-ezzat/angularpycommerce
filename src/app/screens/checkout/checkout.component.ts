@@ -78,7 +78,7 @@ export class CheckoutComponent implements OnInit {
         this.count.count(0);
         localStorage.removeItem('cartId');
         localStorage.removeItem('cart_count');
-        this.route.navigate(['/orders']);
+        location.assign('/orders');
       }
     }),
       (error) => {
