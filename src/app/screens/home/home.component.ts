@@ -54,7 +54,7 @@ export class HomeComponent implements OnInit {
     if (this.search == '') {
       this.search = 'null';
     }
-    this.getProducts(1, null, this.search);
+    this.getProducts(1, this.CategoryId, this.search);
   }
 
   clearSearch() {
@@ -117,7 +117,7 @@ export class HomeComponent implements OnInit {
       }
     );
   }
-  getHomeProducts(page, searchTerms, selectedIds, CategoryId = 0) {
+  getHomeProducts(page, searchTerms, selectedIds) {
     if (page == 'previous') {
       page = this.page - 1;
       this.page = page;
@@ -154,7 +154,7 @@ export class HomeComponent implements OnInit {
     pages.className = 'page-item active';
     this.page = page;
     this.service
-      .getHomeProducts(page, selectedIds, searchTerms, CategoryId)
+      .getHomeProducts(page, selectedIds, searchTerms, this.CategoryId)
       .subscribe(
         (response) => {
           this.HomeDetails = response;
@@ -195,7 +195,7 @@ export class HomeComponent implements OnInit {
         console.log(error);
       }
     );
-    this.getHomeProducts(this.page, null, selectedIds, this.CategoryId);
+    this.getHomeProducts(this.page, null, selectedIds);
   }
   scrollTop() {
     document.body.scrollTop = document.documentElement.scrollTop = 0;
