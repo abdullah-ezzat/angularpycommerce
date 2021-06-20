@@ -53,15 +53,15 @@
               />
             </div>
             <div class="col-12 col-md-6 align align-items-center mb-3">
-              <button
-                mat-button
+              <p
                 [routerLink]="['/product/', order.InventoryBalanceId]"
-                color="primary"
+                style="color: #3f51b5; cursor: pointer"
+                class="text-center"
               >
                 <strong>
                   {{ order.ProductName }}
                 </strong>
-              </button>
+              </p>
               <strong>Shipped By: &nbsp; {{ order.StoreName }}</strong>
             </div>
             <div class="col-12 col-md-3 align">

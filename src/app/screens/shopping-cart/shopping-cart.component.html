@@ -9,8 +9,8 @@
   <div *ngFor="let shoppingCartDetail of ShoppingCartDetails">
     <div class="d-flex">
       <div class="card contain">
-        <div class="row g-0">
-          <div class="col-3 align">
+        <div class="row g-0 p-3">
+          <div class="col-12 col-sm-3 align">
             <img
               (click)="
                 assign('/product/' + shoppingCartDetail.InventoryBalanceId)
@@ -20,7 +20,7 @@
               alt="Responsive Image"
             />
           </div>
-          <div class="col-6 align">
+          <div class="col-12 col-sm-6 align">
             <div class="card-body">
               <h5
                 style="cursor: pointer"
@@ -54,16 +54,27 @@
               </div>
 
               <p class="card-text">
-                <strong>Quantity : {{ shoppingCartDetail.Quantity }}</strong>
+                <strong
+                  >Quantity: &nbsp; {{ shoppingCartDetail.Quantity }}</strong
+                >
               </p>
             </div>
           </div>
-          <div class="col-3 align">
+          <div
+            class="
+              card-body
+              col-12 col-sm-3
+              d-flex
+              flex-column
+              justify-content-center
+              align-show
+            "
+          >
             <p style="margin-bottom: 0.5rem" class="card-text">
               <strong> Quantity</strong>
             </p>
             <select
-              class="form-control"
+              class="form-control text-center qty-width"
               (change)="
                 updateQuantity(
                   shoppingCartDetail.id,
@@ -72,7 +83,6 @@
               "
               #Quantity="ngModel"
               [(ngModel)]="shoppingCartDetail.Quantity"
-              style="width: 70px; text-align: center"
               name="Quantity"
               id="Quantity"
             >
@@ -116,7 +126,7 @@
   <div class="d-flex justify-content-center align-items-center flex-column">
     <p class="card-text">There is no items in the cart</p>
     <button type="button" (click)="assign('/Home')" class="btn btn-info">
-      Go Home
+      Home
     </button>
   </div>
 </div>

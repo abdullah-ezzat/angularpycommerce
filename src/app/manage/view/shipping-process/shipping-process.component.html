@@ -23,11 +23,15 @@
             />
           </div>
           <div class="col-12 col-md-6 mb-3 align text-center">
-            <button class="mb-2" mat-button color="primary">
+            <p
+              class="mb-2"
+              style="color: #3f51b5; cursor: pointer"
+              class="text-center"
+            >
               <strong [routerLink]="['/product/', order.InventoryBalanceId]">{{
                 order.ProductName
               }}</strong>
-            </button>
+            </p>
             <strong class="mb-2"
               >Shipped By: &nbsp;{{ order.StoreName }}</strong
             >

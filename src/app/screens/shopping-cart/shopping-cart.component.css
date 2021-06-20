@@ -50,6 +50,10 @@ img:hover {
   transition: all 0.7s ease;
 }
 
+.qty-width {
+  width: 70px;
+}
+
 .top {
   position: absolute;
   top: 20;
@@ -98,12 +102,19 @@ img:hover {
   }
 }
 
-@media screen and (max-width: 550px) {
+@media screen and (min-width: 576px) {
+  .align-show {
+    align-items: center;
+  }
+}
+@media screen and (max-width: 576px) {
   .details {
     font-size: 12px;
   }
+  .qty-width {
+    width: 100%;
+  }
 }
-
 @media screen and (max-width: 440px) {
   .btn-infos {
     font-size: 9px;
