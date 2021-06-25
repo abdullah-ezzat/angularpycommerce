@@ -59,7 +59,7 @@ export class HomeComponent implements OnInit {
 
   clearSearch() {
     this.value = '';
-    this.getProducts(1, null, null);
+    this.getProducts(1, 0, null);
   }
 
   getProducts(page, CategoryId = 0, searchTerms) {

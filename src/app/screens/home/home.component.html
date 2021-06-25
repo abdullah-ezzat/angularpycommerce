@@ -96,6 +96,7 @@
           </button>
           <mat-autocomplete #auto="matAutocomplete">
             <mat-option
+              (click)="getProductAfterTerm()"
               *ngFor="let product of ProductsString"
               [value]="product.ProductName"
             >
