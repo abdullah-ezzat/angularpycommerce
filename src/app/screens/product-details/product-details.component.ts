@@ -265,9 +265,8 @@ export class ProductDetailsComponent implements OnInit {
     var img2 = this.CartDetail.Image2;
     var img3 = this.CartDetail.Image3;
     var img4 = this.CartDetail.Image4;
+
     this.dialog.open(ProductImageComponent, {
-      width: '100%',
-      height: '90%',
       panelClass: 'img-class',
       data: {
         img: img,
