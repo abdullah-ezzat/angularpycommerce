@@ -1,11 +1,7 @@
 .product_img {
   object-fit: contain;
-  width: 100%;
-  height: 100%;
-}
-::ng-deep .cdk-overlay-pane {
-  width: 80%;
-  height: 90%;
+  width: 70%;
+  height: 70%;
 }
 ::ng-deep .img-class mat-dialog-container {
   display: flex !important;
@@ -31,13 +27,20 @@
   width: 100%;
   height: 100%;
 }
-.mat-dialog-actions[align="end"] {
-  position: absolute;
-  top: 0px;
-  right: 10px;
-}
 
-@media screen and (max-width: 1024px) {
+@media screen and (min-width: 768px) {
+  .product_img {
+    width: 800px;
+    height: 650px;
+  }
+}
+@media screen and (min-width: 1024px) {
+  ::ng-deep .cdk-overlay-pane {
+    width: 90%;
+    height: 93%;
+  }
+}
+@media screen and (max-width: 1023px) {
   ::ng-deep .carousel-control-next {
     display: none !important;
   }
@@ -45,13 +48,11 @@
     display: none !important;
   }
   ::ng-deep .carousel-indicators {
-    bottom: -3rem !important;
+    bottom: -2rem !important;
   }
-}
-
-@media screen and (min-width: 850px) {
-  .product_img {
-    width: 800px;
-    height: 700px;
+  .mat-dialog-actions[align="end"] {
+    position: absolute;
+    top: 0px;
+    right: 10px;
   }
 }
