@@ -9,7 +9,7 @@ const jose = require('node-jose');
 export class GetAllService {
   // Public Url: 'https://pycommerceapp.herokuapp.com/api/all/' \\
 
-  private all = 'http://127.0.0.1:8000/api/all/';
+  private all = 'https://pycommerceapp.herokuapp.com/api/all/';
 
   constructor(private http: HttpClient) {}
 

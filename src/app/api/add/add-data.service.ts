@@ -5,8 +5,9 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class AddDataService {
-  // http://pycommerceapp.herokuapp.com //
-  private add = 'http://127.0.0.1:8000/api/add/';
+  // http://127.0.0.1:8000/api/add/
+  // http://pycommerceapp.herokuapp.com
+  private add = 'https://pycommerceapp.herokuapp.com/api/add/';
 
   constructor(private http: HttpClient) {}
 
