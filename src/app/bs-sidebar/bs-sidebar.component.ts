@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-
-import { HomeComponent } from '../screens/home/home.component';
 import { ToastrService } from 'ngx-toastr';
 import { GetAllService } from '../api/all/get-all.service';
 
@@ -27,21 +25,29 @@ export class BsSidebarComponent implements OnInit {
     let cart_count = localStorage.getItem('cart_count');
     this.CartItemsCount = cart_count;
     this.all.getAllCategories().subscribe(
-      (response) => {
-        this.Categories = response;
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.Categories = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
 
     this.all.getSubCategories().subscribe(
-      (response) => {
-        this.subCategories = response;
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.subCategories = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );

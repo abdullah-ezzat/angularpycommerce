@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AddDataService } from 'src/app/api/add/add-data.service';
 import { GetAllService } from 'src/app/api/all/get-all.service';
@@ -12,52 +11,56 @@ import { StoresDetail } from '../../view/stores/Stores.model';
   styleUrls: ['./stores-form.component.css'],
 })
 export class StoresFormComponent implements OnInit {
-  store: any;
   Stores: any;
-
-  vendor: any;
   Vendors: any;
-
-  Country: any;
   Countries: any;
-
-  shippingAgent: any;
   ShippingAgents: any;
 
   constructor(
-    private route: Router,
-    private service: GetAllService,
+    private all: GetAllService,
     private add: AddDataService,
     private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
-    this.service.getAllData('vendors').subscribe(
-      (response) => {
-        this.Vendors = response;
+    this.all.getAllData('vendors').subscribe(
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.Vendors = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
 
-    this.service.getAllData('shippingAgents').subscribe(
-      (response) => {
-        this.ShippingAgents = response;
+    this.all.getAllData('shippingAgents').subscribe(
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.ShippingAgents = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
 
-    this.service.getAllData('categories').subscribe(
-      (response) => {
-        this.Countries = response;
+    this.all.getAllData('countries').subscribe(
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.Countries = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
@@ -90,7 +93,7 @@ export class StoresFormComponent implements OnInit {
         .subscribe(
           () => {},
           (error) => {
-            alert('An unexpected error occured.');
+            this.toastr.error('Error while retrieving data');
             console.log(error);
           }
         );

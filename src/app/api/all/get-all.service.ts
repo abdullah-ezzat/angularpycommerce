@@ -1,14 +1,40 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { compactDecrypt } from 'jose/jwe/compact/decrypt';
+import { parseJwk } from 'jose/jwk/parse';
+const jose = require('node-jose');
 @Injectable({
   providedIn: 'root',
 })
 export class GetAllService {
   // Public Url: 'https://pycommerceapp.herokuapp.com/api/all/' \\
 
-  private all = 'http://pycommerceapp.herokuapp.com/api/all/';
+  private all = 'http://127.0.0.1:8000/api/all/';
 
   constructor(private http: HttpClient) {}
+
+  async decryptData(token, key) {
+    const decoder = new TextDecoder();
+    const jwk = await parseJwk(key, 'RSA-OAEP');
+    const { plaintext } = await compactDecrypt(token, jwk);
+    return JSON.parse(decoder.decode(plaintext));
+  }
+
+  async encryptData(data) {
+    var keystore = jose.JWK.createKeyStore();
+    return keystore
+      .generate('RSA', 2048, { alg: 'RSA-OAEP', enc: 'A256GCM' })
+      .then((result) => {
+        const rsa = result;
+        var key = rsa.toJSON(true);
+        return jose.JWE.createEncrypt({ format: 'compact' }, key)
+          .update(data)
+          .final()
+          .then((result) => {
+            return { token: result, key: key };
+          });
+      });
+  }
 
   getHomeProducts(page, selectedValues, search, categoryId) {
     return this.http.get(

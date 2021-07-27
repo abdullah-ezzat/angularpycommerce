@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { GetAllService } from 'src/app/api/all/get-all.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-inventory-detail',
   templateUrl: './inventory-detail.component.html',
@@ -25,18 +25,26 @@ export class InventoryDetailComponent implements OnInit {
   dataSource;
   Details: any;
 
-  constructor(private service: GetAllService, private router: Router) {}
+  constructor(
+    private all: GetAllService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
-    this.service.getAllData('inventoryDetails').subscribe(
-      (response) => {
-        this.Details = response;
+    this.all.getAllData('inventoryDetails').subscribe(
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.Details = data;
+          });
         this.dataSource = new MatTableDataSource(this.Details);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );

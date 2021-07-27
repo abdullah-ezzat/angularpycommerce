@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ShippingUserModel } from '../../view/shipping-agent-user/shipping-agent-user.model';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { GetAllService } from 'src/app/api/all/get-all.service';
 import { GetDataService } from 'src/app/api/get/get-data.service';
 import { AddDataService } from 'src/app/api/add/add-data.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-shipping-user-edit',
   templateUrl: './shipping-user-edit.component.html',
@@ -19,22 +19,31 @@ export class ShippingUserEditComponent implements OnInit {
     private route: ActivatedRoute,
     private all: GetAllService,
     private get: GetDataService,
-    private update: AddDataService
+    private update: AddDataService,
+    private toastr: ToastrService
   ) {
     let id = this.route.snapshot.paramMap.get('Id');
     if (id)
-      this.get
-        .getData('shippingAgentUsers', id)
-        .subscribe((response) => (this.shippingUser = response));
+      this.get.getData('shippingAgentUsers', id).subscribe(async (response) => {
+        await this.get
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.shippingUser = data;
+          });
+      });
   }
 
   ngOnInit(): void {
     this.all.getAllData('shippingAgentUsers').subscribe(
-      (response) => {
-        this.ShippingUsers = response;
+      async (response) => {
+        await this.get
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.ShippingUsers = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
@@ -44,7 +53,7 @@ export class ShippingUserEditComponent implements OnInit {
         this.Users = response;
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
@@ -59,7 +68,7 @@ export class ShippingUserEditComponent implements OnInit {
       .subscribe(
         () => {},
         (error) => {
-          alert('An unexpected error occured.');
+          this.toastr.error('Error while retrieving data');
           console.log(error);
         }
       );

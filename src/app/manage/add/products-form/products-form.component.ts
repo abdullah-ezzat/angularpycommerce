@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { ProductsDetail } from '../../view/products/Products.model';
 import { GetAllService } from 'src/app/api/all/get-all.service';
@@ -18,26 +18,35 @@ export class ProductsFormComponent implements OnInit {
   constructor(
     private route: Router,
     private all: GetAllService,
-    private add: AddDataService
+    private add: AddDataService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
     this.all.getSubCategories().subscribe(
-      (response) => {
-        this.Categories = response;
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.Categories = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
 
     this.all.getAllData('brands').subscribe(
-      (response) => {
-        this.Brands = response;
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.Brands = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
@@ -75,7 +84,7 @@ export class ProductsFormComponent implements OnInit {
       .subscribe(
         () => {},
         (error) => {
-          alert('An unexpected error occured.');
+          this.toastr.error('Error while retrieving data');
           console.log(error);
         }
       );

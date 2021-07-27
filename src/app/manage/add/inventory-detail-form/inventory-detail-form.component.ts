@@ -27,21 +27,29 @@ export class InventoryDetailFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.all.getAllData('products').subscribe(
-      (response) => {
-        this.Products = response;
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.Products = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
 
     this.all.getAllData('stores').subscribe(
-      (response) => {
-        this.Stores = response;
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.Stores = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
@@ -59,7 +67,7 @@ export class InventoryDetailFormComponent implements OnInit {
             .subscribe(
               () => {},
               (error) => {
-                alert('An unexpected error occured.');
+                this.toastr.error('Error while retrieving data');
                 console.log(error);
               }
             );

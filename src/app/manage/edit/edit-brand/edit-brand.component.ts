@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { BrandsDetail } from '../../view/brands/brands.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AddDataService } from 'src/app/api/add/add-data.service';
 import { GetDataService } from 'src/app/api/get/get-data.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-edit-brand',
   templateUrl: './edit-brand.component.html',
@@ -13,16 +13,20 @@ export class EditBrandComponent implements OnInit {
   brand: any;
 
   constructor(
-    private router: Router,
     private route: ActivatedRoute,
     private get: GetDataService,
-    private update: AddDataService
+    private update: AddDataService,
+    private toastr: ToastrService
   ) {
     let id = this.route.snapshot.paramMap.get('Id');
     if (id)
-      this.get
-        .getData('brands', id)
-        .subscribe((response) => (this.brand = response));
+      this.get.getData('brands', id).subscribe(async (response) => {
+        await this.get
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.brand = data;
+          });
+      });
   }
 
   ngOnInit() {
@@ -37,7 +41,7 @@ export class EditBrandComponent implements OnInit {
       .subscribe(
         () => {},
         (error) => {
-          alert('An unexpected error occured.');
+          this.toastr.error('Error while retrieving data');
           console.log(error);
         }
       );

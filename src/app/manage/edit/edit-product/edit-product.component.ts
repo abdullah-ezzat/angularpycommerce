@@ -7,6 +7,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { GetAllService } from 'src/app/api/all/get-all.service';
 import { GetDataService } from 'src/app/api/get/get-data.service';
 import { AddDataService } from 'src/app/api/add/add-data.service';
+import { ToastrService } from 'ngx-toastr';
 
 declare var $: any;
 @Component({
@@ -39,43 +40,60 @@ export class EditProductComponent implements OnInit {
     private add: AddDataService,
     private all: GetAllService,
     private get: GetDataService,
-    private update: AddDataService
+    private update: AddDataService,
+    private toastr: ToastrService
   ) {
     let id = this.route.snapshot.paramMap.get('Id');
     this.ProductId = id;
     if (id)
-      this.get.getData('products', id).subscribe((response) => {
-        this.product = response;
+      this.get.getData('products', id).subscribe(async (response) => {
+        await this.get
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.product = data;
+          });
       });
   }
 
   ngOnInit(): void {
     this.all.getSubCategories().subscribe(
-      (response) => {
-        this.Categories = response;
+      async (response) => {
+        await this.get
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.Categories = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
 
     this.all.getAllData('products').subscribe(
-      (response) => {
-        this.Products = response;
+      async (response) => {
+        await this.get
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.Products = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
 
     this.all.getAllData('brands').subscribe(
-      (response) => {
-        this.Brands = response;
+      async (response) => {
+        await this.get
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.Brands = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
@@ -88,7 +106,7 @@ export class EditProductComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
@@ -98,11 +116,9 @@ export class EditProductComponent implements OnInit {
     function readURL(input, img) {
       if (input.value && input.value[0]) {
         var reader = new FileReader();
-
         reader.onload = function (e) {
           $(img).attr('src', e.target.result);
         };
-
         reader.readAsDataURL(input.value[0]);
       }
     }
@@ -133,7 +149,7 @@ export class EditProductComponent implements OnInit {
         location.assign('/manage/edit/product/' + productId);
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
@@ -177,7 +193,7 @@ export class EditProductComponent implements OnInit {
       .subscribe(
         () => {},
         (error) => {
-          alert('An unexpected error occured.');
+          this.toastr.error('Error while retrieving data');
           console.log(error);
         }
       );

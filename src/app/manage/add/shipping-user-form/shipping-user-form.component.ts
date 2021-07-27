@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { ShippingUserModel } from '../../view/shipping-agent-user/shipping-agent-user.model';
 import { GetAllService } from 'src/app/api/all/get-all.service';
 import { AddDataService } from 'src/app/api/add/add-data.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-shipping-user-form',
   templateUrl: './shipping-user-form.component.html',
@@ -16,26 +16,35 @@ export class ShippingUserFormComponent implements OnInit {
   constructor(
     private route: Router,
     private all: GetAllService,
-    private add: AddDataService
+    private add: AddDataService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
     this.all.getAllData('users').subscribe(
-      (response) => {
-        this.Users = response;
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.Users = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
 
     this.all.getAllData('shippingAgentUsers').subscribe(
-      (response) => {
-        this.ShippingUsers = response;
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.ShippingUsers = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
@@ -48,7 +57,7 @@ export class ShippingUserFormComponent implements OnInit {
       .subscribe(
         () => {},
         (error) => {
-          alert('An unexpected error occured.');
+          this.toastr.error('Error while retrieving data');
           console.log(error);
         }
       );

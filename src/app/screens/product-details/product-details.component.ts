@@ -69,7 +69,7 @@ export class ProductDetailsComponent implements OnInit {
         this.Specifications = response;
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
@@ -81,7 +81,7 @@ export class ProductDetailsComponent implements OnInit {
           this.Reviews = response;
         },
         (error) => {
-          alert('An unexpected error occured.');
+          this.toastr.error('Error while retrieving data');
           console.log(error);
         }
       );
@@ -177,7 +177,7 @@ export class ProductDetailsComponent implements OnInit {
           this.createNewShoppingCartItem(post);
         },
         (error) => {
-          alert('An unexpected error occured.');
+          this.toastr.error('Error while retrieving data');
           console.log(error);
         }
       );
@@ -202,7 +202,7 @@ export class ProductDetailsComponent implements OnInit {
           this.route.navigate(['cart']);
         },
         (error) => {
-          alert('An unexpected error occured.');
+          this.toastr.error('Error while retrieving data');
           console.log(error);
         }
       );
@@ -228,7 +228,7 @@ export class ProductDetailsComponent implements OnInit {
               this.ImageUrl = this.CartDetail.Image;
             },
             (error) => {
-              alert('An unexpected error occured.');
+              this.toastr.error('Error while retrieving data');
               console.log(error);
             }
           );

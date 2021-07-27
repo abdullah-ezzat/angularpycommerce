@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ShippingAgentDetails } from '../../view/shipping-agent/shipping-agent.model';
-
+import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AddDataService } from 'src/app/api/add/add-data.service';
 
@@ -10,7 +10,11 @@ import { AddDataService } from 'src/app/api/add/add-data.service';
   styleUrls: ['./shipping-agent-form.component.css'],
 })
 export class ShippingAgentFormComponent {
-  constructor(private route: Router, private add: AddDataService) {}
+  constructor(
+    private route: Router,
+    private add: AddDataService,
+    private toastr: ToastrService
+  ) {}
 
   createAgent(post: ShippingAgentDetails) {
     this.add
@@ -19,7 +23,7 @@ export class ShippingAgentFormComponent {
       .subscribe(
         () => {},
         (error) => {
-          alert('An unexpected error occured.');
+          this.toastr.error('Error while retrieving data');
           console.log(error);
         }
       );

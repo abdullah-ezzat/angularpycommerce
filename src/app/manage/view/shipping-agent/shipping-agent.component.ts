@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { MatTableDataSource } from '@angular/material/table';
 import { ShippingAgentDetails } from './shipping-agent.model';
 import { GetAllService } from 'src/app/api/all/get-all.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-shipping-agent',
   templateUrl: './shipping-agent.component.html',
@@ -26,18 +26,26 @@ export class ShippingAgentComponent implements OnInit {
   dataSource;
   ShippingAgents: any;
 
-  constructor(private service: GetAllService, private router: Router) {}
+  constructor(
+    private all: GetAllService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
-    this.service.getAllData('shippingAgents').subscribe(
-      (response) => {
-        this.ShippingAgents = response;
+    this.all.getAllData('shippingAgents').subscribe(
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.ShippingAgents = data;
+          });
         this.dataSource = new MatTableDataSource(this.ShippingAgents);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );

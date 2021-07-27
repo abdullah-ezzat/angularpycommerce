@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { PriceListDetails } from '../../view/price-list/price-list.model';
-
+import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { GetAllService } from 'src/app/api/all/get-all.service';
 import { AddDataService } from 'src/app/api/add/add-data.service';
@@ -19,36 +19,49 @@ export class PriceFormComponent implements OnInit {
   constructor(
     private route: Router,
     private all: GetAllService,
-    private add: AddDataService
+    private add: AddDataService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
     this.all.getAllData('products').subscribe(
-      (response) => {
-        this.Products = response;
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.Products = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
 
     this.all.getAllData('vendors').subscribe(
-      (response) => {
-        this.Vendors = response;
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.Vendors = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
 
     this.all.getAllData('countries').subscribe(
-      (response) => {
-        this.Countries = response;
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.Countries = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
@@ -61,7 +74,7 @@ export class PriceFormComponent implements OnInit {
       .subscribe(
         () => {},
         (error) => {
-          alert('An unexpected error occured.');
+          this.toastr.error('Error while retrieving data');
           console.log(error);
         }
       );

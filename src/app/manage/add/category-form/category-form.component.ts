@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddDataService } from 'src/app/api/add/add-data.service';
 import { GetAllService } from 'src/app/api/all/get-all.service';
-
+import { ToastrService } from 'ngx-toastr';
 import { CategoryDetail } from './category.model';
 
 @Component({
@@ -17,16 +17,21 @@ export class CategoryFormComponent implements OnInit {
   constructor(
     private route: Router,
     private all: GetAllService,
-    public add: AddDataService
+    public add: AddDataService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
     this.all.getAllData('categories').subscribe(
-      (response) => {
-        this.Categories = response;
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.Categories = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
@@ -39,7 +44,7 @@ export class CategoryFormComponent implements OnInit {
       .subscribe(
         () => {},
         (error) => {
-          alert('An unexpected error occured.');
+          this.toastr.error('Error while retrieving data');
           console.log(error);
         }
       );

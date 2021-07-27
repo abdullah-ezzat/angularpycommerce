@@ -5,7 +5,7 @@ import { CategoryDetail } from '../../add/category-form/category.model';
 import { MatSort } from '@angular/material/sort';
 import { MatPaginator } from '@angular/material/paginator';
 import { GetAllService } from 'src/app/api/all/get-all.service';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-category-table',
   templateUrl: './category-table.component.html',
@@ -21,18 +21,26 @@ export class CategoryTableComponent implements OnInit {
   resultOfMultiplication: any;
   HomeDetails: any;
 
-  constructor(private service: GetAllService, private router: Router) {}
+  constructor(
+    private all: GetAllService,
+    private router: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
-    this.service.getAllData('categories').subscribe(
-      (response) => {
-        this.categories = response;
+    this.all.getAllData('categories').subscribe(
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.categories = data;
+          });
         this.dataSource = new MatTableDataSource(this.categories);
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );

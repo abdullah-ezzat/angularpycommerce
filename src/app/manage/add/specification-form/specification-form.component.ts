@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { AddDataService } from 'src/app/api/add/add-data.service';
 import { GetAllService } from 'src/app/api/all/get-all.service';
 import { ProductSpecificationDetails } from '../../../views/product-specification/product-specification.model';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-specification-form',
   templateUrl: './specification-form.component.html',
@@ -20,7 +20,8 @@ export class SpecificationFormComponent implements OnInit {
   constructor(
     private route: Router,
     private add: AddDataService,
-    private all: GetAllService
+    private all: GetAllService,
+    private toastr: ToastrService
   ) {}
 
   ngOnInit(): void {
@@ -33,31 +34,43 @@ export class SpecificationFormComponent implements OnInit {
     localStorage.removeItem('SpecificationProductId');
 
     this.all.getAllSpecifications(this.CategoryId).subscribe(
-      (response) => {
-        this.Specifications = response;
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.Specifications = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
 
     this.all.getAllData('products').subscribe(
-      (response) => {
-        this.Products = response;
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.Products = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
 
     this.all.getAllData('categories').subscribe(
-      (response) => {
-        this.Categories = response;
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.Categories = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
@@ -70,7 +83,7 @@ export class SpecificationFormComponent implements OnInit {
       .subscribe(
         () => {},
         (error) => {
-          alert('An unexpected error occured.');
+          this.toastr.error('Error while retrieving data');
           console.log(error);
         }
       );

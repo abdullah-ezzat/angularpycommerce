@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AddDataService } from 'src/app/api/add/add-data.service';
 import { BrandsDetail } from '../../view/brands/brands.model';
 
@@ -9,7 +10,11 @@ import { BrandsDetail } from '../../view/brands/brands.model';
   styleUrls: ['./brands-form.component.css'],
 })
 export class BrandsFormComponent {
-  constructor(private route: Router, private add: AddDataService) {}
+  constructor(
+    private route: Router,
+    private add: AddDataService,
+    private toastr: ToastrService
+  ) {}
 
   saveBrand(post: BrandsDetail) {
     this.add
@@ -18,7 +23,7 @@ export class BrandsFormComponent {
       .subscribe(
         () => {},
         (error) => {
-          alert('An unexpected error occured.');
+          this.toastr.error('Error while retrieving data');
           console.log(error);
         }
       );

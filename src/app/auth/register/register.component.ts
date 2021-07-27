@@ -1,7 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-
+import { Component } from '@angular/core';
 import { UserData } from '../login/userData.Model';
-import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AddDataService } from 'src/app/api/add/add-data.service';
 
@@ -51,7 +49,7 @@ export class RegisterComponent {
           }
         },
         (error) => {
-          alert('An unexpected error occured.');
+          this.toastr.error('Error while registering');
           console.log(error);
         }
       );

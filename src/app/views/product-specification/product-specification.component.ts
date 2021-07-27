@@ -4,7 +4,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { GetAllService } from 'src/app/api/all/get-all.service';
 import { ProductSpecificationDetails } from './product-specification.model';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-product-specification',
   templateUrl: './product-specification.component.html',
@@ -25,7 +25,7 @@ export class ProductSpecificationComponent implements OnInit {
   specification: any;
   ProductId: any;
 
-  constructor(private all: GetAllService) {}
+  constructor(private all: GetAllService, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.all.getProSpec(this.ProductId).subscribe(
@@ -38,7 +38,7 @@ export class ProductSpecificationComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );

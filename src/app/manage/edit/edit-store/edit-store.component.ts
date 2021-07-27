@@ -27,38 +27,54 @@ export class EditStoreComponent implements OnInit {
   ) {
     let id = this.route.snapshot.paramMap.get('Id');
     if (id)
-      this.get
-        .getData('stores', id)
-        .subscribe((response) => (this.store = response));
+      this.get.getData('stores', id).subscribe(async (response) => {
+        await this.get
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.store = data;
+          });
+      });
   }
 
   ngOnInit(): void {
     this.all.getAllData('shippingAgents').subscribe(
-      (response) => {
-        this.ShippingAgents = response;
+      async (response) => {
+        await this.get
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.ShippingAgents = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
 
     this.all.getAllData('vendors').subscribe(
-      (response) => {
-        this.Vendors = response;
+      async (response) => {
+        await this.get
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.Vendors = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
 
     this.all.getAllData('countries').subscribe(
-      (response) => {
-        this.Countries = response;
+      async (response) => {
+        await this.get
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.Countries = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
@@ -93,7 +109,7 @@ export class EditStoreComponent implements OnInit {
         .subscribe(
           () => {},
           (error) => {
-            alert('An unexpected error occured.');
+            this.toastr.error('Error while retrieving data');
             console.log(error);
           }
         );

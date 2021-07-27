@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
-import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { BsSidebarComponent } from '../../bs-sidebar/bs-sidebar.component';
 import { AddDataService } from 'src/app/api/add/add-data.service';
 import { GetAllService } from 'src/app/api/all/get-all.service';
 import { GetDataService } from 'src/app/api/get/get-data.service';
@@ -28,7 +25,6 @@ export class CheckoutComponent implements OnInit {
     private all: GetAllService,
     private add: AddDataService,
     private get: GetDataService,
-    private route: Router,
     private toastr: ToastrService
   ) {}
 
@@ -45,17 +41,21 @@ export class CheckoutComponent implements OnInit {
         this.Currency = currency[0];
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
 
     let UserId = localStorage.getItem('UserId');
-    this.get.getUser(UserId).subscribe((response) => {
-      this.User = response;
+    this.get.getUser(UserId).subscribe(async (response) => {
+      await this.get
+        .decryptData(response['token'], response['key'])
+        .then((data) => {
+          this.User = data;
+        });
     }),
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       };
     this.Checkout = { ProductName: '' };
@@ -82,7 +82,7 @@ export class CheckoutComponent implements OnInit {
       }
     }),
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       };
   }

@@ -7,7 +7,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
-import { NgxImageZoomModule } from 'ngx-image-zoom';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
 
 import { MatTableModule } from '@angular/material/table';
@@ -150,7 +149,6 @@ import { MapDialogComponent } from './views/map-dialog/map-dialog.component';
     BrowserAnimationsModule,
     FormsModule,
     AppRoutingModule,
-    NgxImageZoomModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-center',
       timeOut: 2000,

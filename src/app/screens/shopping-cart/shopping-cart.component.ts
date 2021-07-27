@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { BsSidebarComponent } from '../../bs-sidebar/bs-sidebar.component';
 import { GetAllService } from 'src/app/api/all/get-all.service';
@@ -18,7 +18,7 @@ export class ShoppingCartComponent implements OnInit {
   Cart: any;
 
   constructor(
-    private services: GetAllService,
+    private all: GetAllService,
     private add: AddDataService,
     private route: Router,
     private toastr: ToastrService,
@@ -28,7 +28,7 @@ export class ShoppingCartComponent implements OnInit {
   ngOnInit(): void {
     let cartId = localStorage.getItem('cartId');
     this.Cart = cartId;
-    this.services.getAllCart(cartId).subscribe((response: any) => {
+    this.all.getAllCart(cartId).subscribe((response: any) => {
       this.ShoppingCartDetails = response;
       if (response.length > 0) {
         const prices = this.ShoppingCartDetails.map((item) => item.TotalPrice);
@@ -67,7 +67,7 @@ export class ShoppingCartComponent implements OnInit {
       .subscribe(
         () => {},
         (error) => {
-          alert('An unexpected error occured.');
+          this.toastr.error('Error while retrieving data');
           console.log(error);
         }
       );
@@ -77,7 +77,7 @@ export class ShoppingCartComponent implements OnInit {
   DeleteItem(Id) {
     this.add.deleteCartItem(Id).subscribe(() => {}),
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       };
     if (this.ProductCount == 1) {
@@ -90,7 +90,7 @@ export class ShoppingCartComponent implements OnInit {
     let cartId = localStorage.getItem('cartId');
     this.add.deleteCart(cartId).subscribe(() => {}),
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       };
     localStorage.removeItem('cart_count');

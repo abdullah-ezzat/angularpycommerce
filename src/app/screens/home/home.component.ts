@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -32,7 +32,11 @@ export class HomeComponent implements OnInit {
   has_prev = false;
   has_next = true;
 
-  constructor(public service: GetAllService, public route: Router) {}
+  constructor(
+    public all: GetAllService,
+    public route: Router,
+    private toastr: ToastrService
+  ) {}
 
   ngOnInit(): void {
     localStorage.removeItem('selectedIds');
@@ -43,8 +47,10 @@ export class HomeComponent implements OnInit {
     this.getProducts(1, this.CategoryId, null);
 
     this.searchTerm.valueChanges.subscribe((search) => {
-      this.service.getProductNames(search).subscribe((data) => {
-        this.ProductsString = data as any[];
+      this.all.getProductNames(search).subscribe(async (data) => {
+        await this.all.decryptData(data['token'], data['key']).then((data) => {
+          this.ProductsString = data as any[];
+        });
       });
     });
   }
@@ -63,9 +69,13 @@ export class HomeComponent implements OnInit {
   }
 
   getProducts(page, CategoryId = 0, searchTerms) {
-    this.service.getAllSpecifications(this.CategoryId).subscribe(
-      (response: any) => {
-        this.AllSpecifications = response;
+    this.all.getAllSpecifications(this.CategoryId).subscribe(
+      async (response: any) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.AllSpecifications = data;
+          });
         const arrayUniqueByKey = [
           ...new Map(
             this.AllSpecifications.map((item) => [item['id'], item])
@@ -75,44 +85,57 @@ export class HomeComponent implements OnInit {
         this.AllSpecifications = arrayUniqueByKey;
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
 
-    this.service.getAllData('specificationValueCount').subscribe(
-      (response) => {
-        this.AllProductSpecifications = response;
-        this.AllProductSpecifications = this.AllProductSpecifications.filter(
-          (v, i, a) =>
-            a.findIndex(
-              (t) => t.SpecificationValue === v.SpecificationValue
-            ) === i
-        );
+    this.all.getAllData('specificationValueCount').subscribe(
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.AllProductSpecifications = data;
+            this.AllProductSpecifications =
+              this.AllProductSpecifications.filter(
+                (v, i, a) =>
+                  a.findIndex(
+                    (t) => t.SpecificationValue === v.SpecificationValue
+                  ) === i
+              );
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
 
     this.CategoryId = CategoryId;
-    this.service.getMaxPage(null, searchTerms, CategoryId).subscribe(
-      (response) => {
-        this.MaxPageNumber = response;
+    this.all.getMaxPage(null, searchTerms, CategoryId).subscribe(
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.MaxPageNumber = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
-    this.service.getHomeProducts(page, null, searchTerms, CategoryId).subscribe(
-      (response) => {
-        this.HomeDetails = response;
+    this.all.getHomeProducts(page, null, searchTerms, CategoryId).subscribe(
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.HomeDetails = data;
+          });
         document.getElementById('page 1').className = 'page-item active';
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
@@ -154,14 +177,18 @@ export class HomeComponent implements OnInit {
     let pages = document.getElementById('page ' + page);
     pages.className = 'page-item active';
     this.page = page;
-    this.service
+    this.all
       .getHomeProducts(page, selectedIds, searchTerms, this.CategoryId)
       .subscribe(
-        (response) => {
-          this.HomeDetails = response;
+        async (response) => {
+          await this.all
+            .decryptData(response['token'], response['key'])
+            .then((data) => {
+              this.HomeDetails = data;
+            });
         },
         (error) => {
-          alert('An unexpected error occured.');
+          this.toastr.error('Error while retrieving data');
           console.log(error);
         }
       );
@@ -187,12 +214,16 @@ export class HomeComponent implements OnInit {
       }
       localStorage.setItem('selectedIds', selectedIds);
     }
-    this.service.getMaxPage(selectedIds, null, this.CategoryId).subscribe(
-      (response) => {
-        this.MaxPageNumber = response;
+    this.all.getMaxPage(selectedIds, null, this.CategoryId).subscribe(
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.MaxPageNumber = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );

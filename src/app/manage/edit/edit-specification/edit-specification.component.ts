@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AddDataService } from 'src/app/api/add/add-data.service';
 import { GetAllService } from 'src/app/api/all/get-all.service';
 import { GetDataService } from 'src/app/api/get/get-data.service';
 import { ProductSpecificationDetails } from '../../../views/product-specification/product-specification.model';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-edit-specification',
   templateUrl: './edit-specification.component.html',
@@ -20,33 +20,48 @@ export class EditSpecificationComponent implements OnInit {
     private route: ActivatedRoute,
     private all: GetAllService,
     private get: GetDataService,
-    private update: AddDataService
+    private update: AddDataService,
+    private toastr: ToastrService
   ) {
     let id = this.route.snapshot.paramMap.get('Id');
     this.ProductId = id;
     if (id)
       this.get
         .getData('productSpecifications', id)
-        .subscribe((response) => (this.specification = response));
+        .subscribe(async (response) => {
+          await this.get
+            .decryptData(response['token'], response['key'])
+            .then((data) => {
+              this.specification = data;
+            });
+        });
   }
 
   ngOnInit(): void {
     this.all.getAllData('products').subscribe(
-      (response) => {
-        this.Products = response;
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.Products = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
 
     this.all.getAllData('categories').subscribe(
-      (response) => {
-        this.Categories = response;
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.Categories = data;
+          });
       },
       (error) => {
-        alert('An unexpected error occured.');
+        this.toastr.error('Error while retrieving data');
         console.log(error);
       }
     );
@@ -61,7 +76,7 @@ export class EditSpecificationComponent implements OnInit {
       .subscribe(
         () => {},
         (error) => {
-          alert('An unexpected error occured.');
+          this.toastr.error('Error while retrieving data');
           console.log(error);
         }
       );
