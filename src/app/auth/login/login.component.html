@@ -1,62 +1,122 @@
-<form
-  #form="ngForm"
-  (ngSubmit)="Login(form.value)"
-  class="was-validated"
-  class="login"
->
-  <div class="p-3">
-    <mat-form-field class="mb-1" style="width: 20rem" appearance="outline">
-      <mat-label>Email</mat-label>
-      <input
-        ngModel
-        name="Email"
-        id="Email"
-        matInput
-        placeholder="Email"
-        required
-      />
-    </mat-form-field>
-
-    <mat-form-field class="mb-1" style="width: 20rem" appearance="outline">
-      <mat-label>Password</mat-label>
-      <input
-        ngModel
-        name="Password"
-        id="Password"
-        [type]="hide ? 'password' : 'text'"
-        #message
-        maxlength="16"
-        matInput
-        placeholder="Password"
-        required
-      />
-      <mat-hint align="end">{{ message.value.length }} / 16</mat-hint>
-      <p
-        style="cursor: pointer"
-        mat-icon-button
-        matSuffix
-        (click)="hide = !hide"
-        [attr.aria-label]="'Hide password'"
-        [attr.aria-pressed]="hide"
+<ng-particles id="tsparticles" [options]="particlesOptions"></ng-particles>
+<div class="align">
+  <div class="container" id="container">
+    <div class="form-container sign-up-container">
+      <form
+        #register="ngForm"
+        (ngSubmit)="Register(register.value)"
+        class="was-validated overflow-auto register"
       >
-        <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
-      </p>
-    </mat-form-field>
-    <button mat-raised-button color="primary" type="submit">Login</button>
-
-    <button
-      class="ml-3"
-      color="primary"
-      type="button"
-      (click)="LoginAsGuest()"
-      mat-raised-button
-    >
-      Login As Guest
-    </button>
+        <br />
+        <h1>Create Account</h1>
+        <div class="social-container">
+          <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+          <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <span>or use your email for registration</span>
+        <input
+          ngModel
+          type="text"
+          name="NameL"
+          id="NameL"
+          placeholder="Username"
+          required
+        />
+        <input
+          ngModel
+          type="text"
+          name="Address1"
+          id="Address1"
+          placeholder="Address"
+          required
+        />
+        <input
+          ngModel
+          type="text"
+          name="Address2"
+          id="Address2"
+          placeholder="Address 2 (optional)"
+        />
+        <input
+          ngModel
+          type="text"
+          name="City"
+          id="City"
+          placeholder="City"
+          required
+        />
+        <input
+          ngModel
+          type="text"
+          name="Phone"
+          id="Phone"
+          placeholder="Phone"
+          required
+        />
+        <input
+          ngModel
+          type="email"
+          name="Email"
+          id="Email"
+          placeholder="Email"
+          required
+        />
+        <input ngModel type="password" placeholder="Password" required />
+        <br />
+        <button>Sign Up</button>
+        <br />
+      </form>
+    </div>
+    <div class="form-container sign-in-container">
+      <form
+        #login="ngForm"
+        (ngSubmit)="Login(login.value)"
+        class="was-validated"
+      >
+        <br />
+        <h1>Sign in</h1>
+        <div class="social-container">
+          <a href="#" class="social"><i class="fab fa-facebook-f"></i></a>
+          <a href="#" class="social"><i class="fab fa-google-plus-g"></i></a>
+          <a href="#" class="social"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+        <span>or use your account</span>
+        <input
+          ngModel
+          type="email"
+          name="Email_login"
+          id="Email_login"
+          placeholder="Email"
+          required
+        />
+        <input
+          ngModel
+          type="password"
+          name="Password_login"
+          id="Password_login"
+          placeholder="Password"
+          required
+        />
+        <a href="#">Forgot your password?</a>
+        <button class="mb-2">Sign In</button>
+        <button type="button" (click)="LoginAsGuest()">Login as guest</button>
+      </form>
+    </div>
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-right">
+          <h1>Welcome Back!</h1>
+          <p>To keep connected with us please login with your personal info</p>
+          <p>login as guest to display shipping data</p>
+          <button class="ghost" id="signUp">Sign Up</button>
+        </div>
+        <div class="overlay-panel overlay-left">
+          <h1>Hello, Friend!</h1>
+          <p>Enter your personal details and start journey with us</p>
+          <button class="ghost" id="signIn">Sign In</button>
+        </div>
+      </div>
+    </div>
   </div>
-  <p style="color: red" class="p-2" *ngIf="User != 'Guest'">
-    Login as guest to display shipping data
-  </p>
-
-  <a href="/register">Sign Up</a>
-</form>
+</div>

@@ -29,7 +29,6 @@ import { PriceFormComponent } from './manage/add/price-form/price-form.component
 import { EditPriceComponent } from './manage/edit/edit-price/edit-price.component';
 import { CheckoutComponent } from './screens/checkout/checkout.component';
 import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
 import { ProductSpecificationComponent } from './views/product-specification/product-specification.component';
 import { SpecificationFormComponent } from './manage/add/specification-form/specification-form.component';
 import { ShippingAgentComponent } from './manage/view/shipping-agent/shipping-agent.component';
@@ -52,7 +51,6 @@ const routes: Routes = [
   { path: 'product', component: ProductDetailsComponent },
   { path: 'product/:Id', component: ProductDetailsComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
   { path: 'cart', component: ShoppingCartComponent },
   { path: 'checkout', component: CheckoutComponent },
   {

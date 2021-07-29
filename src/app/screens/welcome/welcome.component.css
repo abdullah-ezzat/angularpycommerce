@@ -3,9 +3,38 @@
   justify-content: center;
   align-items: center;
 }
-.bg {
-  margin-bottom: 5rem;
+
+.section {
+  position: relative;
+  overflow: hidden;
 }
+
+.page-header {
+  min-height: 40vh;
+  max-height: 999px;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.light-blue {
+  margin-bottom: 5rem;
+  background: linear-gradient(
+    90deg,
+    rgba(1, 61, 148, 1) 0%,
+    rgba(0, 212, 255, 1) 100%
+  );
+}
+
+#particles-js {
+  top: 0;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+}
+
 .image {
   object-fit: contain;
   height: 58%;

@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { GetAllService } from 'src/app/api/all/get-all.service';
 import { GetDataService } from 'src/app/api/get/get-data.service';
 import { ToastrService } from 'ngx-toastr';
+import { particlesJS } from 'tsparticles';
 @Component({
   selector: 'app-welcome',
   templateUrl: './welcome.component.html',
@@ -33,6 +34,7 @@ export class WelcomeComponent implements OnInit {
         console.log(error);
       }
     );
+    particlesJS.load('particles-js', 'assets/particles.json', function () {});
   }
   assign(url) {
     location.assign(url);

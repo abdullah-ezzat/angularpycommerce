@@ -1,4 +1,4 @@
 export class LoginDetails {
-  Email: any;
-  Password: any;
+  Email_login: any;
+  Password_login: any;
 }

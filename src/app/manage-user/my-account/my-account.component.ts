@@ -27,9 +27,11 @@ export class MyAccountComponent implements OnInit {
         .then(async (data) => {
           this.User = data;
           const password = this.User['Password'];
-          await this.get.decryptData(password, key['key']).then((data) => {
-            this.User['Password'] = data;
-          });
+          await this.get
+            .decryptData(password, key['key'], 'RSA')
+            .then((data) => {
+              this.User['Password'] = data;
+            });
         });
     }),
       (error) => {

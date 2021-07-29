@@ -4,6 +4,7 @@ import { UserData } from './userData.Model';
 import { ToastrService } from 'ngx-toastr';
 import { AddDataService } from 'src/app/api/add/add-data.service';
 import { GetDataService } from 'src/app/api/get/get-data.service';
+import particles from '../particles.json';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -15,6 +16,7 @@ export class LoginComponent implements OnInit {
   UserName: any;
   hide = true;
   User: any;
+  particlesOptions = particles['particles'];
 
   constructor(
     private add: AddDataService,
@@ -23,11 +25,66 @@ export class LoginComponent implements OnInit {
   ) {}
   async ngOnInit() {
     this.User = localStorage.getItem('UserName');
+
+    const signUpButton = document.getElementById('signUp');
+    const signInButton = document.getElementById('signIn');
+    const container = document.getElementById('container');
+
+    signUpButton.addEventListener('click', () => {
+      container.classList.add('right-panel-active');
+    });
+
+    signInButton.addEventListener('click', () => {
+      container.classList.remove('right-panel-active');
+    });
   }
 
-  Login(post: LoginDetails) {
+  Register(post: UserData) {
     this.add
-      .authUser(post)
+      .registerUser(post)
+      .pipe()
+      .subscribe(
+        (response) => {
+          if (response == false) {
+            this.toastr.error('This email is existing.', '', {
+              timeOut: 2000,
+              positionClass: 'toast-top-center',
+            });
+          }
+          var userData = this.mapResponse(response);
+
+          var LoginDateStamp = this.add.updateTimestamp();
+          localStorage.setItem(
+            'LastActiveTime',
+            JSON.stringify(LoginDateStamp)
+          );
+          localStorage.setItem('UserId', JSON.stringify(userData.id));
+          localStorage.setItem('UserName', userData.NameL);
+          if (userData.id > 0) {
+            localStorage.removeItem('cartId');
+            this.toastr.success('You have registered successfully', '', {
+              timeOut: 800,
+              positionClass: 'toast-top-center',
+            });
+            setTimeout(function () {
+              location.assign('/');
+            }, 800);
+          }
+        },
+        (error) => {
+          this.toastr.error('Error while registering');
+          console.log(error);
+        }
+      );
+  }
+  Login(post: LoginDetails) {
+    console.log(post);
+    var data = {
+      Email: post.Email_login,
+      Password: post.Password_login,
+    };
+    this.add
+      .authUser(data)
       .pipe()
       .subscribe(
         async (response) => {
@@ -62,7 +119,6 @@ export class LoginComponent implements OnInit {
         }
       );
   }
-
   LoginAsGuest() {
     this.get
       .loginAsGuest()

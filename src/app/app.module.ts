@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ToastrModule } from 'ngx-toastr';
 import { MaterialFileInputModule } from 'ngx-material-file-input';
+import { NgParticlesModule } from 'ng-particles';
 
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
@@ -57,7 +58,6 @@ import { PriceFormComponent } from './manage/add/price-form/price-form.component
 import { EditPriceComponent } from './manage/edit/edit-price/edit-price.component';
 import { CheckoutComponent } from './screens/checkout/checkout.component';
 import { LoginComponent } from './auth/login/login.component';
-import { RegisterComponent } from './auth/register/register.component';
 import { ProductSpecificationComponent } from './views/product-specification/product-specification.component';
 import { SpecificationFormComponent } from './manage/add/specification-form/specification-form.component';
 import { ShippingAgentComponent } from './manage/view/shipping-agent/shipping-agent.component';
@@ -107,7 +107,6 @@ import { MapDialogComponent } from './views/map-dialog/map-dialog.component';
     EditPriceComponent,
     CheckoutComponent,
     LoginComponent,
-    RegisterComponent,
     ProductSpecificationComponent,
     SpecificationFormComponent,
     ShippingAgentComponent,
@@ -149,6 +148,7 @@ import { MapDialogComponent } from './views/map-dialog/map-dialog.component';
     BrowserAnimationsModule,
     FormsModule,
     AppRoutingModule,
+    NgParticlesModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-center',
       timeOut: 2000,

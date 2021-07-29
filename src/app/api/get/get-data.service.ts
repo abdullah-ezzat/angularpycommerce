@@ -2,13 +2,14 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { compactDecrypt } from 'jose/jwe/compact/decrypt';
 import { parseJwk } from 'jose/jwk/parse';
+import * as SJCL from 'sjcl';
 const jose = require('node-jose');
 @Injectable({
   providedIn: 'root',
 })
 export class GetDataService {
-  // 'http://pycommerceapp.herokuapp.com/api/get/';
-  private get = 'http://pycommerceapp.herokuapp.com/api/get/';
+  // 'http://127.0.0.1:8000';
+  private get = 'http://127.0.0.1:8000/api/get/';
 
   constructor(private http: HttpClient) {}
 
@@ -22,11 +23,16 @@ export class GetDataService {
     );
   }
 
-  async decryptData(token, key) {
-    const decoder = new TextDecoder();
-    const jwk = await parseJwk(key, 'RSA-OAEP');
-    const { plaintext } = await compactDecrypt(token, jwk);
-    return JSON.parse(decoder.decode(plaintext));
+  async decryptData(token, key, type = 'AES') {
+    if (type == 'AES') {
+      var data = SJCL.decrypt(key, JSON.stringify(token));
+      return JSON.parse(data);
+    } else {
+      const jwk = await parseJwk(key, 'RSA-OAEP');
+      const { plaintext } = await compactDecrypt(token, jwk);
+      const decoder = new TextDecoder();
+      return JSON.parse(decoder.decode(plaintext));
+    }
   }
 
   async encryptData(data) {
