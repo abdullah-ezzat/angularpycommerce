@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/angularprojectnew",
+    "public": "dist/angularpycommerce",
     "ignore": [
       "firebase.json",
       "**/.*",
