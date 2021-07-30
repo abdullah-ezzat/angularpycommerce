@@ -10,11 +10,11 @@ const jose = require('node-jose');
 export class GetAllService {
   // Public Url: 'https://127.0.0.1:8000/' \\
 
-  private all = 'http://127.0.0.1:8000/api/all/';
+  private all = 'http://pycommerceapp.herokuapp.com/api/all/';
 
   constructor(private http: HttpClient) {}
 
-  async decryptData(token, key, type = 'AES') {
+  async decryptData(token, key, type = 'AES', dumped = true) {
     if (type == 'AES') {
       var data = SJCL.decrypt(key, JSON.stringify(token));
       return JSON.parse(data);
@@ -22,7 +22,12 @@ export class GetAllService {
       const jwk = await parseJwk(key, 'RSA-OAEP');
       const { plaintext } = await compactDecrypt(token, jwk);
       const decoder = new TextDecoder();
-      return JSON.parse(decoder.decode(plaintext));
+      if (dumped == true) {
+        var result = JSON.parse(decoder.decode(plaintext));
+      } else {
+        result = decoder.decode(plaintext);
+      }
+      return result;
     }
   }
 
