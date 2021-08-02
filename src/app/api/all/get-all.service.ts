@@ -10,7 +10,7 @@ const jose = require('node-jose');
 export class GetAllService {
   // Public Url: 'https://127.0.0.1:8000/' \\
 
-  private all = 'http://pycommerceapp.herokuapp.com/api/all/';
+  private all = 'http://127.0.0.1:8000/api/all';
 
   constructor(private http: HttpClient) {}
 
@@ -47,75 +47,53 @@ export class GetAllService {
       });
   }
 
-  getHomeProducts(page, selectedValues, search, categoryId) {
-    return this.http.get(
-      this.all +
-        'getHomeProducts' +
-        '/page=' +
-        page +
-        '/specValue=' +
-        selectedValues +
-        '/search=' +
-        search +
-        '/category=' +
-        categoryId
-    );
-  }
-
-  getProductsPage(page, search) {
-    return this.http.get(this.all + 'getProductsPage/' + page + '/' + search);
-  }
-
-  getProductNames(search) {
-    return this.http.get(this.all + 'productNames/' + search);
-  }
-
-  getMaxPage(selectedValues, search, categoryId) {
-    return this.http.get(
-      this.all +
-        'getMaxPage' +
-        '/specValue=' +
-        selectedValues +
-        '/search=' +
-        search +
-        '/category=' +
-        categoryId
-    );
-  }
-
-  getAllData(fn) {
-    return this.http.get(this.all + fn);
-  }
-
   getAllCategories() {
-    return this.http.get(this.all + 'mainCategories');
+    return this.http.get(`${this.all}/mainCategories`);
+  }
+  getAllCart(CartId) {
+    return this.http.get(`${this.all}/cart/${CartId}`);
+  }
+  getAllData(fn) {
+    return this.http.get(`${this.all}/${fn}`);
+  }
+  getAllReviews(ProductId) {
+    return this.http.get(`${this.all}/reviews/${ProductId}`);
   }
 
   getAllSpecifications(CategoryId) {
-    return this.http.get(this.all + 'spec/' + CategoryId);
+    return this.http.get(`${this.all}/spec/${CategoryId}`);
+  }
+
+  getHomeProducts(page, selectedValues, search, categoryId) {
+    return this.http.get(
+      `${this.all}/getHomeProducts/page=${page}/specValue=${selectedValues}/search=${search}/category=${categoryId}`
+    );
+  }
+  getOrdersFilterd(UserId, Status) {
+    return this.http.get(`${this.all}/ordersFiltered/${UserId}/${Status}`);
+  }
+
+  getProductsPage(page, search) {
+    return this.http.get(`${this.all}/getProductsPage/${page}/${search}`);
+  }
+
+  getProductNames(search) {
+    return this.http.get(`${this.all}/productNames/${search}`);
   }
 
   getProSpecInv(ProductId) {
-    return this.http.get(this.all + 'proSpecInv/' + ProductId);
+    return this.http.get(`${this.all}/proSpecInv/${ProductId}`);
   }
 
   getProSpec(ProductId) {
-    return this.http.get(this.all + 'productSpec/' + ProductId);
+    return this.http.get(`${this.all}/productSpec/${ProductId}`);
   }
-
-  getAllReviews(ProductId) {
-    return this.http.get(this.all + 'reviews/' + ProductId);
+  getMaxPage(selectedValues, search, categoryId) {
+    return this.http.get(
+      `${this.all}/getMaxPage/specValue=${selectedValues}/search=${search}/category=${categoryId}`
+    );
   }
-
-  getAllCart(CartId) {
-    return this.http.get(this.all + 'cart/' + CartId);
-  }
-
   getSubCategories() {
-    return this.http.get(this.all + 'subCategories');
-  }
-
-  getOrdersFilterd(UserId, Status) {
-    return this.http.get(this.all + 'ordersFiltered/' + UserId + '/' + Status);
+    return this.http.get(`${this.all}/subCategories`);
   }
 }

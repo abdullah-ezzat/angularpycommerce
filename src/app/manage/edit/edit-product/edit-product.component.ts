@@ -22,6 +22,10 @@ export class EditProductComponent implements OnInit {
   Brands: any;
   specifications: any;
   product: any;
+  image: File;
+  image2: File;
+  image3: File;
+  image4: File;
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
@@ -112,7 +116,6 @@ export class EditProductComponent implements OnInit {
     );
 
     this.product = ProductsDetail;
-
     function readURL(input, img) {
       if (input.value && input.value[0]) {
         var reader = new FileReader();
@@ -154,6 +157,18 @@ export class EditProductComponent implements OnInit {
       }
     );
   }
+  onChangeImg1(event: any) {
+    this.image = event.target.files[0];
+  }
+  onChangeImg2(event: any) {
+    this.image2 = event.target.files[0];
+  }
+  onChangeImg3(event: any) {
+    this.image3 = event.target.files[0];
+  }
+  onChangeImg4(event: any) {
+    this.image4 = event.target.files[0];
+  }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -162,33 +177,25 @@ export class EditProductComponent implements OnInit {
 
   updateProduct(post: ProductsDetail) {
     post.id = this.product.id;
-
-    if (post.Image != null) {
-      post.Image = post.Image._fileNames;
-    } else {
-      post.Image = this.product.Image;
+    const formData = new FormData();
+    formData.append('NameL', post.NameL.toString());
+    formData.append('BrandId', post.BrandId_id.toString());
+    formData.append('CategoryId', post.CategoryId_id.toString());
+    formData.append('Description', post.Description.toString());
+    if (this.image != null) {
+      formData.append('Image', this.image, this.image.name);
     }
-
-    if (post.Image2 != null) {
-      post.Image2 = post.Image2._fileNames;
-    } else {
-      post.Image2 = this.product.Image2;
+    if (this.image2 != null) {
+      formData.append('Image2', this.image2, this.image2.name);
     }
-
-    if (post.Image3 != null) {
-      post.Image3 = post.Image3._fileNames;
-    } else {
-      post.Image3 = this.product.Image3;
+    if (this.image3 != null) {
+      formData.append('Image3', this.image3, this.image3.name);
     }
-
-    if (post.Image4 != null) {
-      post.Image4 = post.Image4._fileNames;
-    } else {
-      post.Image4 = this.product.Image4;
+    if (this.image4 != null) {
+      formData.append('Image4', this.image4, this.image4.name);
     }
-
     this.update
-      .updateData('products', post.id, post)
+      .updateProduct(post.id, formData)
       .pipe()
       .subscribe(
         () => {},

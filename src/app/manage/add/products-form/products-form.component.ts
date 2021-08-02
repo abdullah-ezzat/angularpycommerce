@@ -14,6 +14,10 @@ declare var $: any;
 export class ProductsFormComponent implements OnInit {
   Categories: any;
   Brands: any;
+  image: File;
+  image2: File;
+  image3: File;
+  image4: File;
 
   constructor(
     private route: Router,
@@ -76,10 +80,38 @@ export class ProductsFormComponent implements OnInit {
       readURL(this, '#imgsrc4');
     });
   }
-
+  onChangeImg1(event: any) {
+    this.image = event.target.files[0];
+  }
+  onChangeImg2(event: any) {
+    this.image2 = event.target.files[0];
+  }
+  onChangeImg3(event: any) {
+    this.image3 = event.target.files[0];
+  }
+  onChangeImg4(event: any) {
+    this.image4 = event.target.files[0];
+  }
   saveProduct(post: ProductsDetail) {
+    const formData = new FormData();
+    formData.append('NameL', post.NameL.toString());
+    formData.append('BrandId', post.BrandId_id.toString());
+    formData.append('CategoryId', post.CategoryId_id.toString());
+    formData.append('Description', post.Description.toString());
+    if (this.image != null) {
+      formData.append('Image', this.image, this.image.name);
+    }
+    if (this.image2 != null) {
+      formData.append('Image2', this.image2, this.image2.name);
+    }
+    if (this.image3 != null) {
+      formData.append('Image3', this.image3, this.image3.name);
+    }
+    if (this.image4 != null) {
+      formData.append('Image4', this.image4, this.image4.name);
+    }
     this.add
-      .addData('products', post)
+      .addProduct(formData)
       .pipe()
       .subscribe(
         () => {},

@@ -59,6 +59,7 @@
       id="Image"
       name="Image"
       style="display: inline !important"
+      (change)="onChangeImg1($event)"
       required
     ></ngx-mat-file-input>
     <mat-icon matSuffix>folder</mat-icon>
@@ -72,6 +73,7 @@
       id="Image2"
       name="Image2"
       style="display: inline !important"
+      (change)="onChangeImg2($event)"
     ></ngx-mat-file-input>
     <mat-icon matSuffix>folder</mat-icon>
 
@@ -85,6 +87,7 @@
       id="Image3"
       name="Image3"
       style="display: inline !important"
+      (change)="onChangeImg3($event)"
     ></ngx-mat-file-input>
     <mat-icon matSuffix>folder</mat-icon>
     <img id="imgsrc3" width="50px" class="rounded ml-3" alt="" />
@@ -97,6 +100,7 @@
       id="Image4"
       name="Image4"
       style="display: inline !important"
+      (change)="onChangeImg4($event)"
     ></ngx-mat-file-input>
     <mat-icon matSuffix>folder</mat-icon>
     <img id="imgsrc4" width="50px" class="rounded ml-3" alt="" />

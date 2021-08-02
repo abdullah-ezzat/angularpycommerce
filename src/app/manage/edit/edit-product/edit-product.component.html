@@ -70,6 +70,7 @@
       name="Image"
       style="display: inline !important"
       required
+      (change)="onChangeImg1($event)"
       valuePlaceholder="{{ product.Image }}"
     ></ngx-mat-file-input>
     <mat-icon matSuffix>folder</mat-icon>
@@ -89,6 +90,7 @@
       id="Image2"
       name="Image2"
       style="display: inline !important"
+      (change)="onChangeImg2($event)"
       valuePlaceholder="{{ product.Image2 }}"
     ></ngx-mat-file-input>
     <mat-icon matSuffix>folder</mat-icon>
@@ -109,6 +111,7 @@
       id="Image3"
       name="Image3"
       style="display: inline !important"
+      (change)="onChangeImg3($event)"
       valuePlaceholder="{{ product.Image3 }}"
     ></ngx-mat-file-input>
     <mat-icon matSuffix>folder</mat-icon>
@@ -128,6 +131,7 @@
       id="Image4"
       name="Image4"
       style="display: inline !important"
+      (change)="onChangeImg4($event)"
       valuePlaceholder="{{ product.Image4 }}"
     ></ngx-mat-file-input>
     <mat-icon matSuffix>folder</mat-icon>
@@ -235,7 +239,7 @@
       "
       type="button"
       mat-raised-button
-      color="accent"
+      color="primary"
     >
       Copy Specification
     </button>

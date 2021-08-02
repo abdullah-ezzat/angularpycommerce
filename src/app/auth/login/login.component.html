@@ -6,6 +6,7 @@
         #register="ngForm"
         (ngSubmit)="Register(register.value)"
         class="was-validated overflow-auto register"
+        ngNativeValidate
       >
         <br />
         <h1>Create Account</h1>
@@ -73,6 +74,7 @@
         #login="ngForm"
         (ngSubmit)="Login(login.value)"
         class="was-validated"
+        ngNativeValidate
       >
         <br />
         <h1>Sign in</h1>

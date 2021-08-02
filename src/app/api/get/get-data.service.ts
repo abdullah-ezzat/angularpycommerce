@@ -9,19 +9,9 @@ const jose = require('node-jose');
 })
 export class GetDataService {
   // 'http://127.0.0.1:8000';
-  private get = 'http://pycommerceapp.herokuapp.com/api/get/';
+  private get = 'http://127.0.0.1:8000/api/get';
 
   constructor(private http: HttpClient) {}
-
-  assignCategory(CategoryId) {
-    return this.http.get(this.get + 'assignCategory/' + CategoryId);
-  }
-
-  checkProductExist(StoreId, ProductId) {
-    return this.http.get(
-      this.get + 'checkProduct/' + StoreId + '/' + ProductId
-    );
-  }
 
   async decryptData(token, key, type = 'AES', dumped = true) {
     if (type == 'AES') {
@@ -56,46 +46,47 @@ export class GetDataService {
       });
   }
 
-  getData(fn, id) {
-    return this.http.get(this.get + fn + '/' + id);
+  assignCategory(CategoryId) {
+    return this.http.get(`${this.get}/assignCategory/${CategoryId}`);
   }
 
+  checkProductExist(StoreId, ProductId) {
+    return this.http.get(`${this.get}/checkProduct/${StoreId}/${ProductId}`);
+  }
+  loginAsGuest() {
+    return this.http.get(`${this.get}/loginAsGuest`);
+  }
   getCartItem(ProductId) {
-    return this.http.get(this.get + 'cartItem/' + ProductId);
+    return this.http.get(`${this.get}/cartItem/${ProductId}`);
   }
-
   async getCartTotal(CartId) {
     const data = await this.http
-      .get(this.get + 'cartTotal/' + CartId)
+      .get(`${this.get}/cartTotal/${CartId}`)
       .toPromise();
     return data;
   }
-
-  getProductRating(ProductId) {
-    return this.http.get(this.get + 'productRate/' + ProductId);
+  getData(fn, id) {
+    return this.http.get(`${this.get}/${fn}/${id}`);
   }
-
-  getUser(UserId) {
-    return this.http.get(this.get + 'user/' + UserId);
-  }
-
   getOrders(UserId) {
-    return this.http.get(this.get + 'orders/' + UserId);
+    return this.http.get(`${this.get}/orders/${UserId}`);
   }
 
   getOrdersMaster(UserId) {
-    return this.http.get(this.get + 'ordersMaster/' + UserId);
+    return this.http.get(`${this.get}/ordersMaster/${UserId}`);
   }
 
   getOrdersShipping(UserId) {
-    return this.http.get(this.get + 'ordersShipping/' + UserId);
+    return this.http.get(`${this.get}/ordersShipping/${UserId}`);
   }
 
+  getProductRating(ProductId) {
+    return this.http.get(`${this.get}/productRate/${ProductId}`);
+  }
   getShippingDetails(UserId) {
-    return this.http.get(this.get + 'shippingDetails/' + UserId);
+    return this.http.get(`${this.get}/shippingDetails/${UserId}`);
   }
-
-  loginAsGuest() {
-    return this.http.get(this.get + 'loginAsGuest');
+  getUser(UserId) {
+    return this.http.get(`${this.get}/user/${UserId}`);
   }
 }
