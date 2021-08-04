@@ -14,8 +14,11 @@ import { StoresDetail } from '../../view/stores/Stores.model';
 })
 export class EditStoreComponent implements OnInit {
   Vendors: any;
+  filteredVendors: any;
   ShippingAgents: any;
+  filteredShippingAgents: any;
   Countries: any;
+  filteredCountries: any;
   store: any;
 
   constructor(
@@ -43,6 +46,7 @@ export class EditStoreComponent implements OnInit {
           .decryptData(response['token'], response['key'])
           .then((data) => {
             this.ShippingAgents = data;
+            this.filteredShippingAgents = this.ShippingAgents.slice();
           });
       },
       (error) => {
@@ -57,6 +61,7 @@ export class EditStoreComponent implements OnInit {
           .decryptData(response['token'], response['key'])
           .then((data) => {
             this.Vendors = data;
+            this.filteredVendors = this.Vendors.slice();
           });
       },
       (error) => {
@@ -71,6 +76,7 @@ export class EditStoreComponent implements OnInit {
           .decryptData(response['token'], response['key'])
           .then((data) => {
             this.Countries = data;
+            this.filteredCountries = this.Countries.slice();
           });
       },
       (error) => {

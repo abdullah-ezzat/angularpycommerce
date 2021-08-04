@@ -14,7 +14,7 @@ export class BrandsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  displayedColumns: string[] = ['id', 'NameA', 'NameL', 'edit'];
+  displayedColumns: string[] = ['id', 'NameL', 'edit'];
   dataSource;
   Brands: any;
 

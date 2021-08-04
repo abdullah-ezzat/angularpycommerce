@@ -17,9 +17,10 @@ export class InventoryDetailComponent implements OnInit {
 
   displayedColumns: string[] = [
     'id',
-    'StoreName',
     'ProductName',
+    'StoreName',
     'Quantity',
+    'TransType',
     'edit',
   ];
   dataSource;

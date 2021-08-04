@@ -5,6 +5,7 @@ import { GetAllService } from 'src/app/api/all/get-all.service';
 import { GetDataService } from 'src/app/api/get/get-data.service';
 import { CategoryDetail } from '../../add/category-form/category.model';
 import { ToastrService } from 'ngx-toastr';
+declare var $: any;
 @Component({
   selector: 'app-edit-category',
   templateUrl: './edit-category.component.html',
@@ -13,7 +14,8 @@ import { ToastrService } from 'ngx-toastr';
 export class EditComponent implements OnInit {
   category: any;
   Categories: any;
-  cat: any;
+  filteredCategories: any;
+  image: File;
 
   constructor(
     private route: ActivatedRoute,
@@ -40,6 +42,7 @@ export class EditComponent implements OnInit {
           .decryptData(response['token'], response['key'])
           .then((data) => {
             this.Categories = data;
+            this.filteredCategories = this.Categories.slice();
           });
       },
       (error) => {
@@ -48,12 +51,34 @@ export class EditComponent implements OnInit {
       }
     );
     this.category = CategoryDetail;
+    function readURL(input, img) {
+      if (input.value && input.value[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+          $(img).attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(input.value[0]);
+      }
+    }
+
+    $('#Image').change(function () {
+      readURL(this, '#imgsrc');
+    });
+  }
+  onChangeImg(event: any) {
+    this.image = event.target.files[0];
   }
 
   updateCategory(post: CategoryDetail) {
     post.id = this.category.id;
+    const formData = new FormData();
+    formData.append('NameL', post.NameL.toString());
+    formData.append('MainCategoryId', post.MainCategoryId_id.toString());
+    formData.append('ImageUrl', this.image, this.image.name);
     this.update
-      .updateData('categories', post.id, post)
+      .updateCategory(post.id, formData)
       .pipe()
       .subscribe(
         () => {},

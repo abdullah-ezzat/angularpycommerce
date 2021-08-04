@@ -3,7 +3,6 @@ export class StoresDetail {
   CountryId_id: Number;
   VendorId_id: Number;
   ShippingAgentId_id: number;
-  NameA: string;
   NameL: string;
   Email: string;
   Address: string;

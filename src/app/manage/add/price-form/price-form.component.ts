@@ -11,10 +11,12 @@ import { AddDataService } from 'src/app/api/add/add-data.service';
   styleUrls: ['./price-form.component.css'],
 })
 export class PriceFormComponent implements OnInit {
-  Prices: any;
   Products: any;
+  filteredProducts: any;
   Vendors: any;
+  filteredVendors: any;
   Countries: any;
+  filteredCountries: any;
 
   constructor(
     private route: Router,
@@ -30,6 +32,7 @@ export class PriceFormComponent implements OnInit {
           .decryptData(response['token'], response['key'])
           .then((data) => {
             this.Products = data;
+            this.filteredProducts = this.Products.slice();
           });
       },
       (error) => {
@@ -37,13 +40,13 @@ export class PriceFormComponent implements OnInit {
         console.log(error);
       }
     );
-
     this.all.getAllData('vendors').subscribe(
       async (response) => {
         await this.all
           .decryptData(response['token'], response['key'])
           .then((data) => {
             this.Vendors = data;
+            this.filteredVendors = this.Vendors.slice();
           });
       },
       (error) => {
@@ -58,6 +61,7 @@ export class PriceFormComponent implements OnInit {
           .decryptData(response['token'], response['key'])
           .then((data) => {
             this.Countries = data;
+            this.filteredCountries = this.Countries.slice();
           });
       },
       (error) => {

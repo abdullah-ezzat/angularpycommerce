@@ -41,6 +41,7 @@
     "express": "^4.16.3",
     "jose": "^3.14.0",
     "login": "^0.8.0",
+    "mat-select-filter": "^2.3.9",
     "netlify": "^8.0.0",
     "netlify-cli": "^5.2.10",
     "ng-particles": "^2.15.0",

@@ -13,8 +13,11 @@ import { ToastrService } from 'ngx-toastr';
 export class EditPriceComponent implements OnInit {
   price: any;
   Products: any;
+  filteredProducts: any;
   Vendors: any;
+  filteredVendors: any;
   Countries: any;
+  filteredCountries: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -41,6 +44,7 @@ export class EditPriceComponent implements OnInit {
           .decryptData(response['token'], response['key'])
           .then((data) => {
             this.Products = data;
+            this.filteredProducts = this.Products.slice();
           });
       },
       (error) => {
@@ -55,6 +59,7 @@ export class EditPriceComponent implements OnInit {
           .decryptData(response['token'], response['key'])
           .then((data) => {
             this.Vendors = data;
+            this.filteredVendors = this.Vendors.slice();
           });
       },
       (error) => {
@@ -69,6 +74,7 @@ export class EditPriceComponent implements OnInit {
           .decryptData(response['token'], response['key'])
           .then((data) => {
             this.Countries = data;
+            this.filteredCountries = this.Countries.slice();
           });
       },
       (error) => {

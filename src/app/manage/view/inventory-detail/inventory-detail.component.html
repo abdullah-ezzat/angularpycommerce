@@ -10,19 +10,24 @@
       <td mat-cell *matCellDef="let element">{{ element.id }}</td>
     </ng-container>
 
+    <ng-container matColumnDef="ProductName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Product</th>
+      <td mat-cell *matCellDef="let element">{{ element.ProductName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="StoreName">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Store</th>
+      <td mat-cell *matCellDef="let element">{{ element.StoreName }}</td>
+    </ng-container>
+
     <ng-container matColumnDef="Quantity">
       <th mat-header-cell *matHeaderCellDef mat-sort-header>Quantity</th>
       <td mat-cell *matCellDef="let element">{{ element.Quantity }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="ProductName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Product Name</th>
-      <td mat-cell *matCellDef="let element">{{ element.ProductName }}</td>
-    </ng-container>
-
-    <ng-container matColumnDef="StoreName">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Store Name</th>
-      <td mat-cell *matCellDef="let element">{{ element.StoreName }}</td>
+    <ng-container matColumnDef="TransType">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Trans Type</th>
+      <td mat-cell *matCellDef="let element">{{ element.TransTypeName }}</td>
     </ng-container>
 
     <ng-container matColumnDef="edit">

@@ -15,7 +15,7 @@ export class ProductsComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  displayedColumns: string[] = ['id', 'NameA', 'NameL', 'edit'];
+  displayedColumns: string[] = ['id', 'NameL', 'CategoryId', 'BrandId', 'edit'];
   dataSource;
   products: any;
 

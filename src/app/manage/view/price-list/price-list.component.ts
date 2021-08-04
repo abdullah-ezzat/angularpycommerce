@@ -17,8 +17,8 @@ export class PriceListComponent implements OnInit {
 
   displayedColumns: string[] = [
     'id',
-    'VendorId',
     'ProductId',
+    'VendorId',
     'CountryId',
     'Price',
     'edit',

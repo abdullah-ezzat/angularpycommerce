@@ -1,0 +1,44 @@
+<form
+  #form="ngForm"
+  (ngSubmit)="updateProductSpecification(form.value)"
+  class="p-3"
+  ngNativeValidate
+>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Specification Name</mat-label>
+    <mat-select
+      [(ngModel)]="specification.SpecificationId"
+      name="SpecificationName"
+      id="SpecificationName"
+    >
+      <mat-select-filter
+        [placeholder]="'Search...'"
+        [displayMember]="'NameL'"
+        [array]="Specifications"
+        (filteredReturn)="filteredSpecifications = $event"
+      ></mat-select-filter>
+      <mat-option
+        *ngFor="let specification of filteredSpecifications"
+        [value]="specification.id"
+        >{{ specification.NameL }}</mat-option
+      >
+    </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Specification Value</mat-label>
+    <textarea
+      matInput
+      id="SpecificationValue"
+      name="SpecificationValue"
+      [(ngModel)]="specification.SpecificationValue"
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Specification"
+      required
+    ></textarea>
+  </mat-form-field>
+
+  <div class="d-grid gap-2">
+    <button type="submit" mat-raised-button color="primary">Update</button>
+  </div>
+</form>

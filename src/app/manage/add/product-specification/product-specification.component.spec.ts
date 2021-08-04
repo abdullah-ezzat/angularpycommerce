@@ -2,16 +2,17 @@ import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ProductSpecificationComponent } from './product-specification.component';
 
-describe('ProductSpecificationComponent', () => {
+describe('SpecificationFormComponent', () => {
   let component: ProductSpecificationComponent;
   let fixture: ComponentFixture<ProductSpecificationComponent>;
 
-  beforeEach(waitForAsync(() => {
-    TestBed.configureTestingModule({
-      declarations: [ ProductSpecificationComponent ]
+  beforeEach(
+    waitForAsync(() => {
+      TestBed.configureTestingModule({
+        declarations: [ProductSpecificationComponent],
+      }).compileComponents();
     })
-    .compileComponents();
-  }));
+  );
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ProductSpecificationComponent);

@@ -19,33 +19,54 @@
 
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Vendor</mat-label>
-    <mat-select ngModel name="VendorId_id" id="VendorId_id">
-      <mat-option
-        *ngFor="let vendor of Vendors; let i = index"
-        [value]="Vendors[i].id"
-        >{{ Vendors[i].NameL }}</mat-option
-      >
+    <mat-select ngModel name="VendorId_id" id="VendorId_id" required>
+      <mat-select-filter
+        [placeholder]="'Search...'"
+        [displayMember]="'NameL'"
+        [array]="Vendors"
+        (filteredReturn)="filteredVendors = $event"
+      ></mat-select-filter>
+      <mat-option *ngFor="let vendor of filteredVendors" [value]="vendor.id">{{
+        vendor.NameL
+      }}</mat-option>
     </mat-select>
   </mat-form-field>
 
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Country</mat-label>
-    <mat-select ngModel name="CountryId_id" id="CountryId_id">
+    <mat-select ngModel name="CountryId_id" id="CountryId_id" required>
+      <mat-select-filter
+        [placeholder]="'Search...'"
+        [displayMember]="'NameL'"
+        [array]="Countries"
+        (filteredReturn)="filteredCountries = $event"
+      ></mat-select-filter>
       <mat-option
-        *ngFor="let Country of Countries; let i = index"
-        [value]="Countries[i].id"
-        >{{ Countries[i].NameL }}</mat-option
+        *ngFor="let Country of filteredCountries"
+        [value]="Country.id"
+        >{{ Country.NameL }}</mat-option
       >
     </mat-select>
   </mat-form-field>
 
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Shipping Agent</mat-label>
-    <mat-select ngModel name="shippingAgentId_id" id="shippingAgentId_id">
+    <mat-select
+      ngModel
+      name="shippingAgentId_id"
+      id="shippingAgentId_id"
+      required
+    >
+      <mat-select-filter
+        [placeholder]="'Search...'"
+        [displayMember]="'NameL'"
+        [array]="ShippingAgents"
+        (filteredReturn)="filteredShippingAgents = $event"
+      ></mat-select-filter>
       <mat-option
-        *ngFor="let shippingAgent of ShippingAgents; let i = index"
-        [value]="ShippingAgents[i].id"
-        >{{ ShippingAgents[i].NameL }}</mat-option
+        *ngFor="let shippingAgent of filteredShippingAgents"
+        [value]="shippingAgent.id"
+        >{{ shippingAgent.NameL }}</mat-option
       >
     </mat-select>
   </mat-form-field>

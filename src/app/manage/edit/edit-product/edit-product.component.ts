@@ -17,9 +17,12 @@ declare var $: any;
 })
 export class EditProductComponent implements OnInit {
   Categories: any;
-  ProductId: any;
+  filteredCategories: any;
   Products: any;
+  filteredProducts: any;
   Brands: any;
+  filteredBrands: any;
+  ProductId: any;
   specifications: any;
   product: any;
   image: File;
@@ -66,6 +69,7 @@ export class EditProductComponent implements OnInit {
           .decryptData(response['token'], response['key'])
           .then((data) => {
             this.Categories = data;
+            this.filteredCategories = this.Categories.slice();
           });
       },
       (error) => {
@@ -80,6 +84,7 @@ export class EditProductComponent implements OnInit {
           .decryptData(response['token'], response['key'])
           .then((data) => {
             this.Products = data;
+            this.filteredProducts = this.Products.slice();
           });
       },
       (error) => {
@@ -94,6 +99,7 @@ export class EditProductComponent implements OnInit {
           .decryptData(response['token'], response['key'])
           .then((data) => {
             this.Brands = data;
+            this.filteredBrands = this.Brands.slice();
           });
       },
       (error) => {
@@ -143,7 +149,7 @@ export class EditProductComponent implements OnInit {
   addProductSpecification(productId, CategoryId) {
     localStorage.setItem('CategoryId', CategoryId);
     localStorage.setItem('SpecificationProductId', productId);
-    location.assign('/manage/add/specification/');
+    location.assign('/manage/add/product/specification/');
   }
 
   copyProductSpecification(fromProductId, productId, CategoryId) {
@@ -174,7 +180,10 @@ export class EditProductComponent implements OnInit {
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
-
+  editSpecification(ProductId, CategoryId) {
+    localStorage.setItem('CategoryId', CategoryId);
+    location.assign('/manage/edit/product/specification/' + ProductId);
+  }
   updateProduct(post: ProductsDetail) {
     post.id = this.product.id;
     const formData = new FormData();

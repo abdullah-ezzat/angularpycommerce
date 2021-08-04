@@ -28,28 +28,6 @@
     ></textarea>
   </mat-form-field>
 
-  <mat-form-field class="w-100 mb-3" appearance="outline">
-    <mat-label>Category</mat-label>
-    <mat-select ngModel name="CategoryId_id" id="CategoryId_id">
-      <mat-option
-        *ngFor="let category of Categories; let i = index"
-        [value]="Categories[i].id"
-        >{{ Categories[i].NameL }}</mat-option
-      >
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field class="w-100 mb-3" appearance="outline">
-    <mat-label>Product</mat-label>
-    <mat-select ngModel name="ProductId_id" id="ProductId_id">
-      <mat-option
-        *ngFor="let product of Products; let i = index"
-        [value]="Products[i].id"
-        >{{ Products[i].NameL }}</mat-option
-      >
-    </mat-select>
-  </mat-form-field>
-
   <div class="d-grid gap-2">
     <button type="submit" mat-raised-button color="primary">Save</button>
   </div>

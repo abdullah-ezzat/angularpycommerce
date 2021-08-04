@@ -7,11 +7,15 @@
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Store</mat-label>
     <mat-select [(ngModel)]="detail.StoreId" name="StoreId_id" id="StoreId_id">
-      <mat-option
-        *ngFor="let store of Stores; let i = index"
-        [value]="Stores[i].id"
-        >{{ Stores[i].NameL }}</mat-option
-      >
+      <mat-select-filter
+        [placeholder]="'Search...'"
+        [displayMember]="'NameL'"
+        [array]="Stores"
+        (filteredReturn)="filteredStores = $event"
+      ></mat-select-filter>
+      <mat-option *ngFor="let store of filteredStores" [value]="store.id">{{
+        store.NameL
+      }}</mat-option>
     </mat-select>
   </mat-form-field>
 
@@ -22,10 +26,16 @@
       name="ProductId_id"
       id="ProductId_id"
     >
+      <mat-select-filter
+        [placeholder]="'Search...'"
+        [displayMember]="'NameL'"
+        [array]="Products"
+        (filteredReturn)="filteredProducts = $event"
+      ></mat-select-filter>
       <mat-option
-        *ngFor="let product of Products; let i = index"
-        [value]="Products[i].id"
-        >{{ Products[i].NameL }}</mat-option
+        *ngFor="let product of filteredProducts"
+        [value]="product.id"
+        >{{ product.NameL }}</mat-option
       >
     </mat-select>
   </mat-form-field>
@@ -40,6 +50,22 @@
       placeholder="Quantity"
       required
     />
+  </mat-form-field>
+
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Transaction Type</mat-label>
+    <mat-select
+      [(ngModel)]="detail.TransType"
+      name="TransType_id"
+      id="TransType_id"
+      required
+    >
+      <mat-option
+        *ngFor="let type of transTypes; let i = index"
+        [value]="transTypes[i].id"
+        >{{ transTypes[i].NameL }}</mat-option
+      >
+    </mat-select>
   </mat-form-field>
 
   <div class="d-grid gap-2">

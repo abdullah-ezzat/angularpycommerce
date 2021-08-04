@@ -1,0 +1,30 @@
+<form
+  #form="ngForm"
+  (ngSubmit)="addSpecification(form.value)"
+  class="p-3"
+  ngNativeValidate
+>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Specification Name</mat-label>
+    <textarea
+      matInput
+      ngModel
+      id="NameL"
+      name="NameL"
+      (keyup)="autoGrowTextZone($event)"
+      placeholder="Specification"
+      required
+    ></textarea>
+  </mat-form-field>
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Show In Filter</mat-label>
+    <mat-select ngModel name="ShowInFilter" id="ShowInFilter" required>
+      <mat-option value="true">True</mat-option>
+      <mat-option value="false">False</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="d-grid gap-2">
+    <button type="submit" mat-raised-button color="primary">Save</button>
+  </div>
+</form>

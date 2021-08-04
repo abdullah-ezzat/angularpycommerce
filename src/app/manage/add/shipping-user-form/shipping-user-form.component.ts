@@ -11,7 +11,9 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class ShippingUserFormComponent implements OnInit {
   ShippingUsers: any;
+  filteredShippingUsers: any;
   Users: any;
+  filteredUsers: any;
 
   constructor(
     private route: Router,
@@ -27,6 +29,7 @@ export class ShippingUserFormComponent implements OnInit {
           .decryptData(response['token'], response['key'])
           .then((data) => {
             this.Users = data;
+            this.filteredUsers = this.Users.slice();
           });
       },
       (error) => {
@@ -41,6 +44,7 @@ export class ShippingUserFormComponent implements OnInit {
           .decryptData(response['token'], response['key'])
           .then((data) => {
             this.ShippingUsers = data;
+            this.filteredShippingUsers = this.ShippingUsers.slice();
           });
       },
       (error) => {

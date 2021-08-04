@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { BsSidebarComponent } from '../../bs-sidebar/bs-sidebar.component';
 import { GetAllService } from 'src/app/api/all/get-all.service';
 import { AddDataService } from 'src/app/api/add/add-data.service';
+import { GetDataService } from 'src/app/api/get/get-data.service';
 
 @Component({
   selector: 'app-shopping-cart',
@@ -19,6 +20,7 @@ export class ShoppingCartComponent implements OnInit {
 
   constructor(
     private all: GetAllService,
+    private get: GetDataService,
     private add: AddDataService,
     private route: Router,
     private toastr: ToastrService,
@@ -45,13 +47,25 @@ export class ShoppingCartComponent implements OnInit {
 
         const currency = this.ShoppingCartDetails.map((item) => item.Currency);
         this.Currency = currency[0];
+        for (let i = 0; i < this.ShoppingCartDetails.length; i++) {
+          const ProductId = this.ShoppingCartDetails[i].ProductId;
+          const StoreId = this.ShoppingCartDetails[i].StoreId;
+          this.get
+            .checkProductQuantity(StoreId, ProductId)
+            .pipe()
+            .subscribe((qty) => {
+              this.ShoppingCartDetails[i].product_Qty = qty;
+            });
+        }
       } else {
         this.count(0);
         localStorage.removeItem('cart_count');
       }
     });
   }
-
+  numSequence(n: number): Array<number> {
+    return Array(n).slice(0, 10);
+  }
   total(total, num) {
     return total + num;
   }

@@ -19,13 +19,33 @@
 
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Category</mat-label>
-    <mat-select ngModel id="MainCategoryId_id" name="MainCategoryId_id">
+    <mat-select ngModel name="CategoryId_id" id="CategoryId_id" required>
+      <mat-select-filter
+        [placeholder]="'Search...'"
+        [displayMember]="'NameL'"
+        [array]="Categories"
+        (filteredReturn)="filteredCategories = $event"
+      ></mat-select-filter>
       <mat-option
-        *ngFor="let category of Categories; let i = index"
-        [value]="Categories[i].id"
-        >{{ Categories[i].NameL }}</mat-option
+        *ngFor="let Category of filteredCategories"
+        [value]="Category.id"
+        >{{ Category.NameL }}</mat-option
       >
     </mat-select>
+  </mat-form-field>
+
+  <mat-form-field class="w-100 mb-3" appearance="outline">
+    <mat-label>Category Image</mat-label>
+    <ngx-mat-file-input
+      ngModel
+      id="Image"
+      name="Image"
+      style="display: inline !important"
+      (change)="onChangeImg($event)"
+      required
+    ></ngx-mat-file-input>
+    <mat-icon matSuffix>folder</mat-icon>
+    <img id="imgsrc" width="50px" id="imgsrc" class="rounded ml-3" alt="" />
   </mat-form-field>
 
   <div class="d-grid gap-2">

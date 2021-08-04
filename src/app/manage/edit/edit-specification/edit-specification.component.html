@@ -1,6 +1,6 @@
 <form
   #form="ngForm"
-  (ngSubmit)="updateProductSpecification(form.value)"
+  (ngSubmit)="updateSpecification(form.value)"
   class="p-3"
   ngNativeValidate
 >
@@ -8,9 +8,9 @@
     <mat-label>Specification Name</mat-label>
     <textarea
       matInput
-      id="SpecificationName"
-      name="SpecificationName"
-      [(ngModel)]="specification.SpecificationName"
+      id="NameL"
+      name="NameL"
+      [(ngModel)]="specification.NameL"
       (keyup)="autoGrowTextZone($event)"
       placeholder="Specification"
       required
@@ -18,45 +18,16 @@
   </mat-form-field>
 
   <mat-form-field class="w-100 mb-3" appearance="outline">
-    <mat-label>Specification Value</mat-label>
-    <textarea
-      matInput
-      id="SpecificationValue"
-      name="SpecificationValue"
-      [(ngModel)]="specification.SpecificationValue"
-      (keyup)="autoGrowTextZone($event)"
-      placeholder="Specification"
+    <mat-label>Show In Filter</mat-label>
+    <mat-select
+      [(ngModel)]="specification.ShowInFilter"
+      name="ShowInFilter"
+      id="ShowInFilter"
+      [value]="specification.ShowInFilter"
       required
-    ></textarea>
-  </mat-form-field>
-
-  <mat-form-field class="w-100 mb-3" appearance="outline">
-    <mat-label>Category</mat-label>
-    <mat-select
-      [(ngModel)]="specification.CategoryId"
-      name="CategoryId_id"
-      id="CategoryId_id"
     >
-      <mat-option
-        *ngFor="let category of Categories; let i = index"
-        [value]="Categories[i].id"
-        >{{ Categories[i].NameL }}</mat-option
-      >
-    </mat-select>
-  </mat-form-field>
-
-  <mat-form-field class="w-100 mb-3" appearance="outline">
-    <mat-label>Product</mat-label>
-    <mat-select
-      [(ngModel)]="specification.ProductId"
-      name="ProductId_id"
-      id="ProductId_id"
-    >
-      <mat-option
-        *ngFor="let product of Products; let i = index"
-        [value]="Products[i].id"
-        >{{ Products[i].NameL }}</mat-option
-      >
+      <mat-option [value]="true">True</mat-option>
+      <mat-option [value]="false">False</mat-option>
     </mat-select>
   </mat-form-field>
 

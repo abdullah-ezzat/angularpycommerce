@@ -6,15 +6,21 @@ import { Injectable } from '@angular/core';
 })
 export class AddDataService {
   // http://127.0.0.1:8000
-  private add = 'http://pycommerceapp.herokuapp.com/api/add';
+  private add = 'http://127.0.0.1:8000/api/add';
 
   constructor(private http: HttpClient) {}
 
   addCartItem(post: any) {
     return this.http.post(`${this.add}/cartItem`, post);
   }
+  addCategory(post: any) {
+    return this.http.post(`${this.add}/addCategory`, post);
+  }
   addData(model, post: any) {
     return this.http.post(`${this.add}/${model}`, post);
+  }
+  addInventory(post: any) {
+    return this.http.post(`${this.add}/addInventory`, post);
   }
   addOrder(cartId, userId) {
     return this.http.post(`${this.add}/order/${cartId}/${userId}`, null);
@@ -33,7 +39,7 @@ export class AddDataService {
   }
   copyProductSpec(ProductSpecId, ProductId, CategoryId) {
     return this.http.post(
-      `${this.add}/copyProSpec/${ProductSpecId}/ ${ProductId}/${CategoryId}`,
+      `${this.add}/copyProSpec/${ProductSpecId}/${ProductId}/${CategoryId}`,
       null
     );
   }
@@ -55,6 +61,9 @@ export class AddDataService {
   updateData(model, id, post: any) {
     return this.http.post(`${this.add}/${model}/${id}`, post);
   }
+  updateInvDetail(id, post: any) {
+    return this.http.post(`${this.add}/updateInvDetail/${id}`, post);
+  }
   updateProduct(id, post: any) {
     return this.http.post(`${this.add}/updateProduct/${id}`, post);
   }
@@ -68,20 +77,22 @@ export class AddDataService {
   }
 
   registerUser(post: any) {
-    return this.http.post(`${this.add}/registerUser'`, post);
+    return this.http.post(`${this.add}/registerUser`, post);
   }
 
+  updateCategory(id, post: any) {
+    return this.http.post(`${this.add}/updateCategory/${id}`, post);
+  }
   updateUser(id, post: any) {
-    return this.http.post(`${this.add}/updateUser/` + id, post);
+    return this.http.post(`${this.add}/updateUser/${id}`, post);
   }
-
   updateImages(id, post: any) {
     return this.http.post(`${this.add}/updateImages/${id}`, post);
   }
   deleteCartItem(id) {
-    return this.http.delete(`${this.add}/deleteItem` + id);
+    return this.http.delete(`${this.add}/deleteItem/${id}`);
   }
   deleteCart(cartId) {
-    return this.http.delete(`${this.add}/deleteCart` + cartId);
+    return this.http.delete(`${this.add}/deleteCart/${cartId}`);
   }
 }

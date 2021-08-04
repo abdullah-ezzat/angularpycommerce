@@ -25,10 +25,16 @@
       id="CategoryId_id"
       required
     >
+      <mat-select-filter
+        [placeholder]="'Search...'"
+        [displayMember]="'NameL'"
+        [array]="Categories"
+        (filteredReturn)="filteredCategories = $event"
+      ></mat-select-filter>
       <mat-option
-        *ngFor="let Category of Categories; let i = index"
-        [value]="Categories[i].id"
-        >{{ Categories[i].NameL }}</mat-option
+        *ngFor="let Category of filteredCategories"
+        [value]="Category.id"
+        >{{ Category.NameL }}</mat-option
       >
     </mat-select>
   </mat-form-field>
@@ -41,11 +47,15 @@
       id="BrandId_id"
       required
     >
-      <mat-option
-        *ngFor="let Brand of Brands; let i = index"
-        [value]="Brands[i].id"
-        >{{ Brands[i].NameL }}</mat-option
-      >
+      <mat-select-filter
+        [placeholder]="'Search...'"
+        [displayMember]="'NameL'"
+        [array]="Brands"
+        (filteredReturn)="filteredBrands = $event"
+      ></mat-select-filter>
+      <mat-option *ngFor="let Brand of filteredBrands" [value]="Brand.id">{{
+        Brand.NameL
+      }}</mat-option>
     </mat-select>
   </mat-form-field>
 
@@ -188,7 +198,12 @@
       <ng-container matColumnDef="edit">
         <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
         <td mat-cell *matCellDef="let element">
-          <a [routerLink]="['/manage/edit/specification', element.id]">Edit</a>
+          <a
+            (click)="editSpecification(element.id, product.CategoryId)"
+            class="pe-auto"
+            style="cursor: pointer"
+            >Edit</a
+          >
         </td>
       </ng-container>
 
@@ -221,11 +236,15 @@
       id="FromProductId"
       ngModel
     >
-      <mat-option
-        *ngFor="let product of Products; let i = index"
-        [value]="Products[i].id"
-        >{{ Products[i].NameL }}</mat-option
-      >
+      <mat-select-filter
+        [placeholder]="'Search...'"
+        [displayMember]="'NameL'"
+        [array]="Products"
+        (filteredReturn)="filteredProducts = $event"
+      ></mat-select-filter>
+      <mat-option *ngFor="let item of filteredProducts" [value]="item.id">
+        {{ item.NameL }}
+      </mat-option>
     </mat-select>
   </mat-form-field>
   <div *ngIf="FromProductId.value" class="d-grid gap-2">

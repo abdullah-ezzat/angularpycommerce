@@ -1,6 +1,5 @@
 export class VendorDetails {
   id: Number;
-  NameA: string;
   NameL: string;
   Email: string;
   Password: string;

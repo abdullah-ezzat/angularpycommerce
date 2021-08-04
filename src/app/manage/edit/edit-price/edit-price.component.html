@@ -12,11 +12,15 @@
       id="VendorId_id"
       required
     >
-      <mat-option
-        *ngFor="let vendor of Vendors; let i = index"
-        [value]="Vendors[i].id"
-        >{{ Vendors[i].NameL }}</mat-option
-      >
+      <mat-select-filter
+        [placeholder]="'Search...'"
+        [displayMember]="'NameL'"
+        [array]="Vendors"
+        (filteredReturn)="filteredVendors = $event"
+      ></mat-select-filter>
+      <mat-option *ngFor="let vendor of filteredVendors" [value]="vendor.id">{{
+        vendor.NameL
+      }}</mat-option>
     </mat-select>
   </mat-form-field>
 
@@ -28,11 +32,15 @@
       id="ProductId_id"
       required
     >
-      <mat-option
-        *ngFor="let product of Products; let i = index"
-        [value]="Products[i].id"
-        >{{ Products[i].NameL }}</mat-option
-      >
+      <mat-select-filter
+        [placeholder]="'Search...'"
+        [displayMember]="'NameL'"
+        [array]="Products"
+        (filteredReturn)="filteredProducts = $event"
+      ></mat-select-filter>
+      <mat-option *ngFor="let item of filteredProducts" [value]="item.id">
+        {{ item.NameL }}
+      </mat-option>
     </mat-select>
   </mat-form-field>
 
@@ -44,10 +52,16 @@
       id="CountryId_id"
       required
     >
+      <mat-select-filter
+        [placeholder]="'Search...'"
+        [displayMember]="'NameL'"
+        [array]="Countries"
+        (filteredReturn)="filteredCountries = $event"
+      ></mat-select-filter>
       <mat-option
-        *ngFor="let country of Countries; let i = index"
-        [value]="Countries[i].id"
-        >{{ Countries[i].NameL }}</mat-option
+        *ngFor="let country of filteredCountries"
+        [value]="country.id"
+        >{{ country.NameL }}</mat-option
       >
     </mat-select>
   </mat-form-field>

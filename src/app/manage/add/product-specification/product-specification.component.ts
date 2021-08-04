@@ -2,16 +2,15 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AddDataService } from 'src/app/api/add/add-data.service';
 import { GetAllService } from 'src/app/api/all/get-all.service';
-import { ProductSpecificationDetails } from '../../../views/product-specification/product-specification.model';
+import { ProductSpecificationDetails } from './product-specification.model';
 import { ToastrService } from 'ngx-toastr';
 @Component({
-  selector: 'app-specification-form',
-  templateUrl: './specification-form.component.html',
-  styleUrls: ['./specification-form.component.css'],
+  selector: 'app-product-specification',
+  templateUrl: './product-specification.component.html',
+  styleUrls: ['./product-specification.component.css'],
 })
-export class SpecificationFormComponent implements OnInit {
+export class ProductSpecificationComponent implements OnInit {
   Products: any;
-  Specification: any;
   Specifications: any;
   ProductId: any;
   CategoryId: any;
@@ -77,6 +76,8 @@ export class SpecificationFormComponent implements OnInit {
   }
 
   addSpecification(post: ProductSpecificationDetails) {
+    post.ProductId = this.ProductId;
+    post.CategoryId = this.CategoryId;
     this.add
       .addData('productSpecifications', post)
       .pipe()

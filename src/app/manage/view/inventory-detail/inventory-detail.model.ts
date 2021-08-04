@@ -5,4 +5,5 @@ export class InventoryDetails {
   Quantity: Number;
   UnitCost: Number;
   TotalCost: Number;
+  TransType_id: Number;
 }

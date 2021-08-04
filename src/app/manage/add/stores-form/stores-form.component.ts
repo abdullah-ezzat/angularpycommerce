@@ -11,10 +11,12 @@ import { StoresDetail } from '../../view/stores/Stores.model';
   styleUrls: ['./stores-form.component.css'],
 })
 export class StoresFormComponent implements OnInit {
-  Stores: any;
   Vendors: any;
+  filteredVendors: any;
   Countries: any;
+  filteredCountries: any;
   ShippingAgents: any;
+  filteredShippingAgents: any;
 
   constructor(
     private all: GetAllService,
@@ -29,6 +31,7 @@ export class StoresFormComponent implements OnInit {
           .decryptData(response['token'], response['key'])
           .then((data) => {
             this.Vendors = data;
+            this.filteredVendors = this.Vendors.slice();
           });
       },
       (error) => {
@@ -43,6 +46,7 @@ export class StoresFormComponent implements OnInit {
           .decryptData(response['token'], response['key'])
           .then((data) => {
             this.ShippingAgents = data;
+            this.filteredShippingAgents = this.ShippingAgents.slice();
           });
       },
       (error) => {
@@ -57,6 +61,7 @@ export class StoresFormComponent implements OnInit {
           .decryptData(response['token'], response['key'])
           .then((data) => {
             this.Countries = data;
+            this.filteredCountries = this.Countries.slice();
           });
       },
       (error) => {

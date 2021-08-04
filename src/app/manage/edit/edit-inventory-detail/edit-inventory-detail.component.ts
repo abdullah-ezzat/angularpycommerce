@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { InventoryDetails } from '../../view/inventory-detail/inventory-detail.model';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AddDataService } from 'src/app/api/add/add-data.service';
 import { GetAllService } from 'src/app/api/all/get-all.service';
 import { GetDataService } from 'src/app/api/get/get-data.service';
@@ -14,7 +14,10 @@ import { ToastrService } from 'ngx-toastr';
 export class EditInventoryDetailComponent implements OnInit {
   detail: any;
   Stores: any;
+  filteredStores: any;
   Products: any;
+  filteredProducts: any;
+  transTypes: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -41,6 +44,20 @@ export class EditInventoryDetailComponent implements OnInit {
           .decryptData(response['token'], response['key'])
           .then((data) => {
             this.Stores = data;
+            this.filteredStores = this.Stores.slice();
+          });
+      },
+      (error) => {
+        this.toastr.error('Error while retrieving data');
+        console.log(error);
+      }
+    );
+    this.all.getAllData('transactionTypes').subscribe(
+      async (response) => {
+        await this.all
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.transTypes = data;
           });
       },
       (error) => {
@@ -55,6 +72,7 @@ export class EditInventoryDetailComponent implements OnInit {
           .decryptData(response['token'], response['key'])
           .then((data) => {
             this.Products = data;
+            this.filteredProducts = this.Products.slice();
           });
       },
       (error) => {
@@ -73,7 +91,7 @@ export class EditInventoryDetailComponent implements OnInit {
       .subscribe((response) => {
         if (response == true) {
           this.update
-            .updateData('inventoryDetails', post.id, post)
+            .updateInvDetail(post.id, post)
             .pipe()
             .subscribe(
               () => {},

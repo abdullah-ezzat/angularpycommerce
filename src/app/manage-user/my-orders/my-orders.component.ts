@@ -37,13 +37,13 @@ export class MyOrdersComponent implements OnInit {
   ngOnInit(): void {
     let UserId = localStorage.getItem('UserId');
     this.User = UserId;
+    this.get.getOrdersMaster(UserId).subscribe((response) => {
+      this.Masters = response;
+    });
     this.get.getOrders(UserId).subscribe((response) => {
       this.Orders = response;
       const currency = this.Orders.map((item) => item.Currency);
       this.Currency = currency[0];
-    });
-    this.get.getOrdersMaster(UserId).subscribe((response) => {
-      this.Masters = response;
     });
   }
 

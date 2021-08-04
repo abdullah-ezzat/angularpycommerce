@@ -13,7 +13,9 @@ import { ToastrService } from 'ngx-toastr';
 export class ShippingUserEditComponent implements OnInit {
   shippingUser: any;
   ShippingUsers: any;
+  filteredShippingUsers: any;
   Users: any;
+  filteredUsers: any;
 
   constructor(
     private route: ActivatedRoute,
@@ -40,6 +42,7 @@ export class ShippingUserEditComponent implements OnInit {
           .decryptData(response['token'], response['key'])
           .then((data) => {
             this.ShippingUsers = data;
+            this.filteredShippingUsers = this.ShippingUsers.slice();
           });
       },
       (error) => {
@@ -51,6 +54,7 @@ export class ShippingUserEditComponent implements OnInit {
     this.all.getAllData('users').subscribe(
       (response) => {
         this.Users = response;
+        this.filteredUsers = this.Users.slice();
       },
       (error) => {
         this.toastr.error('Error while retrieving data');

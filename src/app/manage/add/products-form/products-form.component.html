@@ -20,10 +20,16 @@
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Category</mat-label>
     <mat-select ngModel name="CategoryId_id" id="CategoryId_id" required>
+      <mat-select-filter
+        [placeholder]="'Search...'"
+        [displayMember]="'NameL'"
+        [array]="Categories"
+        (filteredReturn)="filteredCategories = $event"
+      ></mat-select-filter>
       <mat-option
-        *ngFor="let Category of Categories; let i = index"
-        [value]="Categories[i].id"
-        >{{ Categories[i].NameL }}</mat-option
+        *ngFor="let Category of filteredCategories"
+        [value]="Category.id"
+        >{{ Category.NameL }}</mat-option
       >
     </mat-select>
   </mat-form-field>
@@ -31,11 +37,15 @@
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>Brand</mat-label>
     <mat-select ngModel name="BrandId_id" id="BrandId_id" required>
-      <mat-option
-        *ngFor="let Brand of Brands; let i = index"
-        [value]="Brands[i].id"
-        >{{ Brands[i].NameL }}</mat-option
-      >
+      <mat-select-filter
+        [placeholder]="'Search...'"
+        [displayMember]="'NameL'"
+        [array]="Brands"
+        (filteredReturn)="filteredBrands = $event"
+      ></mat-select-filter>
+      <mat-option *ngFor="let Brand of filteredBrands" [value]="Brand.id">{{
+        Brand.NameL
+      }}</mat-option>
     </mat-select>
   </mat-form-field>
 

@@ -13,7 +13,9 @@ declare var $: any;
 })
 export class ProductsFormComponent implements OnInit {
   Categories: any;
+  filteredCategories: any;
   Brands: any;
+  filteredBrands: any;
   image: File;
   image2: File;
   image3: File;
@@ -33,6 +35,7 @@ export class ProductsFormComponent implements OnInit {
           .decryptData(response['token'], response['key'])
           .then((data) => {
             this.Categories = data;
+            this.filteredCategories = this.Categories.slice();
           });
       },
       (error) => {
@@ -47,6 +50,7 @@ export class ProductsFormComponent implements OnInit {
           .decryptData(response['token'], response['key'])
           .then((data) => {
             this.Brands = data;
+            this.filteredBrands = this.Brands.slice();
           });
       },
       (error) => {

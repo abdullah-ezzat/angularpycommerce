@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { InventoryDetails } from '../../view/inventory-detail/inventory-detail.model';
 import { ToastrService } from 'ngx-toastr';
+import { InventoryDetails } from '../../view/inventory-detail/inventory-detail.model';
 import { GetAllService } from 'src/app/api/all/get-all.service';
 import { AddDataService } from 'src/app/api/add/add-data.service';
 import { GetDataService } from 'src/app/api/get/get-data.service';
@@ -12,13 +11,12 @@ import { GetDataService } from 'src/app/api/get/get-data.service';
   styleUrls: ['./inventory-detail-form.component.css'],
 })
 export class InventoryDetailFormComponent implements OnInit {
-  Details: any;
   Stores: any;
+  filteredStores: any;
   Products: any;
-  checkExist: any;
+  filteredProducts: any;
 
   constructor(
-    private route: Router,
     private toastr: ToastrService,
     private all: GetAllService,
     private get: GetDataService,
@@ -32,6 +30,7 @@ export class InventoryDetailFormComponent implements OnInit {
           .decryptData(response['token'], response['key'])
           .then((data) => {
             this.Products = data;
+            this.filteredProducts = this.Products.slice();
           });
       },
       (error) => {
@@ -46,6 +45,7 @@ export class InventoryDetailFormComponent implements OnInit {
           .decryptData(response['token'], response['key'])
           .then((data) => {
             this.Stores = data;
+            this.filteredStores = this.Stores.slice();
           });
       },
       (error) => {
@@ -62,7 +62,7 @@ export class InventoryDetailFormComponent implements OnInit {
       .subscribe((response) => {
         if (response == true) {
           this.add
-            .addData('inventoryDetails', post)
+            .addInventory(post)
             .pipe()
             .subscribe(
               () => {},

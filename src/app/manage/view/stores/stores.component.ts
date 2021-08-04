@@ -17,8 +17,8 @@ export class StoresComponent implements OnInit {
 
   displayedColumns: string[] = [
     'id',
-    'VendorName',
     'NameL',
+    'VendorName',
     'Email',
     'ShippingAgentName',
     'CountryName',

@@ -1,49 +1,45 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AddDataService } from 'src/app/api/add/add-data.service';
 import { GetAllService } from 'src/app/api/all/get-all.service';
 import { GetDataService } from 'src/app/api/get/get-data.service';
-import { ProductSpecificationDetails } from '../../../views/product-specification/product-specification.model';
-import { ToastrService } from 'ngx-toastr';
+import { SpecificationDetails } from '../../view/view-specifications/specifications.model';
+
 @Component({
   selector: 'app-edit-specification',
   templateUrl: './edit-specification.component.html',
   styleUrls: ['./edit-specification.component.css'],
 })
 export class EditSpecificationComponent implements OnInit {
-  specification: any;
-  Products: any;
   ProductId: any;
-  Categories: any;
-
+  specification: any;
+  Specifications: any;
   constructor(
     private route: ActivatedRoute,
-    private all: GetAllService,
     private get: GetDataService,
+    private all: GetAllService,
     private update: AddDataService,
     private toastr: ToastrService
   ) {
     let id = this.route.snapshot.paramMap.get('Id');
     this.ProductId = id;
     if (id)
-      this.get
-        .getData('productSpecifications', id)
-        .subscribe(async (response) => {
-          await this.get
-            .decryptData(response['token'], response['key'])
-            .then((data) => {
-              this.specification = data;
-            });
-        });
-  }
-
-  ngOnInit(): void {
-    this.all.getAllData('products').subscribe(
-      async (response) => {
-        await this.all
+      this.get.getData('specifications', id).subscribe(async (response) => {
+        await this.get
           .decryptData(response['token'], response['key'])
           .then((data) => {
-            this.Products = data;
+            this.specification = data;
+          });
+      });
+  }
+  ngOnInit() {
+    this.all.getAllData('specifications').subscribe(
+      async (response) => {
+        await this.get
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.Specifications = data;
           });
       },
       (error) => {
@@ -51,27 +47,11 @@ export class EditSpecificationComponent implements OnInit {
         console.log(error);
       }
     );
-
-    this.all.getAllData('categories').subscribe(
-      async (response) => {
-        await this.all
-          .decryptData(response['token'], response['key'])
-          .then((data) => {
-            this.Categories = data;
-          });
-      },
-      (error) => {
-        this.toastr.error('Error while retrieving data');
-        console.log(error);
-      }
-    );
-    this.specification = ProductSpecificationDetails;
   }
-
-  updateProductSpecification(post: ProductSpecificationDetails) {
+  updateSpecification(post: SpecificationDetails) {
     post.id = this.specification.id;
     this.update
-      .updateData('productSpecifications', post.id, post)
+      .updateData('specifications', post.id, post)
       .pipe()
       .subscribe(
         () => {},
@@ -80,7 +60,7 @@ export class EditSpecificationComponent implements OnInit {
           console.log(error);
         }
       );
-    location.assign('/manage/edit/product/' + this.specification.ProductId);
+    location.assign('/manage/specifications/');
   }
   autoGrowTextZone(e) {
     e.target.style.height = '0px';

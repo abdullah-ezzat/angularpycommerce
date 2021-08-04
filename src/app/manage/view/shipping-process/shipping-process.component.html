@@ -56,10 +56,11 @@
             </div>
           </div>
           <div class="col-12 col-md-3 mb-3 align">
-            <strong class="mb-3"
-              >{{ order.UnitPrice | number }} {{ Currency }}</strong
+            <strong class="mb-1"
+              >{{ order.TotalPrice | number }} {{ Currency }}</strong
             >
-            <strong class="mb-2">Seller: &nbsp;{{ order.VendorName }}</strong>
+            <strong class="mb-1">Quantity: &nbsp;{{ order.Quantity }}</strong>
+            <strong class="mb-1">Seller: &nbsp;{{ order.VendorName }}</strong>
             <form
               #form="ngForm"
               (ngSubmit)="addDeliveryNotes(form.value, order.id)"

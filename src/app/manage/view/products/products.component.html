@@ -10,14 +10,19 @@
       <td mat-cell *matCellDef="let element">{{ element.id }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="NameA">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Arabic Name</th>
-      <td mat-cell *matCellDef="let element">{{ element.NameA }}</td>
+    <ng-container matColumnDef="NameL">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Product</th>
+      <td mat-cell *matCellDef="let element">{{ element.NameL }}</td>
     </ng-container>
 
-    <ng-container matColumnDef="NameL">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>English Name</th>
-      <td mat-cell *matCellDef="let element">{{ element.NameL }}</td>
+    <ng-container matColumnDef="CategoryId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
+      <td mat-cell *matCellDef="let element">{{ element.CategoryName }}</td>
+    </ng-container>
+
+    <ng-container matColumnDef="BrandId">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header>Brand</th>
+      <td mat-cell *matCellDef="let element">{{ element.BrandName }}</td>
     </ng-container>
 
     <ng-container matColumnDef="edit">

@@ -29,18 +29,20 @@ import { PriceFormComponent } from './manage/add/price-form/price-form.component
 import { EditPriceComponent } from './manage/edit/edit-price/edit-price.component';
 import { CheckoutComponent } from './screens/checkout/checkout.component';
 import { LoginComponent } from './auth/login/login.component';
-import { ProductSpecificationComponent } from './views/product-specification/product-specification.component';
-import { SpecificationFormComponent } from './manage/add/specification-form/specification-form.component';
+import { ProductSpecificationComponent } from './manage/add/product-specification/product-specification.component';
 import { ShippingAgentComponent } from './manage/view/shipping-agent/shipping-agent.component';
 import { ShippingAgentFormComponent } from './manage/add/shipping-agent-form/shipping-agent-form.component';
 import { MyOrdersComponent } from './manage-user/my-orders/my-orders.component';
 import { ShippingAgentUserComponent } from './manage/view/shipping-agent-user/shipping-agent-user.component';
 import { ShippingUserFormComponent } from './manage/add/shipping-user-form/shipping-user-form.component';
 import { ShippingUserEditComponent } from './manage/edit/shipping-user-edit/shipping-user-edit.component';
-import { EditSpecificationComponent } from './manage/edit/edit-specification/edit-specification.component';
+import { EditProductSpecificationComponent } from './manage/edit/edit-product-specification/edit-product-specification.component';
 import { ShippingProcessComponent } from './manage/view/shipping-process/shipping-process.component';
 import { ShippingAgentsEditComponent } from './manage/edit/shipping-agents-edit/shipping-agents-edit.component';
 import { MyAccountComponent } from './manage-user/my-account/my-account.component';
+import { AddSpecificationComponent } from './manage/add/add-specification/add-specification.component';
+import { ViewSpecificationsComponent } from './manage/view/view-specifications/view-specifications.component';
+import { EditSpecificationComponent } from './manage/edit/edit-specification/edit-specification.component';
 
 const routes: Routes = [
   { path: '', component: WelcomeComponent },
@@ -62,11 +64,7 @@ const routes: Routes = [
   { path: 'manage/add/products', component: ProductsFormComponent },
   { path: 'manage/products', component: ProductsComponent },
   {
-    path: 'manage/add/specification',
-    component: SpecificationFormComponent,
-  },
-  {
-    path: 'manage/specifications',
+    path: 'manage/add/product/specification',
     component: ProductSpecificationComponent,
   },
   { path: 'manage/add/vendor', component: VendorsFormComponent },
@@ -77,6 +75,8 @@ const routes: Routes = [
   { path: 'manage/brands', component: BrandsComponent },
   { path: 'manage/add/price', component: PriceFormComponent },
   { path: 'manage/prices', component: PriceListComponent },
+  { path: 'manage/add/specification', component: AddSpecificationComponent },
+  { path: 'manage/specifications', component: ViewSpecificationsComponent },
   {
     path: 'manage/add/inventory',
     component: InventoryDetailFormComponent,
@@ -110,6 +110,11 @@ const routes: Routes = [
   { path: 'manage/edit/store/:Id', component: EditStoreComponent },
   { path: 'manage/edit/brand', component: EditBrandComponent },
   { path: 'manage/edit/brand/:Id', component: EditBrandComponent },
+  { path: 'manage/edit/specification', component: EditSpecificationComponent },
+  {
+    path: 'manage/edit/specification/:Id',
+    component: EditSpecificationComponent,
+  },
   {
     path: 'manage/edit/inventory',
     component: EditInventoryDetailComponent,
@@ -119,12 +124,12 @@ const routes: Routes = [
     component: EditInventoryDetailComponent,
   },
   {
-    path: 'manage/edit/specification',
-    component: EditSpecificationComponent,
+    path: 'manage/edit/product/specification',
+    component: EditProductSpecificationComponent,
   },
   {
-    path: 'manage/edit/specification/:Id',
-    component: EditSpecificationComponent,
+    path: 'manage/edit/product/specification/:Id',
+    component: EditProductSpecificationComponent,
   },
   { path: 'manage/edit/price', component: EditPriceComponent },
   { path: 'manage/edit/price/:Id', component: EditPriceComponent },

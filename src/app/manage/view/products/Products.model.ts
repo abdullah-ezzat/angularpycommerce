@@ -1,7 +1,6 @@
 export class ProductsDetail {
   id: Number;
   BrandId_id: Number;
-  NameA: string;
   NameL: string;
 
   Image: any;

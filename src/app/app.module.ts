@@ -26,6 +26,8 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatListModule } from '@angular/material/list';
 import { MatMenuModule } from '@angular/material/menu';
+import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { MatSelectFilterModule } from 'mat-select-filter';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -58,15 +60,14 @@ import { PriceFormComponent } from './manage/add/price-form/price-form.component
 import { EditPriceComponent } from './manage/edit/edit-price/edit-price.component';
 import { CheckoutComponent } from './screens/checkout/checkout.component';
 import { LoginComponent } from './auth/login/login.component';
-import { ProductSpecificationComponent } from './views/product-specification/product-specification.component';
-import { SpecificationFormComponent } from './manage/add/specification-form/specification-form.component';
+import { ProductSpecificationComponent } from './manage/add/product-specification/product-specification.component';
 import { ShippingAgentComponent } from './manage/view/shipping-agent/shipping-agent.component';
 import { ShippingAgentFormComponent } from './manage/add/shipping-agent-form/shipping-agent-form.component';
 import { MyOrdersComponent } from './manage-user/my-orders/my-orders.component';
 import { ShippingAgentUserComponent } from './manage/view/shipping-agent-user/shipping-agent-user.component';
 import { ShippingUserFormComponent } from './manage/add/shipping-user-form/shipping-user-form.component';
 import { ShippingUserEditComponent } from './manage/edit/shipping-user-edit/shipping-user-edit.component';
-import { EditSpecificationComponent } from './manage/edit/edit-specification/edit-specification.component';
+import { EditProductSpecificationComponent } from './manage/edit/edit-product-specification/edit-product-specification.component';
 import { ShippingProcessComponent } from './manage/view/shipping-process/shipping-process.component';
 import { WelcomeComponent } from './screens/welcome/welcome.component';
 import { ShippingAgentsEditComponent } from './manage/edit/shipping-agents-edit/shipping-agents-edit.component';
@@ -75,6 +76,9 @@ import { FooterComponent } from './views/footer/footer.component';
 import { GetAllService } from './api/all/get-all.service';
 import { ProductImageComponent } from './views/product-image/product-image.component';
 import { MapDialogComponent } from './views/map-dialog/map-dialog.component';
+import { ViewSpecificationsComponent } from './manage/view/view-specifications/view-specifications.component';
+import { EditSpecificationComponent } from './manage/edit/edit-specification/edit-specification.component';
+import { AddSpecificationComponent } from './manage/add/add-specification/add-specification.component';
 
 @NgModule({
   declarations: [
@@ -108,14 +112,13 @@ import { MapDialogComponent } from './views/map-dialog/map-dialog.component';
     CheckoutComponent,
     LoginComponent,
     ProductSpecificationComponent,
-    SpecificationFormComponent,
     ShippingAgentComponent,
     ShippingAgentFormComponent,
     MyOrdersComponent,
     ShippingAgentUserComponent,
     ShippingUserFormComponent,
     ShippingUserEditComponent,
-    EditSpecificationComponent,
+    EditProductSpecificationComponent,
     ShippingProcessComponent,
     WelcomeComponent,
     ShippingAgentsEditComponent,
@@ -123,6 +126,9 @@ import { MapDialogComponent } from './views/map-dialog/map-dialog.component';
     FooterComponent,
     ProductImageComponent,
     MapDialogComponent,
+    ViewSpecificationsComponent,
+    EditSpecificationComponent,
+    AddSpecificationComponent,
   ],
 
   imports: [
@@ -145,10 +151,12 @@ import { MapDialogComponent } from './views/map-dialog/map-dialog.component';
     MatStepperModule,
     MatAutocompleteModule,
     MatMenuModule,
+    MatSlideToggleModule,
     BrowserAnimationsModule,
     FormsModule,
     AppRoutingModule,
     NgParticlesModule,
+    MatSelectFilterModule,
     ToastrModule.forRoot({
       positionClass: 'toast-top-center',
       timeOut: 2000,
@@ -157,12 +165,7 @@ import { MapDialogComponent } from './views/map-dialog/map-dialog.component';
     NgbModule,
     MaterialFileInputModule,
   ],
-  providers: [
-    GetAllService,
-    HomeComponent,
-    SpecificationFormComponent,
-    ShoppingCartComponent,
-  ],
+  providers: [GetAllService, HomeComponent, ShoppingCartComponent],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
