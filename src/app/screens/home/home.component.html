@@ -158,25 +158,21 @@
                       Homedetail.QuantityBalance > 1
                     "
                   >
-                    <strong
-                      >Only left {{ Homedetail.QuantityBalance }} items</strong
-                    >
+                    {{ Homedetail.QuantityBalance }} items Only left!
                   </p>
                   <p
                     class="card-text"
                     style="color: red"
                     *ngIf="Homedetail.QuantityBalance == 1"
                   >
-                    <strong
-                      >Only left {{ Homedetail.QuantityBalance }} item</strong
-                    >
+                    {{ Homedetail.QuantityBalance }} item Only left!
                   </p>
                   <p
                     *ngIf="Homedetail.QuantityBalance == 0"
                     class="card-text"
                     style="color: red"
                   >
-                    This product is out of stock
+                    This product is currently out of stock!
                   </p>
                 </div>
               </div>
