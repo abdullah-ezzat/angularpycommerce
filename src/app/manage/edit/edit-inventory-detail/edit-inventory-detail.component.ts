@@ -94,13 +94,21 @@ export class EditInventoryDetailComponent implements OnInit {
             .updateInvDetail(post.id, post)
             .pipe()
             .subscribe(
-              () => {},
+              (response) => {
+                if (response == false) {
+                  this.toastr.error(
+                    'because the quantity issued is greater than the available balance',
+                    "Can't complete this transation"
+                  );
+                } else {
+                  location.assign('/manage/inventories');
+                }
+              },
               (error) => {
                 this.toastr.error('Error while retrieving data');
                 console.log(error);
               }
             );
-          location.assign('/manage/inventories');
         } else {
           this.toastr
             .error(
