@@ -92,10 +92,10 @@
           class="text-center"
           style="color: red"
         >
-          {{ ProductQty }} items Only left!
+          Only {{ ProductQty }} items left in stock!
         </div>
         <div *ngIf="ProductQty == 1" class="text-center" style="color: red">
-          {{ ProductQty }} item Only left!
+          Only {{ ProductQty }} item left in stock!
         </div>
         <div *ngIf="ProductQty == 0" class="text-center" style="color: red">
           This product is currently out of stock!
