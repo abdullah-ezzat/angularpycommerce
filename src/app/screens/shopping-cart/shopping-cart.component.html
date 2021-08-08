@@ -104,8 +104,17 @@
             >
               Delete
             </button>
-            <p *ngIf="shoppingCartDetail.product_Qty <= 10" style="color: red">
-              Only left {{ shoppingCartDetail.product_Qty }} items
+            <p
+              *ngIf="
+                shoppingCartDetail.product_Qty <= 10 &&
+                shoppingCartDetail.product_Qty > 1
+              "
+              style="color: red"
+            >
+              Only {{ shoppingCartDetail.product_Qty }} items left in stock!
+            </p>
+            <p *ngIf="shoppingCartDetail.product_Qty == 1" style="color: red">
+              Only {{ shoppingCartDetail.product_Qty }} item left in stock!
             </p>
           </div>
         </div>
