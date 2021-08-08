@@ -74,6 +74,7 @@
               <strong> Quantity</strong>
             </p>
             <select
+              [disabled]="shoppingCartDetail.product_Qty == 0"
               class="form-control text-center qty-width"
               (change)="
                 updateQuantity(
@@ -119,7 +120,12 @@
         <strong>{{ TotalCart | number }} {{ Currency }}</strong>
       </p>
     </div>
-    <button (click)="checkOut()" type="button" class="btn btn-success">
+    <button
+      (click)="checkOut()"
+      [disabled]="ProductQty == 0"
+      type="button"
+      class="btn btn-success"
+    >
       Procced To Checkout
     </button>
   </div>

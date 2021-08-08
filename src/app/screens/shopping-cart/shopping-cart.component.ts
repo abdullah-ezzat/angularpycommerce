@@ -17,6 +17,7 @@ export class ShoppingCartComponent implements OnInit {
   ProductCount: any;
   Currency: any;
   Cart: any;
+  ProductQty: any;
 
   constructor(
     private all: GetAllService,
@@ -55,6 +56,20 @@ export class ShoppingCartComponent implements OnInit {
             .pipe()
             .subscribe((qty) => {
               this.ShoppingCartDetails[i].product_Qty = qty;
+              this.ProductQty = qty;
+              if (this.ShoppingCartDetails[i].product_Qty == 0) {
+                this.add
+                  .deleteCartItem(this.ShoppingCartDetails[i].id)
+                  .subscribe(() => {}),
+                  (error) => {
+                    this.toastr.error('Error while retrieving data');
+                    console.log(error);
+                  };
+                if (this.ProductCount == 1) {
+                  localStorage.removeItem('cart_count');
+                }
+                location.reload();
+              }
             });
         }
       } else {

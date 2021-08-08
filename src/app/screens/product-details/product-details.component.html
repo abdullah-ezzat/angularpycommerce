@@ -82,10 +82,24 @@
       <div class="d-grid gap-2">
         <button
           (click)="addNewCart()"
+          [disabled]="ProductQty == 0"
           class="add-to-cart btn btn-success btn-lg text-uppercase"
         >
           <strong>Add To Cart</strong>
         </button>
+        <div
+          *ngIf="ProductQty <= 10 && ProductQty > 1"
+          class="text-center"
+          style="color: red"
+        >
+          Only left {{ ProductQty }} items
+        </div>
+        <div *ngIf="ProductQty == 1" class="text-center" style="color: red">
+          Only left {{ ProductQty }} item
+        </div>
+        <div *ngIf="ProductQty == 0" class="text-center" style="color: red">
+          This item is out of stock
+        </div>
         <br />
       </div>
       <div><strong>Condiction: </strong>&nbsp; New</div>

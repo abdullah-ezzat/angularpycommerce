@@ -42,7 +42,7 @@ export class ProductDetailsComponent implements OnInit {
   Rating: any;
 
   ProductId: any;
-  StoreId: any;
+  ProductQty: any;
   Specifications: any;
 
   ImageUrl: any;
@@ -59,9 +59,18 @@ export class ProductDetailsComponent implements OnInit {
     let id = this.router.snapshot.paramMap.get('Id');
     this.ProductId = id;
     if (id)
-      this.get
-        .getCartItem(id)
-        .subscribe((response) => (this.CartDetail = response));
+      this.get.getCartItem(id).subscribe((response) => {
+        this.CartDetail = response;
+        this.get
+          .checkProductQuantity(
+            this.CartDetail.StoreId,
+            this.CartDetail.ProductId
+          )
+          .pipe()
+          .subscribe((qty) => {
+            this.ProductQty = qty;
+          });
+      });
   }
   ngOnInit(): void {
     this.all.getProSpecInv(this.ProductId).subscribe(
