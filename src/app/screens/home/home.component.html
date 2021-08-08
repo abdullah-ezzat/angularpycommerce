@@ -147,8 +147,29 @@
                     ></a>
                   </div>
 
-                  <p class="card-text" *ngIf="Homedetail.QuantityBalance > 0">
+                  <p class="card-text" *ngIf="Homedetail.QuantityBalance > 10">
                     <strong>Quantity: {{ Homedetail.QuantityBalance }}</strong>
+                  </p>
+                  <p
+                    class="card-text"
+                    style="color: red"
+                    *ngIf="
+                      Homedetail.QuantityBalance <= 10 &&
+                      Homedetail.QuantityBalance > 1
+                    "
+                  >
+                    <strong
+                      >Only left {{ Homedetail.QuantityBalance }} items</strong
+                    >
+                  </p>
+                  <p
+                    class="card-text"
+                    style="color: red"
+                    *ngIf="Homedetail.QuantityBalance == 1"
+                  >
+                    <strong
+                      >Only left {{ Homedetail.QuantityBalance }} item</strong
+                    >
                   </p>
                   <p
                     *ngIf="Homedetail.QuantityBalance == 0"
