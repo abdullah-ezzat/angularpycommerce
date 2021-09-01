@@ -32,7 +32,7 @@ export class ProductSpecificationComponent implements OnInit {
     this.ProductId = SpecificationProductId;
     localStorage.removeItem('SpecificationProductId');
 
-    this.all.getAllSpecifications(this.CategoryId).subscribe(
+    this.all.getAllData('specifications').subscribe(
       async (response) => {
         await this.all
           .decryptData(response['token'], response['key'])
