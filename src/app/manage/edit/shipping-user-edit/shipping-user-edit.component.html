@@ -6,7 +6,7 @@
 >
   <mat-form-field class="w-100 mb-3" appearance="outline">
     <mat-label>User</mat-label>
-    <mat-select [(ngModel)]="shippingUser.id" id="UserId_id" name="UserId_id">
+    <mat-select [(ngModel)]="shippingUser.UserId" id="UserId_id" name="UserId_id">
       <mat-select-filter
         [placeholder]="'Search...'"
         [displayMember]="'NameL'"
@@ -35,7 +35,7 @@
       <mat-option
         *ngFor="let shippingUser of filteredShippingUsers"
         [value]="shippingUser.id"
-        >{{ shippingUser.ShippingAgentName }}</mat-option
+        >{{ shippingUser.NameL }}</mat-option
       >
     </mat-select>
   </mat-form-field>

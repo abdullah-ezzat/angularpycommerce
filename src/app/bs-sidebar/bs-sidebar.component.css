@@ -118,7 +118,7 @@ a[aria-expanded="true"] {
   background: transparent;
 }
 
-a[data-toggle="collapse"] {
+a[data-bs-toggle="collapse"] {
   position: relative;
 }
 

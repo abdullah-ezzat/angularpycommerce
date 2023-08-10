@@ -36,12 +36,12 @@ export class ShippingUserEditComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.all.getAllData('shippingAgentUsers').subscribe(
+    this.all.getAllData('shippingAgents').subscribe(
       async (response) => {
         await this.get
           .decryptData(response['token'], response['key'])
           .then((data) => {
-            this.ShippingUsers = data;
+            this.ShippingUsers = data;     
             this.filteredShippingUsers = this.ShippingUsers.slice();
           });
       },
@@ -52,9 +52,13 @@ export class ShippingUserEditComponent implements OnInit {
     );
 
     this.all.getAllData('users').subscribe(
-      (response) => {
-        this.Users = response;
-        this.filteredUsers = this.Users.slice();
+      async (response) => {
+        await this.get
+          .decryptData(response['token'], response['key'])
+          .then((data) => {
+            this.Users = data;
+            this.filteredUsers = this.Users.slice();
+          });
       },
       (error) => {
         this.toastr.error('Error while retrieving data');

@@ -9,7 +9,7 @@ const jose = require('node-jose');
 })
 export class GetDataService {
   // 'http://127.0.0.1:8000';
-  private get = 'http://pycommerceapp.herokuapp.com/api/get';
+  private get = 'http://127.0.0.1:8000/api/get';
 
   constructor(private http: HttpClient) {}
 
