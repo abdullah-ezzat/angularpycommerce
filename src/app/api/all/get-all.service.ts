@@ -10,7 +10,7 @@ const jose = require('node-jose');
 export class GetAllService {
   // Public Url: 'http://127.0.0.1:8000/' \\
 
-  private all = 'http://127.0.0.1:8000/api/all';
+  private all = 'https://pycommerce.onrender.com/api/all';
 
   constructor(private http: HttpClient) {}
 
