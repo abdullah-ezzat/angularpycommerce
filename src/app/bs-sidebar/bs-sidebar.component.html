@@ -38,7 +38,7 @@
           <h3>Categories</h3>
         </div>
         <ul class="list-unstyled components">
-          <li *ngFor="let category of Categories" class="">
+          <li *ngFor="let category of Categories">
             <a
               href="#{{ 'categoryRef' + category.id }}"
               data-bs-toggle="collapse"
@@ -77,10 +77,10 @@
               <span></span>
             </button>
             <button
-              class="btn btn-dark d-inline-block d-lg-none ml-auto"
+              class="btn btn-dark d-inline-block d-lg-none ml-auto me-2"
               type="button"
               data-bs-toggle="collapse"
-              data-target="#navbarSupportedContent"
+              href="#navbarSupportedContent"
               aria-controls="navbarSupportedContent"
               aria-expanded="false"
               aria-label="Toggle navigation"

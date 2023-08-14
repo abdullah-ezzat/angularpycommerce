@@ -9,7 +9,7 @@ const jose = require('node-jose');
 })
 export class GetDataService {
   // 'http://127.0.0.1:8000';
-  private get = 'https://pycommerce.onrender.com/api/get';
+  private get = 'https://pycommerce-2faf87903788.herokuapp.com/api/get';
 
   constructor(private http: HttpClient) {}
 
